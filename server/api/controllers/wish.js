@@ -1,12 +1,13 @@
-module.exports = {
-  getWishes: getWishes
-};
+import Wish from '../models/Wish';
 
-const wishes = [{
-  id: 0,
-  description: 'My very first wish'
-}];
+export function getWishes(req, res) {
+  Wish.find({})
+    .then(wishes => res.send(wishes))
+    .catch(() => res.sendStatus(501));
+}
 
-function getWishes(req, res) {
-  res.send(wishes)
+export function addWish(req, res) {
+  Wish.create(req.body)
+    .then(wish => res.send(wish))
+    .catch(() => res.sendStatus(501));
 }

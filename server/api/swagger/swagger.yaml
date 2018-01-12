@@ -28,6 +28,38 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/Wish"
+    post: 
+      description: Add wish
+      operationId: addWish
+      parameters: 
+        - name: wish
+          in: body
+          description: 'Wish data'
+          required: true
+          schema:
+            $ref: "#/definitions/Wish"
+      responses:
+        "200":
+          description: Success
+        "501":
+          description: Internal server error
+  /wish/{wishId}:
+    x-swagger-router-controller: wish
+    get:
+      description: 'Get wish by id'
+      operationId: getWishById
+      parameters:
+        - name: wishId
+          in: path
+          description: 'Wish id'
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema: 
+            $ref: "#/definitions/Wish"
+      
   /hello:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
@@ -71,6 +103,6 @@ definitions:
   Wish:
     properties:
       id:
-        type: number
+        type: string
       description:
         type: string
