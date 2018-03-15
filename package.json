@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server/app.js --exec babel-node --ignore public/*",
+    "start": "cd server && nodemon app.js --exec babel-node --ignore public/*",
     "ng": "ng",
     "build": "ng build -op server/public",
     "watch": "npm run build -- -w",
