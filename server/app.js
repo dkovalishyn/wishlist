@@ -2,10 +2,18 @@
 
 import SwaggerExpress from 'swagger-express-mw';
 import express from 'express';
+import cors from 'cors';
 import './database';
+
+const corsOptions = {
+  origin: 'http://localhost:10010',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
+app.use(cors(corsOptions));
 module.exports = app; // for testing
 
 const config = {

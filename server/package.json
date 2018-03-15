@@ -1,16 +1,20 @@
 {
-  "name": "wishlist",
+  "name": "wishcafe",
   "version": "0.0.1",
   "private": true,
-  "description": "Wishlist project",
+  "description": "Wishcafe project",
   "keywords": [],
   "author": "",
   "license": "",
   "main": "app.js",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cors": "^2.8.4",
     "express": "^4.12.3",
-    "mongoose": "^5.0.0-rc0",
-    "swagger-express-mw": "^0.1.0"
+    "mongoose": "^5.0.0",
+    "probe-image-size": "^3.2.0",
+    "swagger-express-mw": "^0.1.0",
+    "webshot": "^0.18.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -21,7 +25,8 @@
     "supertest": "^1.0.0"
   },
   "scripts": {
-    "start": "nodemon app.js --exec babel-node",
+    "start": "nodemon app.js --exec babel-node --ignore public/*",
+    "build:client": "cd .. && npm run watch",
     "test": "swagger project test"
   }
 }

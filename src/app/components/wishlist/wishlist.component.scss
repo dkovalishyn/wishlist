@@ -1,0 +1,33 @@
+@import "../../variables";
+
+.wish-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.wish {
+  padding: 16px;
+  margin: 16px;
+  border: 2px solid $cacao;
+  border-radius: 4px;
+  width: 25%;
+
+  &__drag {
+    opacity: 0.5;
+    &-over{
+      opacity: 0.5;
+    }
+  }
+
+  &:hover {
+    background-color: $cacao;
+    color: $milk;
+    cursor: pointer;
+    transition: all ease-out 200ms;
+  }
+
+  &__description {
+    font-size: 2rem;
+  }
+}
