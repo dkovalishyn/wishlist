@@ -1,0 +1,15 @@
+@import './variables';
+
+* {
+  font-family: Verdana, sans-serif;
+  color: $cacao;
+}
+
+.title {
+  color: $coffee;
+  text-align: center;
+}
+
+.inspiration {
+  text-align: center;
+}

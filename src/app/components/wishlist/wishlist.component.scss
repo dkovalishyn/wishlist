@@ -31,3 +31,19 @@
     font-size: 2rem;
   }
 }
+
+.no-data {
+  text-align: center;
+  font-weight: bold;
+  padding: 40px;
+  background-color: $cappuccino;
+  color: $milk;
+  border-radius: 4px;
+  box-shadow: $cardShadow;
+
+  span {
+    display: block;
+    margin-top: 8px;
+    font-size: smaller;
+  }
+}

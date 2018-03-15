@@ -4,13 +4,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "npm run build && npm run start:server",
-    "start:server": "cd server && npm i && npm run start",
+    "start": "npm i && npm run build && npm run start:server",
     "build": "ng build",
     "watch": "ng build -op server/public -w",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "cd server && npm i",
+    "start:server": "cd server && npm run start"
   },
   "private": true,
   "dependencies": {
