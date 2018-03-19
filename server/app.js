@@ -8,7 +8,7 @@ import './database';
 const corsOptions = {
   origin: 'http://localhost:10010',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
+};
 
 const app = express();
 app.use(express.json());
@@ -17,7 +17,8 @@ app.use(cors(corsOptions));
 module.exports = app; // for testing
 
 const config = {
-  appRoot: __dirname // required config
+  appRoot: __dirname,
+  configDir: __dirname + '/config'
 };
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
@@ -30,6 +31,6 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
   app.listen(port);
 
   if (swaggerExpress.runner.swagger.paths['/hello']) {
-    console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
+    console.log('try this:\ncurl http://127.0.0.1:' + port + '/api/v1/hello?name=Scott');
   }
 });

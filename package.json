@@ -1,9 +1,9 @@
 {
-  "name": "ng-wishlist",
+  "name": "my-wishcafe",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "cd server && nodemon app.js --exec babel-node --ignore public/*",
+    "start": "babel-node server/app",
     "ng": "ng",
     "build": "ng build -op server/public",
     "watch": "npm run build -- -w",
@@ -13,9 +13,6 @@
     "postinstall": "npm run build -- --aot --prod"
   },
   "private": true,
-  "engines": {
-    "node": "6.11.4"
-  },
   "dependencies": {
     "@angular/animations": "^4.2.4",
     "@angular/cli": "1.4.2",
@@ -27,19 +24,21 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
     "core-js": "^2.4.1",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
     "express": "^4.16.2",
+    "mongoose": "^5.0.0",
     "ng-drag-drop": "^4.0.0",
     "ngx-drag-and-drop-lists": "^1.1.7",
     "node-sass": "^4.7.2",
-    "rxjs": "^5.4.2",
-    "zone.js": "^0.8.14",
-    "cheerio": "^1.0.0-rc.2",
-    "cors": "^2.8.4",
-    "mongoose": "^5.0.0",
     "probe-image-size": "^3.2.0",
+    "rxjs": "^5.4.2",
     "swagger-express-mw": "^0.1.0",
-    "webshot": "^0.18.0"
+    "webshot": "^0.18.0",
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^4.2.4",
