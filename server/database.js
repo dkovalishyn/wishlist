@@ -6,7 +6,8 @@ const result = dotenv.config({
   path: path.join(__dirname, '.env'),
 });
 
-const { parsed: { MONGODB_USERNAME: dbUser, MONGODB_PASSWORD: dbPass } } = result;
+const config = result ? result.parsed : process.env;
+const { MONGODB_USERNAME: dbUser, MONGODB_PASSWORD: dbPass } = config;
 const dbUrl = `mongodb://${dbUser}:${dbPass}@ds117749.mlab.com:17749/heroku_1vg6b4fw`;
 
 console.log(`Connecting to db ...`);
