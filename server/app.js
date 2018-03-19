@@ -3,6 +3,8 @@
 import SwaggerExpress from 'swagger-express-mw';
 import express from 'express';
 import cors from 'cors';
+
+import gracefulExit from './helpers/gracefulExit';
 import './database';
 
 const corsOptions = {
@@ -12,7 +14,7 @@ const corsOptions = {
 
 const app = express();
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('server/public'));
 app.use(cors(corsOptions));
 module.exports = app; // for testing
 
@@ -34,3 +36,5 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
     console.log('try this:\ncurl http://127.0.0.1:' + port + '/api/v1/hello?name=Scott');
   }
 });
+
+process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
