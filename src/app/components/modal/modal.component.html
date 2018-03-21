@@ -1,0 +1,13 @@
+<ng-template #defaultTemplate>
+  <div></div>
+</ng-template>
+
+<div class="modal">
+  <div class="modal__content">
+    <ng-container
+      *ngTemplateOutlet="contentTemplate ? contentTemplate : defaultTemplate">
+    </ng-container>
+  </div>
+  <div (click)="goBack()" class="modal__backdrop"></div>
+</div>
+

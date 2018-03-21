@@ -1,1 +1,0 @@
-mongod --dbpath D:\edu\ng-wishlist\mongodb
