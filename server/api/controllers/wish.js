@@ -9,6 +9,17 @@ export function getWishes(req, res) {
   });
 }
 
+export function getWishById(req, res) {
+  Wish.findById(req.swagger.params.wishId.value, (err, data) => {
+    if (err) {
+      res.sendStatus(501);
+    }
+
+    console.log(data);
+    res.send(data);
+  })
+}
+
 export function addWish(req, res) {
   Wish.create(req.body, (err) => {
     if (err) {
@@ -17,3 +28,4 @@ export function addWish(req, res) {
     res.sendStatus(200)
   })
 }
+

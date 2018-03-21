@@ -1,3 +1,5 @@
-<p>
-  wish works!
-</p>
+<ng-template #modalContent>
+  <div *ngIf="wish$ | async as wish" class="wish__description">{{ wish.description }}</div>
+</ng-template>
+
+<app-modal [contentTemplate]="modalContent"></app-modal>

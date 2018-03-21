@@ -1,8 +1,8 @@
 'use strict';
-
 import SwaggerExpress from 'swagger-express-mw';
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 
 import gracefulExit from './helpers/gracefulExit';
 import './database';
@@ -16,7 +16,16 @@ const app = express();
 app.use(express.json());
 app.use(express.static('server/public'));
 app.use(cors(corsOptions));
-module.exports = app; // for testing
+app.use(function (err, req, res, next) {
+  gracefulExit();
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+  next();
+});
+
+process
+  .on('SIGINT', gracefulExit)
+  .on('SIGTERM', gracefulExit);
 
 const config = {
   appRoot: __dirname,
@@ -32,9 +41,15 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
   const port = process.env.PORT || 10010;
   app.listen(port);
 
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  });
+
   if (swaggerExpress.runner.swagger.paths['/hello']) {
     console.log('try this:\ncurl http://127.0.0.1:' + port + '/api/v1/hello?name=Scott');
   }
 });
 
-process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
+
+
+

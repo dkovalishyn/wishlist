@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {catchError} from 'rxjs/operators';
-import {any} from 'codelyzer/util/function';
 import {of} from 'rxjs/observable/of';
 import {MessageService} from './message.service';
 
@@ -26,10 +25,23 @@ export class ApiService {
     return `${this.baseApiUrl}/${path}`;
   }
 
-  makeRequest<T> (path: string): Observable<T> {
+  get<T> (path: string): Observable<T> {
     const requestUrl = this.buildFullUrl(path);
+    console.log(requestUrl);
     return this.http.get(requestUrl).pipe(
       catchError(this.handleError<T>(requestUrl))
+    );
+  }
+
+  post<T> (path: string, body: any): Observable<T> {
+    const requestUrl = this.buildFullUrl(path);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        contentType: 'application//json',
+      })
+    };
+    return this.http.post(requestUrl, body, httpOptions).pipe(
+      catchError(this.handleError<T>(requestUrl, body))
     );
   }
 

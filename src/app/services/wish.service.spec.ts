@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { WishListService } from './wishlist.service';
+import { WishService } from './wish.service';
 
 describe('WishlistService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WishListService]
+      providers: [WishService]
     });
   });
 
-  it('should be created', inject([WishListService], (service: WishListService) => {
+  it('should be created', inject([WishService], (service: WishService) => {
     expect(service).toBeTruthy();
   }));
 });

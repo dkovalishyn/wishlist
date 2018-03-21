@@ -7,28 +7,27 @@
 }
 
 .wish {
-  padding: 16px;
   margin: 16px;
-  border: 2px solid $cacao;
-  border-radius: 4px;
-  width: 25%;
-
   &__drag {
     opacity: 0.5;
-    &-over{
+    &-over {
       opacity: 0.5;
     }
   }
 
-  &:hover {
-    background-color: $cacao;
-    color: $milk;
-    cursor: pointer;
-    transition: all ease-out 200ms;
-  }
-
   &__description {
+    padding: 16px;
+    border: 2px solid $cacao;
+    border-radius: 4px;
     font-size: 2rem;
+    color: $coffee;
+    text-decoration: none;
+    &:hover {
+      background-color: $cacao;
+      color: $milk;
+      transition: all ease-out 200ms;
+      cursor: pointer;
+    }
   }
 }
 
