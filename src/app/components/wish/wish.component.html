@@ -1,5 +1,10 @@
 <ng-template #modalContent>
-  <div *ngIf="wish$ | async as wish" class="wish__description">{{ wish.description }}</div>
+<ng-container *ngIf="wish$ | async as wish">
+  <div class="wish__description">{{ wish.description }}</div>
+  <button type="button" (click)="deleteWish(wish)">Remove</button>
+  <button [routerLink]="['/wish', wish._id, 'edit']">Edit</button>
+</ng-container>
+
 </ng-template>
 
 <app-modal [contentTemplate]="modalContent"></app-modal>

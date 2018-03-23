@@ -65,6 +65,40 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/Wish"
+    delete:
+      description: 'Delete wish by id'
+      operationId: deleteWish
+      parameters:
+        - name: wishId
+          in: path
+          description: 'Wish id'
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Wish"
+    put:
+      description: 'Update wish'
+      operationId: updateWish
+      parameters:
+        - name: wishId
+          in: path
+          description: 'Wish id'
+          required: true
+          type: string
+        - name: wish
+          in: body
+          description: 'Wish'
+          required: true
+          schema:
+            $ref: "#/definitions/Wish"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Wish"
   /thumbnail/generate:
       x-swagger-router-controller: thumbnail
       get:

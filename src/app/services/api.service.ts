@@ -27,7 +27,6 @@ export class ApiService {
 
   get<T> (path: string): Observable<T> {
     const requestUrl = this.buildFullUrl(path);
-    console.log(requestUrl);
     return this.http.get(requestUrl).pipe(
       catchError(this.handleError<T>(requestUrl))
     );
@@ -37,11 +36,26 @@ export class ApiService {
     const requestUrl = this.buildFullUrl(path);
     const httpOptions = {
       headers: new HttpHeaders({
-        contentType: 'application//json',
+        contentType: 'application/json',
       })
     };
-    return this.http.post(requestUrl, body, httpOptions).pipe(
+    return this.http.post(requestUrl, JSON.stringify(body), httpOptions).pipe(
       catchError(this.handleError<T>(requestUrl, body))
+    );
+  }
+
+  delete<T> (path: string): Observable<T> {
+    const requestUrl = this.buildFullUrl(path);
+    return this.http.delete(requestUrl).pipe(
+      catchError(this.handleError<T>(requestUrl))
+    );
+  }
+
+  put<T> (path: string, body: any): Observable<T> {
+    const requestUrl = this.buildFullUrl(path);
+    console.log(requestUrl, ' put');
+    return this.http.put(requestUrl, body).pipe(
+      catchError(this.handleError<T>(requestUrl))
     );
   }
 

@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { ApiService } from './api.service';
 
 @Injectable()
-export class WishService {
+export class
+WishService {
   private wishesUrl = 'wish';
 
   constructor(
@@ -15,11 +16,25 @@ export class WishService {
      return this.api.get<Wish[]>(this.wishesUrl);
   }
 
-  getWish(id: string): Observable<Wish> {
-    return this.api.get<Wish>(`${this.wishesUrl}/${id}`);
+  addWish(wish: Wish): Observable<Wish[]> {
+    console.log(wish, 'add');
+    return this.api.post<Wish[]>(this.wishesUrl, wish);
   }
 
-  addWish(wish: Wish): Observable<Wish[]> {
-      return this.api.post<Wish[]>(this.wishesUrl, wish);
+  getWish(id: string): Observable<Wish> {
+     return this.api.get<Wish>(this.addIdToUrl(id));
+  }
+
+  updateWish(wish: Wish): Observable<Wish[]> {
+    console.log(wish, 'update');
+    return this.api.put<Wish[]>(this.addIdToUrl(wish._id), wish);
+  }
+
+  deleteWish(id: string): Observable<Wish> {
+      return this.api.delete<Wish>(this.addIdToUrl(id));
+  }
+
+  private addIdToUrl(id) {
+    return `${this.wishesUrl}/${id}`;
   }
 }

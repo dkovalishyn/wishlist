@@ -15,17 +15,42 @@ export function getWishById(req, res) {
       res.sendStatus(501);
     }
 
-    console.log(data);
     res.send(data);
   })
 }
 
-export function addWish(req, res) {
-  Wish.create(req.body, (err) => {
+export function deleteWish(req, res) {
+  const id = req.swagger.params.wishId.value;
+
+  Wish.findByIdAndRemove(id, (err, data) => {
     if (err) {
       res.sendStatus(501);
     }
-    res.sendStatus(200)
+
+    console.log(data);
+    res.send(data);
+  });
+}
+
+export function addWish(req, res) {
+  const wish = req.swagger.params.wish.value;
+  Wish.create(wish, (err) => {
+    if (err) {
+      res.sendStatus(501);
+    }
+    res.send(wish);
+  })
+}
+
+export function updateWish(req, res) {
+  const wish = req.swagger.params.wish.value;
+  const id = req.swagger.params.wishId.value;
+  const options = {};
+  Wish.findByIdAndUpdate(id, wish, options, (err) => {
+    if (err) {
+      res.sendStatus(501);
+    }
+    res.send(wish);
   })
 }
 

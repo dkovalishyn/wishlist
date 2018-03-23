@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {WishService} from '../../services/wish.service';
 import {Wish} from '../../models/wish';
 import {Observable} from 'rxjs/Observable';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-wish',
@@ -15,13 +17,22 @@ export class WishComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: WishService,
+    private wishService: WishService,
+    private messageService: MessageService,
+    private location: Location,
   ) { }
 
   ngOnInit() {
     this.wish$ = this.route.paramMap.switchMap((params: ParamMap) => (
-      this.service.getWish(params.get('id'))
+      this.wishService.getWish(params.get('id'))
     ));
   }
 
+  deleteWish(wish: Wish) {
+    this.wishService.deleteWish(wish._id).subscribe(
+      () => this.location.back(),
+      e => this.messageService.error(e),
+      () => this.location.back()
+    );
+  }
 }

@@ -1,35 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
-import {ValidationErrors} from '@angular/forms';
-import 'rxjs/add/operator/switchMap';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 import { Wish } from '../../models/wish';
-import {WishService} from '../../services/wish.service';
-import {MessageService} from '../../services/message.service';
+import { WishService } from '../../services/wish.service';
+import { MessageService } from '../../services/message.service';
 
+import 'rxjs/add/operator/switchMap';
+import { flatMap } from 'rxjs/operators';
+import { WishFormService } from '../../services/wish-form.service';
+import { Field } from '../forms/field';
 
 @Component({
   selector: 'app-wish-editor',
   templateUrl: './wish-editor.component.html',
-  styleUrls: ['./wish-editor.component.scss']
+  styleUrls: ['./wish-editor.component.scss'],
+  providers: [WishFormService]
 })
 export class WishEditorComponent implements OnInit {
-  wish: Wish = new Wish({ description: '' });
-  errors: ValidationErrors[];
+  wish$: Observable<Wish>;
+  fields: Field<any>[] = [];
 
-  constructor(
-    private wishService: WishService,
-    private messageService: MessageService,
-    private location: Location,
-  ) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private wishService: WishService,
+              private messageService: MessageService,
+              private location: Location,
+              private formService: WishFormService) {
+    this.fields = this.formService.getFields();
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.wish$ = this.route.paramMap
+      .switchMap((params: ParamMap) => this.wishService.getWish(params.get('id')));
+    this.wish$.subscribe(
+      (wish: Wish) => { this.fields = this.formService.getFields(wish); }
+    );
+  }
 
-  onSubmit(event) {
-    event.preventDefault();
-    this.wishService.addWish(this.wish).subscribe(
-    wish => this.messageService.add(`New wish added: ${wish}`),
-    error => this.messageService.add(`It\'s an error: ${error.description}`),
-    () => this.location.back(),
+  onSubmit(payLoad) {
+    console.log('update wish', payLoad);
+    const update$ = this.wish$.pipe(
+      flatMap((wish: Wish) => this.wishService.updateWish(Object.assign(wish, payLoad))),
+    );
+    update$.subscribe(
+      wish => this.messageService.add(`Wish updated: ${wish}`),
+      e => this.messageService.error(e),
+      () => this.location.back()
     );
   }
 }

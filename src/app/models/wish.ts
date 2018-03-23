@@ -1,8 +1,14 @@
 export class Wish {
-  description: String;
-  _id: Number;
+  description: string;
+  _id: string;
 
-  constructor({ description }) {
-    this.description = description;
+  constructor(wish?: {
+    description?: string
+  }) {
+    this.description = wish.description || '';
+  }
+
+  toString() {
+    return this.description;
   }
 }
