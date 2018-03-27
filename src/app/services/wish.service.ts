@@ -26,7 +26,6 @@ WishService {
   }
 
   updateWish(wish: Wish): Observable<Wish[]> {
-    console.log(wish, 'update');
     return this.api.put<Wish[]>(this.addIdToUrl(wish._id), wish);
   }
 

@@ -11,4 +11,8 @@ export class Wish {
   toString() {
     return this.description;
   }
+
+  valueOf() {
+    return this.description;
+  }
 }

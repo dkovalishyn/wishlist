@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { TextBox } from '../components/forms/text-box';
 import { Field } from '../components/forms/field';
 import { Wish } from '../models/wish';
+import { Validators } from '@angular/forms';
 
 @Injectable()
 export class WishFormService {
@@ -12,9 +13,11 @@ export class WishFormService {
         name: 'description',
         value: wish ? wish.description : '',
         placeholder: 'My Wish',
-        required: true,
-        minlength: 3,
-        maxlength: 255,
+        validators: [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(255),
+        ],
         order: 1,
       })
     ];

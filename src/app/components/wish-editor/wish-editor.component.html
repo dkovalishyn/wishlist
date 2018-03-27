@@ -1,22 +1,6 @@
+<ng-container *ngIf="wish$ | async as wish">
 <ng-template #modalContent>
-  <ng-container *ngIf="wish$ | async as wish">
-    <!--<form #wishEditorForm="ngForm" class="wish-editor" (ngSubmit)="onSubmit($event)">-->
-      <!--<label for="wish-editor__description">Description:</label>-->
-      <!--<input-->
-       <!--class="wish-editor__description"-->
-       <!--type="text"-->
-       <!--id="wish-editor__description"-->
-       <!--minlength="3"-->
-       <!--maxlength="255"-->
-       <!--placeholder="My Wish"-->
-       <!--[(ngModel)]="wish.description"-->
-       <!--name="description"-->
-       <!--required-->
-      <!--/>-->
-      <!--<button [disabled]="!wishEditorForm.form.valid">Save</button>-->
-    <!--</form>-->
-
     <app-form [fields]="fields" (onSubmit)="onSubmit($event)"></app-form>
-  </ng-container>
 </ng-template>
-<app-modal [contentTemplate]="modalContent"></app-modal>
+<app-modal [contentTemplate]="modalContent" [backLink]="backLink"></app-modal>
+</ng-container>

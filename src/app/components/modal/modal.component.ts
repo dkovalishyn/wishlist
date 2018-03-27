@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, TemplateRef} from '@angular/core';
-import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal',
@@ -7,15 +7,15 @@ import {Location} from '@angular/common';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-  @Input()
-  contentTemplate: TemplateRef<any>;
+  @Input()  contentTemplate: TemplateRef<any>;
+  @Input()  backLink: string;
 
-  constructor(private location: Location) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate([this.backLink]);
   }
 }

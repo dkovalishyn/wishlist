@@ -5,6 +5,7 @@ import {WishService} from '../../services/wish.service';
 import {Wish} from '../../models/wish';
 import {Observable} from 'rxjs/Observable';
 import {MessageService} from '../../services/message.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-wish',
@@ -29,10 +30,13 @@ export class WishComponent implements OnInit {
   }
 
   deleteWish(wish: Wish) {
-    this.wishService.deleteWish(wish._id).subscribe(
+    this.wishService.deleteWish(wish._id)
+      .pipe(
+        finalize(() => this.location.back())
+      )
+      .subscribe(
       () => this.location.back(),
       e => this.messageService.error(e),
-      () => this.location.back()
     );
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Field } from './field';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 @Injectable()
 export class FieldControlService {
@@ -11,9 +11,7 @@ export class FieldControlService {
     const group: any = {};
 
     fields.forEach(field => {
-      group[field.name] = field.required
-        ? new FormControl(field.value || '', Validators.required)
-        : new FormControl(field.value || '');
+      group[field.name] = new FormControl(field.value || '', field.validators);
     });
 
     return new FormGroup(group);
