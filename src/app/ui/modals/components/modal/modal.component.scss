@@ -1,0 +1,24 @@
+@import "../../../../variables";
+
+.modal {
+  &__content {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    height: 50%;
+    padding: 24px;
+    transform: translate(-50%, -50%);
+    background-color: $milk;
+    z-index: 999;
+  }
+  &__backdrop {
+    background-color: $coffee;
+    opacity: 0.25;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}

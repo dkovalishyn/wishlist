@@ -1,6 +1,0 @@
-<ng-container *ngIf="wish$ | async as wish">
-<ng-template #modalContent>
-    <app-form [fields]="fields" (onSubmit)="onSubmit($event)"></app-form>
-</ng-template>
-<app-modal [contentTemplate]="modalContent" [backLink]="backLink"></app-modal>
-</ng-container>

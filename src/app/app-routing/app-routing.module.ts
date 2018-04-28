@@ -1,19 +1,15 @@
 import { NgModule } from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {WishEditorComponent} from '../components/wish-editor/wish-editor.component';
-import {WishlistComponent} from '../components/wishlist/wishlist.component';
-import {WishComponent} from '../components/wish/wish.component';
-import {WishAddComponent} from '../components/wish-editor/wish-add.component';
+import { RouterModule } from '@angular/router';
 
 const routes = [
-  { path: '', component: WishlistComponent, pathMatch: 'full' },
-  { path: 'wish/edit', component: WishAddComponent },
-  { path: 'wish/:id', component: WishComponent },
-  { path: 'wish/:id/edit', component: WishEditorComponent, pathMatch: 'full' },
+  { path: 'login', loadChildren: 'app/core/auth.module#AuthModule' },
+  { path: 'wish', loadChildren: 'app/wish/wish.module#WishModule' },
+  { path: '', redirectsTo: 'wish' }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes)],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

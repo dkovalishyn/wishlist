@@ -1,0 +1,30 @@
+<div [formGroup]="form">
+  <label [attr.for]="field.key">{{field.label}}</label>
+
+  <div [ngSwitch]="field.controlType">
+
+    <input
+      *ngSwitchCase="'textbox' || 'password'"
+      [formControlName]="field.name"
+      [id]="field.key"
+      [name]="field.name"
+      [type]="field.type"
+      [placeholder]="field.placeholder"
+      [minlength]="field.minlenght"
+      [maxlength]="field.maxlength"
+    >
+
+    <select
+      *ngSwitchCase="'dropdown'"
+      [id]="field.key"
+      [formControlName]="field.key"
+    >
+      <option *ngFor="let opt of field.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
+
+
+
+  </div>
+
+  <div class="errorMessage" *ngIf="!isValid">{{field.name}} is required</div>
+</div>

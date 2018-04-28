@@ -1,0 +1,341 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "my_wishcafe"
+  },
+  "host": "localhost:10010",
+  "basePath": "/api/v1",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json",
+    "text/plain",
+    "text/html"
+  ],
+  "security": [{
+    "type": "basic",
+    "description": "Passport-local login strategy",
+    "name": "Bearer",
+    "in": "Header"
+  }],
+  "paths": {
+    "/login": {
+      "x-swagger-router-controller": "auth",
+      "post": {
+        "description": "Authenticate user",
+        "operationId": "login",
+        "tags": ["security"],
+        "security": [],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Wrong password or login"
+          }
+        }
+      }
+    },
+    "/account": {
+      "post": {
+        "description": "Add person by id",
+        "operationId": "create",
+        "tags": ["security"],
+        "parameters": [
+          {
+            "name": "Person",
+            "in": "body",
+            "description": "Person data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        }
+      }
+    },
+    "/account/{id}": {
+      "x-swagger-router-controller": "person",
+      "get": {
+        "description": "Get person by id",
+        "operationId": "get",
+        "tags": ["security"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        }
+      }
+    },
+    "/wish": {
+      "get": {
+        "description": "Get all wishes",
+        "operationId": "getAll",
+        "tags": ["wishes"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Wish"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Add wish",
+        "operationId": "add",
+        "tags": ["wishes"],
+        "parameters": [
+          {
+            "name": "wish",
+            "in": "body",
+            "description": "Wish data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Wish"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "501": {
+            "description": "Internal server error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/wish/{wishId}": {
+      "get": {
+        "description": "Get wish by id",
+        "operationId": "get",
+        "tags": ["wishes"],
+        "parameters": [
+          {
+            "name": "wishId",
+            "in": "path",
+            "description": "Wish id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Wish"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete wish by id",
+        "operationId": "deleteWish",
+        "tags": ["wishes"],
+        "parameters": [
+          {
+            "name": "wishId",
+            "in": "path",
+            "description": "Wish id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Wish"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update wish",
+        "operationId": "update",
+        "tags": ["wishes"],
+        "parameters": [
+          {
+            "name": "wishId",
+            "in": "path",
+            "description": "Wish id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "wish",
+            "in": "body",
+            "description": "Wish",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Wish"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Wish"
+            }
+          }
+        }
+      }
+    },
+    "/thumbnail/generate": {
+      "x-swagger-router-controller": "thumbnail",
+      "get": {
+        "description": "Generates web-site thumbnail",
+        "operationId": "generate",
+        "tags": ["thumbnail"],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Web site where thumbnail is looked up",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "image/png",
+          "image/svg+xml",
+          "image/jpeg"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/hello": {
+      "x-swagger-router-controller": "hello_world",
+      "get": {
+        "description": "Returns 'Hello' to the caller",
+        "operationId": "hello",
+        "tags": ["hello"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "The name of the person to whom to say hello",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/HelloWorldResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/swagger": {
+      "x-swagger-pipe": "swagger_raw"
+    }
+  },
+  "definitions": {
+    "HelloWorldResponse": {
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Wish": {
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Person": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
