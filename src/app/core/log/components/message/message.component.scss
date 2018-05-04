@@ -1,4 +1,4 @@
-@import '../../variables';
+@import '../../../../variables';
 
 .message {
   display: inline-block;
@@ -7,11 +7,11 @@
   margin-top: 24px;
   border-radius: 4px;
   position: relative;
-  background-color: $cappuccino;
+  background-color: $b400;
   box-shadow: $cardShadow;
   &__title {
     margin-top: 4px;
-    color: $coffee;
+    color: $b900;
     line-height: 40px;
   }
 

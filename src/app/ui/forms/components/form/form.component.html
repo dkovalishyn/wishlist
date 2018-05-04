@@ -1,16 +1,16 @@
-<div>
-  <form (ngSubmit)="submit($event)" [formGroup]="form">
+<div class="form-container">
+  <form class="dynamic-form" (ngSubmit)="submit($event)" [formGroup]="form">
 
-    <div *ngFor="let field of fields" class="form-row">
+    <div class="dynamic-form__row" *ngFor="let field of fields">
       <app-field [field]="field" [form]="form"></app-field>
     </div>
 
-    <div class="form-row">
+    <div class="dynamic-form__row">
       <button type="submit" [disabled]="!form.valid">{{ submitLabel }}</button>
     </div>
   </form>
 
-  <div *ngIf="payLoad" class="form-row">
+  <div *ngIf="payLoad" class="dynamic-form__payload">
     <strong>Saved the following values</strong><br>{{payLoad}}
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Field } from '../components/forms/field';
-import { TextBox } from '../components/forms/text-box';
+import { Field } from '../../../ui/forms/models/field';
+import { TextBox } from '../../../ui/forms/models/text-box';
 import { Validators } from '@angular/forms';
 
 @Injectable()

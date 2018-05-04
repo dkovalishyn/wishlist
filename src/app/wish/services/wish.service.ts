@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Wish } from '../models/wish';
 import { Observable } from 'rxjs/Observable';
-import { ApiService } from './api.service';
+import { ApiService } from '../../core/api/api.service';
 
 @Injectable()
 export class
@@ -17,7 +17,6 @@ WishService {
   }
 
   addWish(wish: Wish): Observable<Wish[]> {
-    console.log(wish, 'add');
     return this.api.post<Wish[]>(this.wishesUrl, wish);
   }
 

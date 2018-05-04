@@ -1,0 +1,30 @@
+@import '../../../../variables';
+
+.dynamic-form {
+  &__input {
+    width: 100%;
+    border: none;
+    padding: 16px 0 8px 0;
+    background-color: white;
+    border-bottom: 1px solid $b500;
+    font-size: 1.2rem;
+    transition: all 200ms linear;
+
+    &::-webkit-input-placeholder {
+      color: $b500;
+    }
+
+    &:focus {
+      color: black;
+      background-color: white;
+      outline: none;
+      border-color: $a100;
+    }
+  }
+
+  &__error-message {
+    margin-top: 8px;
+    opacity: 0.75;
+    font-size: 0.8rem;
+  }
+}

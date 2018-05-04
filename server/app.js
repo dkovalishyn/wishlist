@@ -10,7 +10,7 @@ import BearerStrategy from 'passport-http-bearer';
 import expressSession from 'express-session';
 import cookieParser from 'cookie-parser';
 
-import dbConnection from './database';
+import connectToDb from './database';
 import swaggerRoutes from 'swagger-routes';
 import swaggerConfig from './api/swagger/swagger';
 
@@ -22,7 +22,7 @@ import { verify, auth } from './middlewares/bearer';
 
 
 const corsOptions = {
-  origin: 'http://localhost:10010',
+  origin: 'http://localhost:4200',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
@@ -43,7 +43,7 @@ app.use(passport.session());
 
 app.post('/login', auth);
 app.get('/logout', logout);
-app.all('/api/v1/*', passport.authenticate('bearer'));
+//app.all('/api/v1/*', passport.authenticate('bearer'));
 
 swaggerRoutes(app, {
   api: swaggerConfig,
@@ -65,7 +65,8 @@ app.use(function (err, req, res, next) {
   next();
 });
 
-dbConnection
+console.log('Starting server. Check http://localhost:10010');
+connectToDb()
   .then(() => http.createServer(app).listen(process.env.PORT || 10010))
   .catch(error => console.error(error.stack));
 

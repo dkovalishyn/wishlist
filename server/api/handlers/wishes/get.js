@@ -11,9 +11,11 @@ import Wish from '../../models/Wish';
  */
 exports.handler = function get(req, res) {
   const { params: { wishId: id }} = req;
+
   Wish.findById(id, (err, data) => {
     if (err) {
-      res.sendStatus(501);
+      res.status(404).send(err.message);
+      return;
     }
 
     res.send(data);

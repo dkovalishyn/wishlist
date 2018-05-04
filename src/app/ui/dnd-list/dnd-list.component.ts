@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Wish } from '../../wish/models/wish';
 import { DragEvent } from './dragEvent';
 
@@ -8,7 +8,7 @@ import { DragEvent } from './dragEvent';
   styleUrls: ['./dnd-list.component.css']
 })
 export class DndListComponent {
-  list = [];
+  list: any[] = [];
   constructor() { }
 
   private findItem({ _id: itemId }: Wish): number {

@@ -5,22 +5,19 @@ import { Wish } from '../../models/wish';
 import { WishService } from '../../services/wish.service';
 
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/switchMap';
-import { finalize } from 'rxjs/operators';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { WishFormService } from '../../services/wish-form.service';
 import { Field } from '../../../ui/forms/models/field';
+import { MessageService } from '../../../core/log/services/message.service';
 
 @Component({
   selector: 'app-wish-editor',
   templateUrl: './wish-editor.component.html',
-  styleUrls: ['./wish-editor.component.scss'],
   providers: [WishFormService]
 })
 export class WishEditorComponent implements OnInit {
-  wish$: Observable<Wish>;
   fields: Field<any>[] = [];
-
-  private wishId: string;
+  wishId: string;
   backLink = '/';
 
   constructor(private route: ActivatedRoute,
@@ -33,29 +30,21 @@ export class WishEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wish$ = this.route.paramMap
-      .switchMap((params: ParamMap) => {
-        this.wishId = params.get('id');
-        this.backLink = `wish/${this.wishId}`;
-        return this.wishService.getWish(this.wishId);
-      });
-    this.wish$.subscribe(
-      (wish: Wish) => { this.fields = this.formService.getFields(wish); }
-    );
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) => {
+          this.wishId = params.get('id');
+          this.backLink = `wish/${this.wishId}`;
+          return this.wishService.getWish(this.wishId);
+        })
+      )
+      .subscribe((wish: Wish) => this.fields = this.formService.getFields(wish));
   }
 
   onSubmit(payLoad) {
-    const update$ = this.wishService
-      .updateWish(Object.assign({ _id: this.wishId}, payLoad))
-      .pipe(
-        finalize(() => this.location.back())
-      );
-
-    update$
-      .subscribe(
-        wish => this.messageService.add(`Wish updated: ${wish}`),
-        e => this.messageService.error(e),
-      );
-
+    this.wishService
+      .updateWish(Object.assign({ _id: this.wishId }, payLoad))
+      .pipe(finalize(() => this.location.back()))
+      .subscribe(wish => this.messageService.add(`Wish updated: ${wish}`));
   }
 }

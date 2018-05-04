@@ -1,13 +1,13 @@
 @import './variables';
 
-* {
-  font-family: Verdana, sans-serif;
-  color: $cacao;
+*, input {
+  font-family: $font-family;
+  color: $b500;
   box-sizing: content-box;
 }
 
 .title {
-  color: $coffee;
+  color: $b900;
   text-align: center;
 }
 

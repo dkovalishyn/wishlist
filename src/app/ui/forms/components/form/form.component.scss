@@ -1,0 +1,8 @@
+.dynamic-form {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  &__row {
+    grid-column: 2 / span 1;
+    margin: 8px;
+  }
+}

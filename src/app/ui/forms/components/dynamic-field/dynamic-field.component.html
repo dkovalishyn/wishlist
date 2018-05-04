@@ -12,12 +12,14 @@
       [placeholder]="field.placeholder"
       [minlength]="field.minlenght"
       [maxlength]="field.maxlength"
+      class="dynamic-form__input"
     >
 
     <select
       *ngSwitchCase="'dropdown'"
       [id]="field.key"
       [formControlName]="field.key"
+      class="dynamic-form__select"
     >
       <option *ngFor="let opt of field.options" [value]="opt.key">{{opt.value}}</option>
     </select>
@@ -26,5 +28,5 @@
 
   </div>
 
-  <div class="errorMessage" *ngIf="!isValid">{{field.name}} is required</div>
+  <div class="dynamic-form__error-message" *ngIf="!isValid">{{field.name}} is required</div>
 </div>

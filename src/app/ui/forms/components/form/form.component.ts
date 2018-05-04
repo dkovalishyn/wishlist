@@ -6,7 +6,7 @@ import { Field } from '../../models/field';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css'],
+  styleUrls: ['./form.component.scss'],
   providers: [FieldControlService]
 })
 export class FormComponent implements OnInit {

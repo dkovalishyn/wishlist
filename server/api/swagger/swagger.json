@@ -18,12 +18,7 @@
     "text/plain",
     "text/html"
   ],
-  "security": [{
-    "type": "basic",
-    "description": "Passport-local login strategy",
-    "name": "Bearer",
-    "in": "Header"
-  }],
+  "security": [],
   "paths": {
     "/login": {
       "x-swagger-router-controller": "auth",
@@ -224,12 +219,11 @@
         }
       }
     },
-    "/thumbnail/generate": {
-      "x-swagger-router-controller": "thumbnail",
+    "/snapshot/generate": {
       "get": {
         "description": "Generates web-site thumbnail",
         "operationId": "generate",
-        "tags": ["thumbnail"],
+        "tags": ["snapshot"],
         "parameters": [
           {
             "name": "url",

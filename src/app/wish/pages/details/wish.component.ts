@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {WishService} from '../../services/wish.service';
-import {Wish} from '../../models/wish';
-import {Observable} from 'rxjs/Observable';
-import {MessageService} from '../../services/message.service';
-import { finalize } from 'rxjs/operators';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { WishService } from '../../services/wish.service';
+import { Wish } from '../../models/wish';
+import { MessageService } from '../../../core/log/services/message.service';
+import { finalize, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-wish',
@@ -13,7 +12,7 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./wish.component.css']
 })
 export class WishComponent implements OnInit {
-  wish$: Observable<Wish>;
+  wish: Wish;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,12 +20,13 @@ export class WishComponent implements OnInit {
     private wishService: WishService,
     private messageService: MessageService,
     private location: Location,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    this.wish$ = this.route.paramMap.switchMap((params: ParamMap) => (
-      this.wishService.getWish(params.get('id'))
-    ));
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => this.wishService.getWish(params.get('id'))
+    )).subscribe(wish => this.wish = wish);
   }
 
   deleteWish(wish: Wish) {
@@ -35,8 +35,8 @@ export class WishComponent implements OnInit {
         finalize(() => this.location.back())
       )
       .subscribe(
-      () => this.location.back(),
-      e => this.messageService.error(e),
-    );
+        () => this.location.back(),
+        e => this.messageService.error(e),
+      );
   }
 }

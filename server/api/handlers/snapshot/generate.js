@@ -1,7 +1,7 @@
 /**
  * generate
  *
- * GET: /api/v1/thumbnail/generate
+ * GET: /api/v1/snapshot/generate
  *
  * query:
  *   url {string} Web site where thumbnail is looked up.
@@ -20,8 +20,17 @@ function getSizes(images) {
 function findBiggest(images) {
   return getSizes(images).then(sizes => {
     console.log(sizes.sort(Image.sortFunction));
-    return sizes.sort(Image.sortFunction)[0]
+    return sizes.sort(Image.sortFunction)[0] || new Image();
   });
+}
+
+function resolve(url, src) {
+  if (!src || typeof url !== 'string') {
+    throw Error(`Wrong url provided: ${url}`);
+  }
+
+  const domain = url.match(/https?:\/\/.+?\//);
+  return src.replace(/^\//, domain);
 }
 
 function crawlImages(url) {
@@ -29,20 +38,22 @@ function crawlImages(url) {
     .then(data => {
       const $ = cheerio.load(data);
       return $('img').toArray()
-        .map(({ attribs: { src = '' } }) => src)
+        .map(({ attribs: { src = '' } }) => resolve(url, src))
         .filter(link => !link.match(/logo|captcha|sprite/) || link.match(/^https?:/))
-        .map(link => new Image(link.replace(/^\/\/www/, 'https://www')));
+        .map(link => {
+          console.log(link);
+          return new Image(link.replace(/^\/\/www/, 'https://www'))
+        });
     })
 
 }
 
-exports.handler = function generate(req, res) {
-  const url = req.swagger.params.url.value;
+exports.handler = function generate(req, res, next) {
+  const { query: { url }} = req;
 
   if (!url) {
     res.sendStatus(500);
   }
-
   crawlImages(url)
     .then(findBiggest)
     .then(image => image.fetch())

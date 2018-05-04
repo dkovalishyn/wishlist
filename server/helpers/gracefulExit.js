@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 export default (e) => {
   if (e) {
-    console.log(`Ooops.. ${e.message}`);
+    console.warn(`Ooops.. ${e.message}`);
+    console.warn(e);
   }
   console.log('Shutting down. Initiating clean up procedures..');
 

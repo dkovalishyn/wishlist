@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginFormService } from '../../services/login-form.service';
-import { Field } from '../../components/forms/field';
+import { Field } from '../../../../ui/forms/models/field';
 import { UserService } from '../../services/user.service';
 import User from '../../models/user';
-import { MessageService } from '../../services/message.service';
+import { MessageService } from '../../../log/services/message.service';
 import { Router } from '@angular/router';
 
 @Component({

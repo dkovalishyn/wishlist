@@ -1,7 +1,6 @@
 import path from 'path';
 import probe from 'probe-image-size';
 import crypto from 'crypto';
-import webshot from 'webshot';
 import { download, isValidUrl } from '../helpers/requests';
 
 class Image {

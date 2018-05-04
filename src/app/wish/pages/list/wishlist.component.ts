@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { DndListComponent } from '../../components/dnd-list/dnd-list.component';
+import { Component, Input, OnInit } from '@angular/core';
 import { WishService } from '../../services/wish.service';
+import { Wish } from '../../models/wish';
+import { DndListComponent } from '../../../ui/dnd-list/dnd-list.component';
 
 @Component({
   selector: 'app-wishlist',
@@ -8,6 +9,8 @@ import { WishService } from '../../services/wish.service';
   styleUrls: ['./wishlist.component.scss']
 })
 export class WishlistComponent extends DndListComponent implements OnInit {
+  @Input() list: Wish[];
+
   constructor(private wishService: WishService) {
     super();
   }
@@ -17,6 +20,7 @@ export class WishlistComponent extends DndListComponent implements OnInit {
   }
 
   getWishes() {
+    console.log('getWishes');
     this.wishService.getWishes().subscribe( wishes => this.list = wishes );
   }
 

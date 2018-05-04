@@ -13,8 +13,10 @@ exports.handler = function add(req, res) {
   const { body: wish } = req;
   Wish.create(wish, (err) => {
     if (err) {
-      res.sendStatus(501);
+      res.status(404).send(err.message);
+      return;
     }
+
     res.send(wish);
   })
 };

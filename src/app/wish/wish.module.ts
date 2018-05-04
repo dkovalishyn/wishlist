@@ -7,23 +7,23 @@ import { WishlistComponent } from './pages/list/wishlist.component';
 import { WishComponent } from './pages/details/wish.component';
 import { WishAddComponent } from './pages/add/wish-add.component';
 import { WishEditorComponent } from './pages/edit/wish-editor.component';
-import { FormsModule } from '../ui/forms/forms.module';
 import { ModalsModule } from '../ui/modals/modals.module';
-import { WishFormComponent } from './components/wish-form/wish-form.component';
+import { DndListModule } from '../ui/dnd-list/dnd-list.module';
+import { DynamicFormsModule } from '../ui/forms/dynamic-forms.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    DynamicFormsModule,
     ModalsModule,
     WishRoutingModule,
+    DndListModule,
   ],
   declarations: [
     WishlistComponent,
     WishComponent,
     WishAddComponent,
     WishEditorComponent,
-    WishFormComponent,
   ],
   providers: [
     WishService,

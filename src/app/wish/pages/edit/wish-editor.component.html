@@ -1,7 +1,8 @@
-<app-wish-form
-  [wish]="wish$ | async as wish"
-  [backLink]="backLink"
-  [fields]="fields"
-  (onSubmit)="onSubmit"
->
-</app-wish-form>
+<app-modal [backLink]="backLink" title="Editor">
+  <app-form
+    [fields]="fields"
+    (onSubmit)="onSubmit($event)"
+    submitLabel="Save"
+  >
+  </app-form>
+</app-modal>

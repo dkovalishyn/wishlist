@@ -1,6 +1,9 @@
 <div class="modal">
   <div class="modal__content">
-    <ng-content></ng-content>
+    <div *ngIf="title" class="modal__header">{{ title }}</div>
+    <div class="modal__body">
+      <ng-content></ng-content>
+    </div>
   </div>
   <div (click)="goBack()" class="modal__backdrop"></div>
 </div>

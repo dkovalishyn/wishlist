@@ -14,7 +14,8 @@ exports.handler = function deleteWish(req, res) {
 
   Wish.findByIdAndRemove(id, (err, data) => {
     if (err) {
-      res.sendStatus(501);
+      res.status(404).send(err.message);
+      return;
     }
 
     res.send(data);

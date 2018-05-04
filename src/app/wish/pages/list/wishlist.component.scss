@@ -1,4 +1,4 @@
-@import "../../variables";
+@import "../../../variables";
 
 .wish-list {
   display: flex;
@@ -13,13 +13,13 @@
   align-items: center;
   margin: 16px;
   padding: 16px;
-  border: 2px solid $cacao;
+  border: 2px solid $b500;
   &:hover {
-    background-color: $cacao;
+    background-color: $b500;
     transition: all ease-out 200ms;
     cursor: pointer;
     & .wish__description {
-      color: $milk;
+      color: white;
     }
   }
   &__drag {
@@ -32,7 +32,7 @@
   &__description {
     border-radius: 4px;
     font-size: 2rem;
-    color: $coffee;
+    color: $b900;
     text-decoration: none;
   }
 }
@@ -41,8 +41,8 @@
   text-align: center;
   font-weight: bold;
   padding: 40px;
-  background-color: $cappuccino;
-  color: $milk;
+  background-color: $b400;
+  color: white;
   border-radius: 4px;
   box-shadow: $cardShadow;
 
@@ -64,8 +64,8 @@ $round-button-size: 48px;
   right: $round-button-size;
   bottom: $round-button-size;
   border-radius: $round-button-size;
-  background-color: $green;
-  color: $milk;
+  background-color: $a100;
+  color: $text-accent;
   font-size: $round-button-size / 1.5;
   font-weight: bold;
   text-decoration: none;

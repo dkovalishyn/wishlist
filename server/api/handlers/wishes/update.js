@@ -14,11 +14,14 @@ import Wish from '../../models/Wish';
  */
 exports.handler = function update(req, res) {
   const { body: wish, params: { wishId: id } } = req;
+
   const options = {};
   Wish.findByIdAndUpdate(id, wish, options, (err) => {
     if (err) {
-      res.sendStatus(501);
+      res.status(404).send(err.message);
+      return;
     }
+
     res.send(wish);
   })
 };

@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { DynamicFieldComponent } from './components/dynamic-field/dynamic-field.component';
 import { FormComponent } from './components/form/form.component';
 import { FieldControlService } from './services/field-control.service';
-import { Field } from './models/field';
-import { TextBox } from './models/text-box';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     DynamicFieldComponent,
@@ -18,8 +18,8 @@ import { TextBox } from './models/text-box';
     FieldControlService,
   ],
   exports: [
-    Field,
-    TextBox,
-  ]
+    FormComponent,
+    DynamicFieldComponent,
+  ],
 })
-export class FormsModule { }
+export class DynamicFormsModule { }

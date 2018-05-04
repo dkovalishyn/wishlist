@@ -4,7 +4,7 @@ import fs from 'fs';
 
 function errorHandler (err, cb) {
   console.warn(err);
-  cb();
+  cb(err.message);
 }
 
 function chooseProtocol(url) {
@@ -12,20 +12,19 @@ function chooseProtocol(url) {
 }
 
 export function isValidUrl(url) {
-  return Boolean(url.match(/^https?:/));
+  return url ? Boolean(url.match(/^https?:/)) : false;
 }
 
 export function makeRequest(url) {
-  if (!url && isValidUrl(url)) {
+  if (!isValidUrl(url)) {
     return Promise.reject(Error('You must provide url'));
   }
-
-  return new Promise((res, rej) => {
+  return new Promise((resolve, reject) => {
     chooseProtocol(url).get(url, response => {
       let data = '';
-      response.on('error', error => errorHandler(error, rej));
-      response.on('data', chunk => { data += chunk.toString(); });
-      response.on('end', () => res(data));
+      response.on('error', error => errorHandler(error, reject));
+      response.on('data', chunk => data += chunk.toString());
+      response.on('end', () => resolve(data));
     });
   });
 }

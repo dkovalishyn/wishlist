@@ -12,6 +12,9 @@ import { MessageComponent } from './components/message/message.component';
   ],
   providers: [
     MessageService,
+  ],
+  exports: [
+    MessageComponent,
   ]
 })
 export class LogModule { }

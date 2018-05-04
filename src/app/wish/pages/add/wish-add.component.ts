@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
 
-import { Wish } from '../../models/wish';
 import { WishService } from '../../services/wish.service';
 import { WishFormService } from '../../services/wish-form.service';
 
 import { Field } from '../../../ui/forms/models/field';
+import { MessageService } from '../../../core/log/services/message.service';
 
 
 @Component({
   selector: 'app-wish-add',
-  templateUrl: './wish-editor.component.html',
-  styleUrls: ['./wish-editor.component.scss'],
+  templateUrl: './wish-add.component.html',
   providers: [WishFormService]
 })
 export class WishAddComponent implements OnInit {
-  wish$ = Observable.of(new Wish({ description: '' }));
   backLink = '/';
   fields: Field<any>[];
 
@@ -36,11 +33,8 @@ export class WishAddComponent implements OnInit {
   onSubmit(payLoad) {
     this.wishService.addWish(payLoad)
       .pipe(
-        finalize(() => this.location.back())
+        finalize(() => this.location.back()),
       )
-      .subscribe(
-        wish => this.messageService.add(`New wish added: ${wish}`),
-        e => this.messageService.error(e),
-      );
+      .subscribe(wish => this.messageService.add(`New wish added: ${wish}`));
   }
 }

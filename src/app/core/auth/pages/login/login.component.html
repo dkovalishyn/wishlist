@@ -1,5 +1,7 @@
-<ng-template #modalContent>
-  <app-form [fields]="fields" (onSubmit)="onSubmit($event)" submitLabel="LogIn"></app-form>
-</ng-template>
-
-<app-modal [contentTemplate]="modalContent" backLink="/"></app-modal>
+<app-modal backLink="/">
+  <app-form
+    [fields]="fields"
+    (onSubmit)="onSubmit($event)"
+    submitLabel="LogIn">
+  </app-form>
+</app-modal>

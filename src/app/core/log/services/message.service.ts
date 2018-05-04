@@ -11,7 +11,7 @@ export class MessageService {
   }
 
   error(error) {
-    this.messages.push(`Error: ${error.description}`);
+    this.messages.push(`Error: ${error.message}`);
   }
 
   clear() {
