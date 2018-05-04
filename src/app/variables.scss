@@ -29,4 +29,28 @@ $font-family: 'Verdana', sans-serif;
 $cardShadow: 4px 4px 14px -2px $b900;
 $hoveredCardShadow: 6px 6px 32px -8px $b900;
 
+@mixin cardShadow() {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+}
+
+@mixin buttonHollow() {
+  border: none;
+  width: 80px;
+  padding: 8px;
+  background-color: $a100;
+  color: $text-accent;
+  text-transform: uppercase;
+  border-radius: 4px;
+  @include cardShadow();
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 

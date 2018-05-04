@@ -1,0 +1,14 @@
+@import "../../../variables";
+
+.wish__actions {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+}
+
+button {
+  @include buttonHollow();
+  margin: 8px;
+}

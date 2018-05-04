@@ -9,7 +9,7 @@ import { finalize, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-wish',
   templateUrl: './wish.component.html',
-  styleUrls: ['./wish.component.css']
+  styleUrls: ['./wish.component.scss']
 })
 export class WishComponent implements OnInit {
   wish: Wish;
@@ -32,7 +32,7 @@ export class WishComponent implements OnInit {
   deleteWish(wish: Wish) {
     this.wishService.deleteWish(wish._id)
       .pipe(
-        finalize(() => this.location.back())
+        finalize(() => this.router.navigate(['/']))
       )
       .subscribe(
         () => this.location.back(),

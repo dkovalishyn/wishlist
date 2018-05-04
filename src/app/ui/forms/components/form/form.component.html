@@ -1,13 +1,16 @@
 <div class="form-container">
   <form class="dynamic-form" (ngSubmit)="submit($event)" [formGroup]="form">
 
-    <div class="dynamic-form__row" *ngFor="let field of fields">
-      <app-field [field]="field" [form]="form"></app-field>
+    <div class="dynamic-form__body">
+      <div class="dynamic-form__row" *ngFor="let field of fields">
+        <app-field [field]="field" [form]="form"></app-field>
+      </div>
     </div>
 
-    <div class="dynamic-form__row">
-      <button type="submit" [disabled]="!form.valid">{{ submitLabel }}</button>
+    <div class="dynamic-form__actions">
+      <button  class="dynamic-form__submit-button" type="submit" [disabled]="!form.valid">{{ submitLabel }}</button>
     </div>
+
   </form>
 
   <div *ngIf="payLoad" class="dynamic-form__payload">

@@ -1,8 +1,10 @@
 <ng-container *ngIf="wish">
-  <app-modal backLink="/" >
+  <app-modal backLink="/" title="Details">
     <div class="wish__description">{{ wish.description }}</div>
-    <button type="button" (click)="deleteWish(wish)">Remove</button>
-    <button [routerLink]="['/wish', wish._id, 'edit']">Edit</button>
+    <div class="wish__actions">
+      <button type="button" (click)="deleteWish(wish)">Remove</button>
+      <button [routerLink]="['/wish', wish._id, 'edit']">Edit</button>
+    </div>
   </app-modal>
 </ng-container>
 

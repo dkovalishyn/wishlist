@@ -12,7 +12,7 @@ export class WishFormService {
         key: 'wish-edit__description',
         name: 'description',
         value: wish ? wish.description : '',
-        placeholder: 'My Wish',
+        placeholder: wish ? wish.description : 'My Wish',
         validators: [
           Validators.required,
           Validators.minLength(3),

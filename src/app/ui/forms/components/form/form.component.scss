@@ -1,8 +1,14 @@
+@import '../../../../variables';
+
 .dynamic-form {
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
-  &__row {
-    grid-column: 2 / span 1;
-    margin: 8px;
+
+  &__actions {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  &__submit-button {
+    @include buttonHollow();
   }
 }

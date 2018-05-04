@@ -70,14 +70,5 @@ $round-button-size: 48px;
   font-weight: bold;
   text-decoration: none;
   text-align: center;
-  opacity: 0.8;
-  transform: scale(1);
-  transition: all 200ms ease-out;
-  box-shadow: $cardShadow;
-
-  &:hover {
-    opacity: 1;
-    transform: scale(1.1);
-    box-shadow: $hoveredCardShadow;
-  }
+  @include cardShadow();
 }
