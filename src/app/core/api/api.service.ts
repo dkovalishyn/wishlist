@@ -29,7 +29,6 @@ export class ApiService {
 
   get<T>(path: string): Observable<T> {
     const requestUrl = this.buildFullUrl(path);
-    console.log(requestUrl);
     return this.http.get<T>(requestUrl).pipe(
       catchError(({ error, status }) => this.handleError({ error, status }))
 
@@ -65,7 +64,7 @@ export class ApiService {
     };
   }
 
-  private handleError({ error, status }) {
+  handleError({ error, status }) {
     if (error instanceof ErrorEvent) {
       this.messageService.error(error);
     } else {

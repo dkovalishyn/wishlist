@@ -2,7 +2,6 @@
 
 *, input {
   font-family: $font-family;
-  color: $b500;
   box-sizing: content-box;
 }
 
@@ -12,5 +11,12 @@
 }
 
 .inspiration {
-  text-align: center;
+  font-size: 12px;
+}
+
+main {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
 }

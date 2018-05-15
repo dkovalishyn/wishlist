@@ -43,7 +43,13 @@ app.use(passport.session());
 
 app.post('/login', auth);
 app.get('/logout', logout);
-//app.all('/api/v1/*', passport.authenticate('bearer'));
+app.get(/api/, passport.authenticate('bearer'), (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+});
 
 swaggerRoutes(app, {
   api: swaggerConfig,

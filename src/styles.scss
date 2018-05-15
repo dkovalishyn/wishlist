@@ -1,0 +1,25 @@
+@import "~ng-drag-drop/style.css";
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+@import "./theme.scss";
+
+.brown-theme {
+  @include angular-material-theme($theme);
+  margin: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style-type: none;
+}

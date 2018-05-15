@@ -45,6 +45,10 @@ export class WishEditorComponent implements OnInit {
     this.wishService
       .updateWish(Object.assign({ _id: this.wishId }, payLoad))
       .pipe(finalize(() => this.location.back()))
-      .subscribe(wish => this.messageService.add(`Wish updated: ${wish}`));
+      .subscribe(wish => this.messageService.add(`Wish updated: ${JSON.stringify(payLoad)}`));
+  }
+
+  onCancel() {
+    this.location.back();
   }
 }

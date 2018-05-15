@@ -2,18 +2,21 @@
   <label [attr.for]="field.key">{{field.label}}</label>
 
   <div [ngSwitch]="field.controlType">
+    <mat-form-field *ngSwitchCase="'textbox' || 'password'">
+      <input
+        matInput
+        [formControlName]="field.name"
+        [id]="field.key"
+        [name]="field.name"
+        [type]="field.type"
+        [placeholder]="field.name"
+        [minlength]="field.minlenght"
+        [maxlength]="field.maxlength"
+        [value]="field.value"
+        class="dynamic-form__input"
+      >
+    </mat-form-field>
 
-    <input
-      *ngSwitchCase="'textbox' || 'password'"
-      [formControlName]="field.name"
-      [id]="field.key"
-      [name]="field.name"
-      [type]="field.type"
-      [placeholder]="field.placeholder"
-      [minlength]="field.minlenght"
-      [maxlength]="field.maxlength"
-      class="dynamic-form__input"
-    >
 
     <select
       *ngSwitchCase="'dropdown'"

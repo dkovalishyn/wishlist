@@ -15,7 +15,7 @@ export function verify(token, done) {
       return done(err);
     }
 
-    User.findOne({ id: decoded.sub }, function (err, user) {
+    User.findOne({ _id: decoded.sub }, function (err, user) {
       if (err) {
         return done(err);
       }
@@ -33,12 +33,14 @@ export function auth(req, res) {
 
   User.findOne({ username }, function (err, user) {
     if (err || !user || user.password !== password) {
-      res.sendStatus(401);
-    } else {
-      const payload = { sub: user.id };
-      const token = jwt.sign(payload, secret, { expiresIn: 20 });
-      res.set(AUTHORIZATION, `Bearer ${token}`);
-      res.status(200).send('Successfully authorized');
+      console.log(err);
+      res.sendStatus(404);
+      return;
     }
+
+    const exp = Math.floor(Date.now() / 1000 + (60 * 60));
+    const payload = { sub: user.id, exp };
+    const token = jwt.sign(payload, secret);
+    res.status(200).json({ token, exp })
   });
 }

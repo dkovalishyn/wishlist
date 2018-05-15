@@ -1,14 +1,7 @@
 @import "../../../variables";
-
-.wish__actions {
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-}
-
-button {
-  @include buttonHollow();
-  margin: 8px;
+.wish__description {
+  text-decoration: none;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

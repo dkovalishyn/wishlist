@@ -1,5 +1,6 @@
-<app-modal [backLink]="backLink" title="Editor">
+<app-modal [backLink]="backLink">
   <app-form
+    title="Editor"
     [fields]="fields"
     (onSubmit)="onSubmit($event)"
     submitLabel="Save"

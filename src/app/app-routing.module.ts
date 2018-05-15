@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-const routes = [
-  { path: '',   redirectTo: 'wish', pathMatch: 'full' },
-];
+const routes = [{
+  path: '',
+  pathMatch: 'full',
+  redirectTo: '/wish',
+}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

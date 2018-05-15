@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" class="header">
+  <header>
+    <h1>WishList</h1>
+  </header>
+  <div [ngSwitch]="auth.isLoggedIn()">
+    <button *ngSwitchCase="true" mat-raised-button color="accent" (click)="logout()">Logout</button>
+    <button *ngSwitchCase="false" mat-raised-button color="accent" routerLink="/login">Login</button>
+  </div>
+</mat-toolbar>

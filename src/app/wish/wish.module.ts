@@ -10,6 +10,8 @@ import { WishEditorComponent } from './pages/edit/wish-editor.component';
 import { ModalsModule } from '../ui/modals/modals.module';
 import { DndListModule } from '../ui/dnd-list/dnd-list.module';
 import { DynamicFormsModule } from '../ui/forms/dynamic-forms.module';
+import { MatButtonModule, MatCardModule, MatIconModule } from '@angular/material';
+import { HomeComponent } from '../ui/home/home.component';
 
 @NgModule({
   imports: [
@@ -18,12 +20,16 @@ import { DynamicFormsModule } from '../ui/forms/dynamic-forms.module';
     ModalsModule,
     WishRoutingModule,
     DndListModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   declarations: [
     WishlistComponent,
     WishComponent,
     WishAddComponent,
     WishEditorComponent,
+    HomeComponent,
   ],
   providers: [
     WishService,

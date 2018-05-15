@@ -1,14 +1,1 @@
 @import '../../../../variables';
-
-.dynamic-form {
-
-  &__actions {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-  }
-
-  &__submit-button {
-    @include buttonHollow();
-  }
-}

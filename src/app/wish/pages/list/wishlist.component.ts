@@ -20,7 +20,6 @@ export class WishlistComponent extends DndListComponent implements OnInit {
   }
 
   getWishes() {
-    console.log('getWishes');
     this.wishService.getWishes().subscribe( wishes => this.list = wishes );
   }
 
