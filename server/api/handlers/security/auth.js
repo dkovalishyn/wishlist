@@ -17,6 +17,22 @@ export function login(username, password, done) {
   });
 }
 
+export async function register(req, res, next) {
+  try {
+    const { body: { username, password } } = req;
+    const user = await User.findOne({ username });
+    if (user) {
+      res.status(400).send('User already exists');
+      return next();
+    }
+
+    await User.create({ username, password });
+    next();
+  } catch (e) {
+    next(e);
+  }
+};
+
 export function logout(req, res) {
   req.logout();
   res.redirect('/');

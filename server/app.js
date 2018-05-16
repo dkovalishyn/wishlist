@@ -17,7 +17,7 @@ import swaggerConfig from './api/swagger/swagger';
 import renderIndex from './helpers/renderIndex';
 
 import gracefulExit from './helpers/gracefulExit';
-import { authenticate, deserialize, login, serialize, logout } from './api/handlers/security/auth';
+import { register, deserialize, login, serialize, logout } from './api/handlers/security/auth';
 import { verify, auth } from './middlewares/bearer';
 
 
@@ -43,6 +43,7 @@ app.use(passport.session());
 
 app.post('/login', auth);
 app.get('/logout', logout);
+app.post('/register', register, auth);
 app.get(/api/, passport.authenticate('bearer'), (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
@@ -64,11 +65,16 @@ app.all('*', renderIndex);
 
 app.use(function (err, req, res, next) {
   console.error(err.message);
+
+  if (res.headersSent) {
+    return next(err);
+  }
+
   if (err.name === 'TokenExpiredError') {
     return res.status(401).send('Token expired');
   }
+
   res.status(500).send('Something broke');
-  next();
 });
 
 console.log('Starting server. Check http://localhost:10010');

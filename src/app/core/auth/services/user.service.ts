@@ -30,6 +30,15 @@ export class UserService {
       );
   }
 
+  register(user): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>('/register', user)
+      .pipe(
+        tap(res => setSession(res)),
+        shareReplay(),
+        catchError(this.api.handleError)
+      );
+  }
+
   logout() {
     localStorage.removeItem(StorageKeys.Token);
     localStorage.removeItem(StorageKeys.TokenExpires);

@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { MatButtonModule } from '@angular/material';
 
 const authRoutes: Route[] = [
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
   imports: [
+    MatButtonModule,
     RouterModule.forChild(authRoutes)
   ],
   exports: [

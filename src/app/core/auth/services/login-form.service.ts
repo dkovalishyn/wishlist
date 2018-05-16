@@ -8,7 +8,7 @@ export class LoginFormService {
   getFields(): Field<any>[] {
     const fields: Field<any>[] = [
       new TextBox({
-        key: 'login__username',
+        id: 'login__username',
         name: 'username',
         value: '',
         placeholder: 'Username',
@@ -18,7 +18,7 @@ export class LoginFormService {
         order: 1,
       }),
       new TextBox({
-        key: 'login__password',
+        id: 'login__password',
         name: 'password',
         type: 'password',
         value: '',
@@ -26,7 +26,7 @@ export class LoginFormService {
         validators: [
           Validators.required,
         ],
-        order: 1,
+        order: 2,
       })
     ];
 

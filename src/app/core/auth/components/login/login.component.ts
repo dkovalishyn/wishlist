@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginFormService } from '../services/login-form.service';
-import { Field } from '../../../ui/forms/models/field';
-import { UserService } from '../services/user.service';
-import User from '../models/user';
-import { MessageService } from '../../log/services/message.service';
+import { LoginFormService } from '../../services/login-form.service';
+import { Field } from '../../../../ui/forms/models/field';
+import { UserService } from '../../services/user.service';
+import { MessageService } from '../../../log/services/message.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +12,10 @@ import { Router } from '@angular/router';
       <app-form
         [fields]="fields"
         (onSubmit)="onSubmit($event)"
-        submitLabel="LogIn">
+        submitLabel="LogIn"
+        title="LogIn"
+      >
+        <button mat-button routerLink="/register">New account</button>
       </app-form>
     </app-modal>
   `,
@@ -27,7 +29,8 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private messageService: MessageService,
     private router: Router,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.fields = this.loginFormService.getFields();
@@ -37,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(user).subscribe(
       () => {
         this.messageService.add(`Successfully logged in!`);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/wish');
       },
     );
   }
