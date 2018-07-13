@@ -17,6 +17,6 @@ exports.handler = function add(req, res) {
       return;
     }
 
-    res.send(wish);
+    res.status(201).send(wish);
   })
 };

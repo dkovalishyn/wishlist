@@ -1,7 +1,7 @@
 import Wish from '../../models/Wish';
 
 /**
- * get
+ * getWish
  *
  * GET: /api/v1/wish/{wishId}
  *
@@ -9,8 +9,8 @@ import Wish from '../../models/Wish';
  *   wishId {string} Wish id.
  *
  */
-exports.handler = function get(req, res) {
-  const { params: { wishId: id }} = req;
+exports.handler = function getWish(req, res, next) {
+  const { params: { wishId: id } } = req;
 
   Wish.findById(id, (err, data) => {
     if (err) {

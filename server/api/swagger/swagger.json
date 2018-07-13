@@ -25,7 +25,9 @@
       "post": {
         "description": "Authenticate user",
         "operationId": "login",
-        "tags": ["security"],
+        "tags": [
+          "security"
+        ],
         "security": [],
         "parameters": [
           {
@@ -51,7 +53,9 @@
       "post": {
         "description": "Add person by id",
         "operationId": "create",
-        "tags": ["security"],
+        "tags": [
+          "security"
+        ],
         "parameters": [
           {
             "name": "Person",
@@ -78,7 +82,9 @@
       "get": {
         "description": "Get person by id",
         "operationId": "get",
-        "tags": ["security"],
+        "tags": [
+          "security"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -101,7 +107,9 @@
       "get": {
         "description": "Get all wishes",
         "operationId": "getAll",
-        "tags": ["wishes"],
+        "tags": [
+          "wishes"
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -114,7 +122,9 @@
       "post": {
         "description": "Add wish",
         "operationId": "add",
-        "tags": ["wishes"],
+        "tags": [
+          "wishes"
+        ],
         "parameters": [
           {
             "name": "wish",
@@ -145,8 +155,10 @@
     "/wish/{wishId}": {
       "get": {
         "description": "Get wish by id",
-        "operationId": "get",
-        "tags": ["wishes"],
+        "operationId": "getWish",
+        "tags": [
+          "wishes"
+        ],
         "parameters": [
           {
             "name": "wishId",
@@ -168,7 +180,9 @@
       "delete": {
         "description": "Delete wish by id",
         "operationId": "deleteWish",
-        "tags": ["wishes"],
+        "tags": [
+          "wishes"
+        ],
         "parameters": [
           {
             "name": "wishId",
@@ -190,7 +204,9 @@
       "put": {
         "description": "Update wish",
         "operationId": "update",
-        "tags": ["wishes"],
+        "tags": [
+          "wishes"
+        ],
         "parameters": [
           {
             "name": "wishId",
@@ -223,7 +239,9 @@
       "get": {
         "description": "Generates web-site thumbnail",
         "operationId": "generate",
-        "tags": ["snapshot"],
+        "tags": [
+          "snapshot"
+        ],
         "parameters": [
           {
             "name": "url",
@@ -253,7 +271,9 @@
       "get": {
         "description": "Returns 'Hello' to the caller",
         "operationId": "hello",
-        "tags": ["hello"],
+        "tags": [
+          "hello"
+        ],
         "parameters": [
           {
             "name": "name",
@@ -281,6 +301,150 @@
     },
     "/swagger": {
       "x-swagger-pipe": "swagger_raw"
+    },
+    "/user": {
+      "get": {
+        "description": "Get all users",
+        "operationId": "getUsers",
+        "tags": [
+          "user"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Person"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Add User",
+        "operationId": "postUser",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "userData",
+            "in": "body",
+            "required": true,
+            "description": "User Data",
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED",
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        }
+      }
+    },
+    "/user/search": {
+      "get": {
+        "description": "Search User",
+        "operationId": "searchUser",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "firstName",
+            "in": "query",
+            "description": "First name of User",
+            "type": "string"
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "description": "Last name of User",
+            "type": "string"
+          },
+          {
+            "name": "age",
+            "in": "query",
+            "description": "Age of User",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Person"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "description": "Get User by Id",
+        "operationId": "getUserById",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Change User data",
+        "operationId": "putUser",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "userData",
+            "in": "body",
+            "description": "User Data",
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -323,7 +487,7 @@
     },
     "Person": {
       "properties": {
-        "name": {
+        "firstName": {
           "type": "string"
         },
         "lastName": {

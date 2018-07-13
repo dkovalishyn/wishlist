@@ -29,7 +29,7 @@ export function verify(token, done) {
 
 export function auth(req, res) {
   const { body: { password, username } } = req;
-  console.log('auth', password, username);
+  console.log('auth', username, password);
 
   User.findOne({ username }, function (err, user) {
     if (err || !user || user.password !== password) {

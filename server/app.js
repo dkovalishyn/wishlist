@@ -41,6 +41,11 @@ app.use(expressSession({ secret: 'chao-cacao', resave: false, saveUninitialized:
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.all('*', (req, res, next) => {
+  console.log(req.method, req.url);
+  next();
+});
+
 app.post('/login', auth);
 app.get('/logout', logout);
 app.post('/register', register, auth);

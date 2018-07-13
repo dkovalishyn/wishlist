@@ -10,6 +10,8 @@ import { WishModule } from './wish/wish.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatToolbarModule } from '@angular/material';
 import { HomeComponent } from './ui/home/home.component';
+import { SideNavModule } from './ui/side-nav/side-nav.module';
+import { FriendsModule } from './friends/friends.module';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,10 @@ import { HomeComponent } from './ui/home/home.component';
     AppRoutingModule,
     CoreModule,
     WishModule,
+    FriendsModule,
     MatToolbarModule,
     MatButtonModule,
+    SideNavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

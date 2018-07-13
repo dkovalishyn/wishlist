@@ -24,8 +24,6 @@ $a300: #0100ca;
 $text-accent: white;
 $text-main: black;
 
-$font-family: 'Verdana', sans-serif;
-
 $cardShadow: 4px 4px 14px -2px $b900;
 $hoveredCardShadow: 6px 6px 32px -8px $b900;
 
@@ -38,11 +36,11 @@ $hoveredCardShadow: 6px 6px 32px -8px $b900;
   }
 }
 
-@mixin buttonHollow() {
+@mixin buttonHollow($color: $a100) {
   border: none;
   width: 80px;
   padding: 8px;
-  background-color: $a100;
+  background-color: $color;
   color: $text-accent;
   text-transform: uppercase;
   border-radius: 4px;
