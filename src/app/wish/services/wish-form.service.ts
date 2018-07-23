@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Wish } from '../models/wish';
+import { Wish } from '../../models/wish';
 import { Validators } from '@angular/forms';
-import { Field } from '../../ui/forms/models/field';
-import { TextBox } from '../../ui/forms/models/text-box';
+import { Field } from '../../models/field';
+import { TextBox } from '../../models/text-box';
 
 @Injectable()
 export class WishFormService {

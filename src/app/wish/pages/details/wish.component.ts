@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { WishService } from '../../services/wish.service';
-import { Wish } from '../../models/wish';
+import { Wish } from '../../../models/wish';
 import { MessageService } from '../../../core/log/services/message.service';
 import { finalize, switchMap } from 'rxjs/operators';
 

@@ -16,7 +16,10 @@ import Person from '../../models/Person';
 exports.handler = function putUser(req, res) {
   const { body: userData, params: { userId: id } } = req;
 
-  const options = {};
+  const options = {
+    new: true,
+  };
+
   Person.findOneAndUpdate({ userId: id }, userData, options, (err, data) => {
     if (err) {
       res.status(500).send(err.message);

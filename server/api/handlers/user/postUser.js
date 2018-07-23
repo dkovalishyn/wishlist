@@ -10,9 +10,9 @@ import Person from '../../models/Person';
  *   lastName {string}
  *
  */
-exports.handler = function postUser(req, res, next) {
+exports.handler = function postUser(req, res) {
   const { body: userData } = req;
-  Person.create(userData, (err) => {
+  Person.create({ userData }, (err) => {
     if (err) {
       res.status(404).send(err.message);
       return;

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { Wish } from '../../models/wish';
+import { Wish } from '../../../models/wish';
 import { WishService } from '../../services/wish.service';
 
 import { Observable } from 'rxjs/Rx';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { WishFormService } from '../../services/wish-form.service';
-import { Field } from '../../../ui/forms/models/field';
+import { Field } from '../../../models/field';
 import { MessageService } from '../../../core/log/services/message.service';
 
 @Component({

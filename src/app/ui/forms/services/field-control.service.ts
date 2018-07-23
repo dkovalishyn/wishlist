@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Field } from '../models/field';
+import { Field } from '../../../models/field';
 
 @Injectable()
 export class FieldControlService {

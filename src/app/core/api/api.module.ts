@@ -6,6 +6,7 @@ import { LogModule } from '../log/log.module';
 @NgModule({
   imports: [
     HttpClientModule,
+    LogModule,
   ],
   providers: [
     ApiService,

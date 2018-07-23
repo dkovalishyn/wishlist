@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Field } from '../../../ui/forms/models/field';
-import { TextBox } from '../../../ui/forms/models/text-box';
+import { Field } from '../../../models/field';
+import { TextBox } from '../../../models/text-box';
 import { Validators } from '@angular/forms';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class LoginFormService {
       new TextBox({
         id: 'login__username',
         name: 'username',
-        value: '',
+        value: 'admin',
         placeholder: 'Username',
         validators: [
           Validators.required,
@@ -21,7 +21,7 @@ export class LoginFormService {
         id: 'login__password',
         name: 'password',
         type: 'password',
-        value: '',
+        value: 'Password1',
         placeholder: 'Password',
         validators: [
           Validators.required,

@@ -431,6 +431,7 @@
             "name": "userData",
             "in": "body",
             "description": "User Data",
+            "required": false,
             "schema": {
               "$ref": "#/definitions/Person"
             }
@@ -442,6 +443,116 @@
             "schema": {
               "$ref": "#/definitions/Person"
             }
+          }
+        }
+      }
+    },
+    "/user/{userId}/follow": {
+      "post": {
+        "description": "Follow user",
+        "operationId": "followUser",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id who creates request",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "friendId",
+            "in": "query",
+            "description": "User if of person that you want to follow",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Notification"
+            }
+          }
+        }
+      }
+    },
+    "/notification/{userId}": {
+      "get": {
+        "description": "Get all notifications which are related to particular user",
+        "operationId": "getNotifications",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Notification"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notification/{id}/accept": {
+      "post": {
+        "summary": "Accept notification",
+        "description": "Accepts notification by id from the path",
+        "operationId": "acceptNotification",
+        "tags": [
+          "notification"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Notification Id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/notification/{id}/reject": {
+      "post": {
+        "summary": "Reject notification",
+        "description": "Rejects notification by id from the path",
+        "operationId": "rejectNotification",
+        "tags": [
+          "notification"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Notification Id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -491,6 +602,47 @@
           "type": "string"
         },
         "lastName": {
+          "type": "string"
+        },
+        "followers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "following": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "friends": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Notification": {
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "friendId": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/NotificationType"
+        }
+      }
+    },
+    "NotificationType": {
+      "properties": {
+        "code": {
+          "type": "number"
+        },
+        "description": {
           "type": "string"
         }
       }

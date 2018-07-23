@@ -5,4 +5,5 @@ export enum Auth { Header = 'Authorization', Prefix = 'bearer'}
 export interface AuthResponse {
   token: string;
   exp: number;
+  username: string;
 }

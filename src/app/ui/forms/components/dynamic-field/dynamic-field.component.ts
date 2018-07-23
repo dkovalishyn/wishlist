@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Field } from '../../models/field';
-import { TextBox } from '../../models/text-box';
+import { Field } from '../../../../models/field';
+import { TextBox } from '../../../../models/text-box';
 
 @Component({
   selector: 'app-field',

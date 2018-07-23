@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterFormService } from '../../services/register-form.service';
-import { Field } from '../../../../ui/forms/models/field';
+import { Field } from '../../../../models/field';
 import { Router } from '@angular/router';
 import { MessageService } from '../../../log/services/message.service';
 import { UserService } from '../../services/user.service';

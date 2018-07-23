@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldControlService } from '../../services/field-control.service';
-import { Field } from '../../models/field';
+import { Field } from '../../../../models/field';
 import { Location } from '@angular/common';
 
 @Component({

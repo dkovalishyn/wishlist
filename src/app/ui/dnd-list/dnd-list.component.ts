@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Wish } from '../../wish/models/wish';
+import { Wish } from '../../models/wish';
 import { DragEvent } from './dragEvent';
 
 @Component({

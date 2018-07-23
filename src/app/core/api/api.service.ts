@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
@@ -30,29 +30,28 @@ export class ApiService {
   get<T>(path: string): Observable<T> {
     const requestUrl = this.buildFullUrl(path);
     return this.http.get<T>(requestUrl).pipe(
-      catchError(({ error, status }) => this.handleError({ error, status }))
-
+      catchError((err) => this.handleError(err))
     );
   }
 
   post<T>(path: string, body: any): Observable<T> {
     const requestUrl = this.buildFullUrl(path);
     return this.http.post<T>(requestUrl, body).pipe(
-      catchError(({ error, status }) => this.handleError({ error, status }))
+      catchError((err) => this.handleError(err))
     );
   }
 
   delete<T>(path: string): Observable<T> {
     const requestUrl = this.buildFullUrl(path);
     return this.http.delete<T>(requestUrl).pipe(
-      catchError(({ error, status }) => this.handleError({ error, status }))
+      catchError((err) => this.handleError(err))
     );
   }
 
   put<T>(path: string, body: any): Observable<T> {
     const requestUrl = this.buildFullUrl(path);
     return this.http.put<T>(requestUrl, body).pipe(
-      catchError(({ error, status }) => this.handleError({ error, status }))
+      catchError((err) => this.handleError(err))
     );
   }
 
@@ -64,7 +63,8 @@ export class ApiService {
     };
   }
 
-  handleError({ error, status }) {
+  handleError = ({ error, status }) => {
+    console.log(error);
     if (error instanceof ErrorEvent) {
       this.messageService.error(error);
     } else {

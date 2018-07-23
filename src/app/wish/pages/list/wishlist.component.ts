@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WishService } from '../../services/wish.service';
-import { Wish } from '../../models/wish';
+import { Wish } from '../../../models/wish';
 import { DndListComponent } from '../../../ui/dnd-list/dnd-list.component';
 
 @Component({

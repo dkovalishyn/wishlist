@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { switchMap } from 'rxjs/Operators';
 import { Auth, StorageKeys } from './typings';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../store/index';
+import { selectors } from '../store';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  token = '';
 
-  constructor() {
+  constructor(private store: Store<fromRoot.State>) {
+    this.store.select(selectors.getToken).subscribe((value) => {
+      this.token = value;
+    });
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem(StorageKeys.Token);
-
-    if (token) {
+    console.log(req.url);
+    if (this.token.length > 0) {
       const cloned = req.clone({
-        headers: req.headers.set(Auth.Header, `${Auth.Prefix} ${token}`),
+        headers: req.headers.set(Auth.Header, `${Auth.Prefix} ${this.token}`),
       });
-
       return next.handle(cloned);
     } else {
       return next.handle(req);

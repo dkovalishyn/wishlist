@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { WishService } from '../../services/wish.service';
 import { WishFormService } from '../../services/wish-form.service';
 
-import { Field } from '../../../ui/forms/models/field';
+import { Field } from '../../../models/field';
 import { MessageService } from '../../../core/log/services/message.service';
 
 

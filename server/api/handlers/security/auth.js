@@ -35,7 +35,7 @@ export async function register(req, res, next) {
 
 export function logout(req, res) {
   req.logout();
-  res.redirect('/');
+  res.status(200).json({ status: 'OK' });
 }
 
 export function authenticate(req, res, next) {

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginFormService } from '../../services/login-form.service';
-import { Field } from '../../../../ui/forms/models/field';
+import { Field } from '../../../../models/field';
 import { UserService } from '../../services/user.service';
 import { MessageService } from '../../../log/services/message.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Login } from '../../store/actions';
+import { State } from '../../../../store';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginFormService: LoginFormService,
-    private userService: UserService,
+    private store: Store<State>,
     private messageService: MessageService,
     private router: Router,
   ) {
@@ -37,11 +40,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(user) {
-    this.userService.login(user).subscribe(
-      () => {
-        this.messageService.add(`Successfully logged in!`);
-        this.router.navigateByUrl('/wish');
-      },
-    );
+    this.store.dispatch(new Login(user));
   }
 }
