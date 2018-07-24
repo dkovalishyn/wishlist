@@ -1,0 +1,9 @@
+<section>
+  <div *ngIf="list.length > 0">
+    <ul>
+      <li *ngFor="let friend of list">
+        <app-friend-card [friend]="friend"></app-friend-card>
+      </li>
+    </ul>
+  </div>
+</section>

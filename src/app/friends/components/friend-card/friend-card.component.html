@@ -1,0 +1,10 @@
+<mat-card class="person">
+   <mat-card-content>
+     <a
+       [routerLink]="['/user', friend.userId]">
+       {{friend.firstName}}
+       {{friend.lastName}}
+     </a>
+     <button mat-raised-button (click)="follow()"></button>
+   </mat-card-content>
+</mat-card>

@@ -12,10 +12,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatToolbarModule } from '@angular/material';
 import { SideNavModule } from './ui/side-nav/side-nav.module';
 import { FriendsModule } from './friends/friends.module';
-import { reducers, metaReducers } from './store';
+import { rootReducer, metaReducers } from './store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthEffects } from './core/auth/store/effects';
 import { EffectsModule } from '@ngrx/effects';
+import { FriendsEffects } from './friends/store';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import { EffectsModule } from '@ngrx/effects';
     MatButtonModule,
     SideNavModule,
 
-    StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([ AuthEffects ]),
+    StoreModule.forRoot(rootReducer, { metaReducers }),
+    EffectsModule.forRoot([ AuthEffects, FriendsEffects ]),
     StoreDevtoolsModule.instrument({
       name: 'WishCafe store devTools'
     }),
