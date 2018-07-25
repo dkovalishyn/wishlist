@@ -1,5 +1,5 @@
 import * as fromCommon from '../common/actions';
-import { Action } from '@ngrx/store';
+import { actions } from '../common';
 
 export interface State {
   active: string[];
@@ -11,28 +11,28 @@ export const initialState = {
   errors: null,
 };
 
-const removeFromActive = (state: State, action: Action) => state.active.filter(request => request !== action.type);
+const removeFromActive = (state: State, field: string) => state.active.filter(request => request !== field);
 
-export const reducer = (state: State = initialState, action: Action) => {
+export const reducer = (state: State = initialState, action: actions.Action) => {
   switch (action.type) {
     case (fromCommon.REQUEST_START):
       return {
         ...state,
-        active: [...state.active, action.type],
-        errors: { ...state.errors, [action.type]: null },
+        active: [...state.active, action.payload.field],
+        errors: { ...state.errors, [action.payload.field]: null },
       };
     case (fromCommon.REQUEST_SUCCESS):
       return {
         ...state,
-        active: removeFromActive(state, action),
-        errors: { ...state.errors, [action.type]: null }
+        active: removeFromActive(state, action.payload.field),
+        errors: { ...state.errors, [action.payload.field]: null }
       };
     case (fromCommon.REQUEST_FAILURE):
-      const failureAction = <fromCommon.RequestFailureAction> action;
+      const failureAction = <fromCommon.RequestFailure> action;
       return {
         ...state,
-        active: removeFromActive(state, action),
-        errors: { ...state.errors, [action.type]: failureAction.payload.error}
+        active: removeFromActive(state, action.payload.field),
+        errors: { ...state.errors, [action.payload.field]: failureAction.payload.error}
       };
     default:
       return state;

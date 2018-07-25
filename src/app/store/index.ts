@@ -1,28 +1,24 @@
 import * as fromAuth from '../core/auth/store';
-import * as fromFriends from '../friends/store';
 import { Action, ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { LOGOUT } from '../core/auth/store/actions';
 import {
   convertToDataObject,
-  hasDataField,
   REQUEST_START,
   REQUEST_SUCCESS,
-  RequestStartAction,
-  RequestSuccessAction
+  RequestStart,
+  RequestSuccess,
 } from '../common/actions';
 import * as fromRequestReducer from './requestReducer';
 
 const handleRequest = (state, action) => {
   let field: string;
   let key: string;
-  const type = action.type.split(' ')[1];
-
-  switch (type) {
+  switch (action.type) {
     case (REQUEST_START):
-      const requestStartAction = action as RequestStartAction;
+      const requestStartAction = action as RequestStart;
 
-      if (hasDataField(requestStartAction)) {
+      if (requestStartAction.payload.isDataField) {
         field = requestStartAction.payload.field;
 
         return {
@@ -36,9 +32,9 @@ const handleRequest = (state, action) => {
       }
       return state;
     case (REQUEST_SUCCESS):
-      const requestSuccessAction = action as RequestSuccessAction;
+      const requestSuccessAction = action as RequestSuccess;
 
-      if (hasDataField(requestSuccessAction)) {
+      if (requestSuccessAction.payload.isDataField) {
         field = requestSuccessAction.payload.field;
         key = requestSuccessAction.payload.key;
 
@@ -61,7 +57,6 @@ const handleRequest = (state, action) => {
 
 export interface State {
   auth: fromAuth.State;
-
   requests: fromRequestReducer.State;
 }
 

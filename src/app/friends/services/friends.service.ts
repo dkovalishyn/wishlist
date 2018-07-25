@@ -3,13 +3,16 @@ import { Observable } from 'rxjs/Observable';
 import qs from 'querystring';
 import { ApiService } from '../../core/api/api.service';
 import { Friend } from '../../models/friend';
+import { Store } from '@ngrx/store';
+import { State } from '../../store';
 
 @Injectable()
 export class FriendsService {
   private friendsUrl = 'user';
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private store: Store<State>,
   ) { }
 
   getFriends(): Observable<Friend[]> {

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { switchMap } from 'rxjs/Operators';
-import { Auth, StorageKeys } from './typings';
+import { Auth } from './typings';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/index';
 import { selectors } from '../store';
@@ -18,7 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(req.url);
     if (this.token.length > 0) {
       const cloned = req.clone({
         headers: req.headers.set(Auth.Header, `${Auth.Prefix} ${this.token}`),

@@ -1,30 +1,9 @@
 import { Action } from '@ngrx/store';
 
-export interface RequestStartAction extends Action {
-  payload: {
-    field: string;
-  };
-}
-
-export interface RequestSuccessAction extends Action {
-  payload: {
-    field: string,
-    key: string;
-    data: any,
-  };
-}
-
-export interface RequestFailureAction extends Action {
-  payload: {
-    error: Error | null,
-  };
-}
-
 export const getActionName = (prefix) => (name) => `[${prefix}] ${name}`;
-export const hasDataField = (action: RequestSuccessAction | RequestStartAction) => action.payload.field.length > 0;
-export const convertToDataObject = (key: string) => (action: RequestSuccessAction) => {
+export const convertToDataObject = (key: string) => (action: RequestSuccess) => {
   const { payload: { data } } = action;
-  if (Array.isArray(data)) {
+  if (Array.isArray(data) && key) {
     return data.reduce((acc, item) => ({ ...acc, [item[key]]: item }), {});
   }
 
@@ -35,17 +14,35 @@ export const REQUEST_START = 'REQUEST_START';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const REQUEST_FAILURE = 'REQUEST_FAILURE';
 
-export const requestStart = (prefix: String) => (payload: { field: string }): RequestStartAction => ({
-  payload,
-  type: getActionName(prefix)(REQUEST_START),
-});
+export class RequestStart implements Action {
+  readonly type = REQUEST_START;
 
-export const requestSuccess = (prefix: String) => (payload: { field: string, key: string, data: any }): RequestSuccessAction => ({
-  payload,
-  type: getActionName(prefix)(REQUEST_SUCCESS),
-});
+  constructor(public payload: {
+    field: string,
+    isDataField: boolean,
+  }) {}
+}
 
-export const requestFailure = (prefix: String) => (payload: { error: Error | null }): RequestFailureAction => ({
-  payload,
-  type: getActionName(prefix)(REQUEST_FAILURE),
-});
+export class RequestSuccess implements Action {
+  readonly type = REQUEST_SUCCESS;
+
+  constructor(public payload: {
+    field: string,
+    isDataField: boolean,
+    data: any,
+    key?: string,
+  }) {
+  }
+}
+
+export class RequestFailure implements Action {
+  readonly type = REQUEST_FAILURE;
+
+  constructor(public payload: {
+    field: string,
+    error: Error | null,
+  }) {
+  }
+}
+
+export type Action = RequestStart | RequestSuccess | RequestFailure;
