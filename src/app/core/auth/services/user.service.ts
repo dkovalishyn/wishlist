@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AuthResponse } from './typings';
 import { tap, shareReplay, catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';

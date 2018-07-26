@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import * as actions from './actions';
+import { of } from 'rxjs/Observable/of';
+import { actionTypes } from './actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { FriendsService } from '../services/friends.service';
-import { of } from 'rxjs/observable/of';
-import { dataFields } from './actions';
-import { RequestFailure, RequestStart, RequestSuccess } from '../../common/actions';
+import { GetFriendsFailed, GetFriendsSuccess } from './actions';
 import { Friend } from '../../models/friend';
-import { State } from '../../store';
-import { Store } from '@ngrx/store';
 
 @Injectable()
 export class FriendsEffects {
@@ -17,18 +14,17 @@ export class FriendsEffects {
   constructor(
     private actions$: Actions,
     private friendsService: FriendsService,
-    private store: Store<State>,
   ) {
   }
 
   @Effect()
   getFriends$ = this.actions$.pipe(
-    ofType(actions.GET_FRIENDS),
-    map(() => this.store.dispatch((new RequestStart({ field: dataFields.friends, isDataField: true })))),
+    ofType(actionTypes.GET_FRIENDS),
     switchMap(() => this.friendsService.getFriends()
         .pipe(
-          map((data: Friend[]) => new RequestSuccess({ data, key: 'userId', field: dataFields.friends, isDataField: true }),
-            catchError((error) => of(new RequestFailure({ field: dataFields.friends, error }))))
+          map((data: Friend[]) => new GetFriendsSuccess({ data }),
+            catchError((error) => of(new GetFriendsFailed({ error })))
+          )
       ),
     ),
   );

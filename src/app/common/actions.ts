@@ -1,14 +1,6 @@
 import { Action } from '@ngrx/store';
 
 export const getActionName = (prefix) => (name) => `[${prefix}] ${name}`;
-export const convertToDataObject = (key: string) => (action: RequestSuccess) => {
-  const { payload: { data } } = action;
-  if (Array.isArray(data) && key) {
-    return data.reduce((acc, item) => ({ ...acc, [item[key]]: item }), {});
-  }
-
-  return data;
-};
 
 export const REQUEST_START = 'REQUEST_START';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';

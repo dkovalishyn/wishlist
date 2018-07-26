@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Friend } from '../../../models/friend';
 import { State } from '../../../store';
 import { Store } from '@ngrx/store';
+import { selectors } from '../../store';
 import { GetFriends } from '../../store/actions';
 
 @Component({
@@ -10,7 +11,7 @@ import { GetFriends } from '../../store/actions';
   styleUrls: ['./friends-list.component.scss']
 })
 export class FriendsListComponent implements OnInit {
-  list: Friend[] = [];
+  list: Friend[];
 
   constructor(
     private store: Store<State>,
@@ -18,6 +19,7 @@ export class FriendsListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GetFriends());
+    this.store.select(selectors.getAllFriends).subscribe(list => this.list = list);
   }
 
 }

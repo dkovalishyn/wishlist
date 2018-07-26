@@ -9,6 +9,10 @@ import { finalize, switchMap, tap } from 'rxjs/operators';
 import { WishFormService } from '../../services/wish-form.service';
 import { Field } from '../../../models/field';
 import { MessageService } from '../../../core/log/services/message.service';
+import { getWishById } from '../../store/selectors';
+import { State } from '../../../store';
+import { Store } from '@ngrx/store';
+import { GetWishes } from '../../store/actions';
 
 @Component({
   selector: 'app-wish-editor',
@@ -25,7 +29,9 @@ export class WishEditorComponent implements OnInit {
               private wishService: WishService,
               private messageService: MessageService,
               private location: Location,
-              private formService: WishFormService) {
+              private formService: WishFormService,
+              private store: Store<State>,
+              ) {
     this.fields = this.formService.getFields();
   }
 
@@ -35,10 +41,16 @@ export class WishEditorComponent implements OnInit {
         switchMap((params: ParamMap) => {
           this.wishId = params.get('id');
           this.backLink = `wish/${this.wishId}`;
-          return this.wishService.getWish(this.wishId);
+          return this.store.select(getWishById(this.wishId));
         })
       )
-      .subscribe((wish: Wish) => this.fields = this.formService.getFields(wish));
+      .subscribe((wish: Wish) => {
+        if (!wish) {
+          this.store.dispatch(new GetWishes());
+        }
+
+        return this.fields = this.formService.getFields(wish);
+      });
   }
 
   onSubmit(payLoad) {

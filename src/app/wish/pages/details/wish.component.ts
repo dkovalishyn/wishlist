@@ -5,6 +5,10 @@ import { WishService } from '../../services/wish.service';
 import { Wish } from '../../../models/wish';
 import { MessageService } from '../../../core/log/services/message.service';
 import { finalize, switchMap } from 'rxjs/operators';
+import { State } from '../../../store';
+import { Store } from '@ngrx/store';
+import { getWishById } from '../../store/selectors';
+import { GetWishes } from '../../store/actions';
 
 @Component({
   selector: 'app-wish',
@@ -20,13 +24,21 @@ export class WishComponent implements OnInit {
     private wishService: WishService,
     private messageService: MessageService,
     private location: Location,
+    private store: Store<State>,
   ) {
   }
 
   ngOnInit() {
     this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.wishService.getWish(params.get('id'))
-    )).subscribe(wish => this.wish = wish);
+      switchMap((params: ParamMap) =>
+        this.store.select(getWishById(params.get('id'))
+      )
+    )).subscribe(wish => {
+      if (!wish) {
+        this.store.dispatch(new GetWishes());
+      }
+      this.wish = wish;
+    });
   }
 
   deleteWish(wish: Wish) {

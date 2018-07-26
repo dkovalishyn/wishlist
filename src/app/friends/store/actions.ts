@@ -1,20 +1,27 @@
 import { Action } from '@ngrx/store';
-import { getActionName } from '../../common/actions';
+import { Friend } from '../../models/friend';
 
-const prefix = 'FRIENDS';
-const withPrefix = getActionName(prefix);
-
-export enum dataFields {
-  friends = 'friends',
+export enum actionTypes {
+ GET_FRIENDS = '[FRIENDS] GET_ALL',
+ GET_FRIENDS_SUCCESS = '[FRIENDS] GET_ALL_SUCCESS',
+ GET_FRIENDS_FAILED = '[FRIENDS] GET_ALL_FAILED',
+ FOLLOW = '[FRIENDS] FOLLOW',
 }
 
-export const GET_FRIENDS = withPrefix('GET_FRIENDS');
-export const FOLLOW = withPrefix('FOLLOW');
-
 export class GetFriends implements Action {
-  readonly type = GET_FRIENDS;
+  readonly type = actionTypes.GET_FRIENDS;
 
   constructor() {}
 }
 
-export type Action = GetFriends;
+export class GetFriendsSuccess implements Action {
+  readonly type = actionTypes.GET_FRIENDS_SUCCESS;
+
+  constructor(public payload: { data: Friend[] }) {}
+}
+
+export class GetFriendsFailed implements Action {
+  readonly type = actionTypes.GET_FRIENDS_FAILED;
+
+  constructor(public payload: { error: null | Error }) {}
+}

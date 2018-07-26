@@ -17,6 +17,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthEffects } from './core/auth/store/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { FriendsEffects } from './friends/store';
+import { WishEffects } from './wish/store';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { FriendsEffects } from './friends/store';
     SideNavModule,
 
     StoreModule.forRoot(rootReducer, { metaReducers }),
-    EffectsModule.forRoot([ AuthEffects, FriendsEffects ]),
+    EffectsModule.forRoot([ AuthEffects, FriendsEffects, WishEffects ]),
     StoreDevtoolsModule.instrument({
       name: 'WishCafe store devTools'
     }),

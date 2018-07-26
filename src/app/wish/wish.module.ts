@@ -12,6 +12,10 @@ import { DndListModule } from '../ui/dnd-list/dnd-list.module';
 import { DynamicFormsModule } from '../ui/forms/dynamic-forms.module';
 import { MatButtonModule, MatCardModule, MatIconModule } from '@angular/material';
 import { HomeComponent } from '../ui/home/home.component';
+import { WishEffects } from './store/effects';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducer } from './store/reducer';
 
 @NgModule({
   imports: [
@@ -23,6 +27,8 @@ import { HomeComponent } from '../ui/home/home.component';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    StoreModule.forFeature('wish', reducer),
+    EffectsModule.forFeature([WishEffects]),
   ],
   declarations: [
     WishlistComponent,

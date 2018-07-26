@@ -2,6 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { WishService } from '../../services/wish.service';
 import { Wish } from '../../../models/wish';
 import { DndListComponent } from '../../../ui/dnd-list/dnd-list.component';
+import { Store } from '@ngrx/store';
+import { State } from '../../../store';
+import { GetWishes } from '../../store/actions';
+import { allWishes } from '../../store/selectors';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-wishlist',
@@ -11,16 +16,19 @@ import { DndListComponent } from '../../../ui/dnd-list/dnd-list.component';
 export class WishlistComponent extends DndListComponent implements OnInit {
   @Input() list: Wish[];
 
-  constructor(private wishService: WishService) {
+  constructor(
+    private wishService: WishService,
+    private store: Store<State>,
+  ) {
     super();
   }
 
   ngOnInit() {
-    this.getWishes();
+    console.log('onInit');
+    this.store.dispatch(new GetWishes())
+    this.store.select(allWishes)
+    .subscribe(wishes => {
+      this.list = wishes;
+    });
   }
-
-  getWishes() {
-    this.wishService.getWishes().subscribe( wishes => this.list = wishes );
-  }
-
 }
