@@ -1,41 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import * as actions from './actions';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { dataFields, GetWishesFailed, GetWishesSuccess } from './actions';
-import { RequestFailure, RequestStart, RequestSuccess } from '../../common/actions';
-import { State } from '../../store';
-import { Store } from '@ngrx/store';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs/Observable/of';
 import { WishService } from '../services/wish.service';
 import { Wish } from '../../models/wish';
+import * as fromGetAll from './actions/getAll';
+import * as fromAdd from './actions/add';
+import { ActionWithPayload } from '../../common/types';
 
 @Injectable()
 export class WishEffects {
-  prefix = 'FRIENDS';
-
   constructor(
     private actions$: Actions,
     private wishService: WishService,
-    private store: Store<State>,
   ) {
   }
 
   @Effect()
   getWishes$ = this.actions$.pipe(
-    ofType(actions.GET_WISHES),
+    ofType(fromGetAll.actionTypes.START),
     switchMap(() => this.wishService.getWishes()
       .pipe(
-        map((data: Wish[]) => new GetWishesSuccess({ data }),
-          catchError((error) => of(new GetWishesFailed({ error }))))
+        map((data: Wish[]) => new fromGetAll.GetWishesSuccess(data),
+          catchError((error) => of(new fromGetAll.GetWishesFailed(error))))
       ),
     ),
   );
 
   @Effect()
-  getWishById$ = this.actions$.pipe(
-    ofType(actions.GET_WISH_BY_ID),
-    withLatestFrom(this.store),
-    map((data) => ({ type: 'RESULT', payload: data})),
+  addWish$ = this.actions$.pipe(
+    ofType(fromAdd.actionTypes.START),
+    switchMap((action: ActionWithPayload) => this.wishService.addWish(action.payload)
+      .pipe(
+        map((data: Wish) => new fromAdd.AddWishSuccess(data),
+          catchError((error) => of(new fromAdd.AddWishFailed(error))))
+      ),
+    ),
   );
 }

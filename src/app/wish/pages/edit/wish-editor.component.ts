@@ -3,8 +3,6 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Wish } from '../../../models/wish';
 import { WishService } from '../../services/wish.service';
-
-import { Observable } from 'rxjs/Rx';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { WishFormService } from '../../services/wish-form.service';
 import { Field } from '../../../models/field';
@@ -12,7 +10,7 @@ import { MessageService } from '../../../core/log/services/message.service';
 import { getWishById } from '../../store/selectors';
 import { State } from '../../../store';
 import { Store } from '@ngrx/store';
-import { GetWishes } from '../../store/actions';
+import { GetWishes } from '../../store/actions/getAll';
 
 @Component({
   selector: 'app-wish-editor',

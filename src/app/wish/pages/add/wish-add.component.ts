@@ -16,6 +16,7 @@ import { MessageService } from '../../../core/log/services/message.service';
 })
 export class WishAddComponent implements OnInit {
   backLink = '/';
+  shouldClose = false;
   fields: Field<any>[];
 
   constructor(

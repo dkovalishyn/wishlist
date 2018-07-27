@@ -8,7 +8,7 @@ import { finalize, switchMap } from 'rxjs/operators';
 import { State } from '../../../store';
 import { Store } from '@ngrx/store';
 import { getWishById } from '../../store/selectors';
-import { GetWishes } from '../../store/actions';
+import { GetWishes } from '../../store/actions/getAll';
 
 @Component({
   selector: 'app-wish',

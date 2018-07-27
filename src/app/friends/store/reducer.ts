@@ -1,7 +1,8 @@
 import { Action } from '@ngrx/store';
-import { actionTypes, GetFriendsFailed, GetFriendsSuccess } from './actions';
+import { actionTypes, GetFriendsFailed } from './actions';
 import { Friend } from '../../models/friend';
 import { normalizeData } from '../../common/handlers';
+import { ActionWithPayload } from '../../common/types';
 
 export interface State {
   ids: string[];
@@ -27,7 +28,7 @@ export const reducer = (state: State = initialState, action: Action) => {
       case (actionTypes.GET_FRIENDS_SUCCESS):
         return {
           ...state,
-          ...normalizeData('userId')(action as GetFriendsSuccess),
+          ...normalizeData('userId')(action as ActionWithPayload),
           loading: false,
         };
       case (actionTypes.GET_FRIENDS_FAILED):

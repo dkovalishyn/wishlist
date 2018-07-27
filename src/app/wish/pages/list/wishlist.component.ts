@@ -4,9 +4,8 @@ import { Wish } from '../../../models/wish';
 import { DndListComponent } from '../../../ui/dnd-list/dnd-list.component';
 import { Store } from '@ngrx/store';
 import { State } from '../../../store';
-import { GetWishes } from '../../store/actions';
+import { GetWishes } from '../../store/actions/getAll';
 import { allWishes } from '../../store/selectors';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-wishlist',

@@ -2,16 +2,20 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromWish from './reducer';
 
 const getWish = createFeatureSelector<fromWish.State>('wish');
-export const allWishes = createSelector(
+const getResource = createSelector(
   getWish,
+  (state) => state.resource,
+);
+export const allWishes = createSelector(
+  getResource,
   (state) => state.ids.map(id => state.entities[id]),
 );
 export const getIds = createSelector(
-  getWish,
+  getResource,
   (state) => state.ids,
 );
 export const getEntities = createSelector(
-  getWish,
+  getResource,
   (state) => state.entities,
 );
 export const getAllWishes = createSelector(
@@ -20,6 +24,6 @@ export const getAllWishes = createSelector(
   (ids, entities) => ids.map(id => entities[id]),
 );
 export const getWishById = (id: string) => createSelector(
-  getWish,
+  getResource,
   (state) => state.entities[id],
 );
