@@ -23,6 +23,19 @@ export const normalizeData = (key: string) => (action: SuccessAction) => {
   };
 };
 
+export const modifyData = (key: string) => (state: any, action: SuccessAction) => {
+  const dataObject = {
+    ...state.entities,
+    [key]: action.payload,
+  };
+  const dataIds = Object.keys(dataObject);
+  return {
+    ...state,
+    ids: dataIds,
+    entities: dataObject
+  };
+};
+
 export interface RequestActionTypes {
   START: string;
   SUCCESS: string;

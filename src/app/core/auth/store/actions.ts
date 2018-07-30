@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { Friend } from '../../../models/friend';
 
 export const LOGIN = '[AUTH] LOGIN';
 export const LOGOUT = '[AUTH] LOGOUT';
@@ -41,7 +42,7 @@ export class LoginSuccess implements Action {
   constructor(public payload: {
     exp: number,
     token: string,
-    username: string
+    user: Friend,
   }) {
   }
 }
@@ -52,7 +53,7 @@ export class RegisterSuccess implements Action {
   constructor(public payload: {
     exp: number,
     token: string,
-    username: string
+    user: Friend
   }) {
   }
 }

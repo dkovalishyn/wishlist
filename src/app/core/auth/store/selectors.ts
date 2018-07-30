@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromAuth from './reducers';
-import * as fromUser from './reducers/user';
 import * as fromRequest from './reducers/request';
 
 export const getAuth = createFeatureSelector<fromAuth.State>('auth');
@@ -8,17 +7,17 @@ export const getUser = createSelector(
   getAuth,
   (state) => state.user,
 );
-export const getUserName =  createSelector(
+export const getUserProfile =  createSelector(
   getUser,
-  fromUser.getUserName,
+  (state) => state.profile,
 );
 export const getExpiresAt = createSelector(
   getUser,
-  fromUser.getExpiresAt,
+  (state) => state.exp,
 );
 export const getToken = createSelector(
   getUser,
-  fromUser.getToken,
+  (state) => state.token,
 );
 
 export const getRequestStatus = createSelector(

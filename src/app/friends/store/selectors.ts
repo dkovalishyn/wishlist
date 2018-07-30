@@ -2,12 +2,16 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { State } from './reducer';
 
 const getFriends = createFeatureSelector<State>('friends');
-const getIds = createSelector(
+const getResource = createSelector(
   getFriends,
+  (state) => state.resource,
+);
+const getIds = createSelector(
+  getResource,
   (state) => state.ids,
 );
 const getEntities = createSelector(
-  getFriends,
+  getResource,
   (state) => state.entities,
 );
 export const getAllFriends = createSelector(

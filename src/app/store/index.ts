@@ -18,7 +18,20 @@ export const rootReducer: ActionReducerMap<State> = {
 };
 
 export const localStorageSyncReducer = (reducer: ActionReducer<State>): ActionReducer<State> => {
-  return localStorageSync({ keys: [{ auth: ['user'] }], rehydrate: true })(reducer);
+  return localStorageSync({
+    keys: [{ auth: {
+      serialize: (state: fromAuth.State) => ({
+          token: state.user.token,
+          exp: state.user.exp,
+        }),
+      deserialize: (state) => ({
+          token: state.token,
+          exp: state.exp,
+       }),
+    }
+    }],
+    rehydrate: true,
+  })(reducer);
 };
 
 export const logoutReducer = (reducer: ActionReducer<State>) => (state: State, action: Action) =>

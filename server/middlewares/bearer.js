@@ -39,8 +39,8 @@ export function auth(req, res) {
     }
 
     const exp = Math.floor(Date.now() / 1000 + (60 * 60));
-    const payload = { sub: user.id, exp };
+    const payload = { sub: user._id, exp };
     const token = jwt.sign(payload, secret);
-    res.status(200).json({ token, exp, username })
+    res.status(200).json({ token, exp, user })
   });
 }

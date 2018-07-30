@@ -1,13 +1,14 @@
 import * as actions from '../actions';
+import { Friend } from '../../../../models/friend';
 
 export interface State {
-  username: string;
+  profile: Friend;
   token: string;
   exp: number;
 }
 
 export const initialState: State = {
-  username: '',
+  profile: null,
   token: '',
   exp: 0,
 };
@@ -18,14 +19,12 @@ export const reducer = (state = initialState, action: actions.Action) => {
     case actions.REGISTER_SUCCESS:
       return {
         ...state,
-        exp: action.payload['exp'],
-        username: action.payload['username'],
-        token: action.payload['token'],
+        ...action.payload,
       };
     case actions.LOGOUT:
         return {
           ...state,
-          username: '',
+          profile: null,
           token: '',
           exp: 0,
         };
@@ -34,9 +33,6 @@ export const reducer = (state = initialState, action: actions.Action) => {
   }
 };
 
-export const getUserName = (state: State) => state.username;
-export const getExpiresAt = (state: State) => state.exp;
-export const getToken = (state: State) => state.token;
 
 
 
