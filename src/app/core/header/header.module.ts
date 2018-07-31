@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
-import { MatButtonModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatMenuModule, MatToolbarModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { IconsModule } from '../../ui/icons/icons.module';
+import { ProfileMenuComponent } from './components/profile-menu/profile-menu.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MatToolbarModule,
     MatButtonModule,
+    MatMenuModule,
     RouterModule,
     IconsModule,
   ],
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, ProfileMenuComponent],
   exports: [HeaderComponent],
 })
 export class HeaderModule {

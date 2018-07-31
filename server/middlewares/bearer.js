@@ -1,4 +1,5 @@
 import User from '../api/models/User';
+import Person from '../api/models/Person';
 import jwt from 'jsonwebtoken';
 import readFromConfig from '../helpers/readFromConfig';
 
@@ -41,6 +42,15 @@ export function auth(req, res) {
     const exp = Math.floor(Date.now() / 1000 + (60 * 60));
     const payload = { sub: user._id, exp };
     const token = jwt.sign(payload, secret);
-    res.status(200).json({ token, exp, user })
+
+    Person.findOne({ userId: user._id }, (err, profile) => {
+      if(err) {
+        console.error(err);
+        res.sendStatus(500);
+        return;
+      }
+
+      res.status(200).json({ token, exp, profile })
+    })
   });
 }

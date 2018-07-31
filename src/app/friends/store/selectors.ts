@@ -19,3 +19,7 @@ export const getAllFriends = createSelector(
   getEntities,
   (ids, entities) => ids.map(id => entities[id]),
 );
+export const getUserById = (id: string) => createSelector(
+  getEntities,
+  (state) => state[id],
+);

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { LoginFormService } from '../../services/login-form.service';
 import { Field } from '../../../../models/field';
 import { UserService } from '../../services/user.service';
 import { MessageService } from '../../../log/services/message.service';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Login } from '../../store/actions';
-import { State } from '../../../../store';
-
+import { Login } from '../../store/actions/login';
+import { State } from '../../../../store/reducer';
 @Component({
   selector: 'app-login',
   template: `

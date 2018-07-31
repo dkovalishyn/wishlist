@@ -5,10 +5,10 @@ import { WishService } from '../../services/wish.service';
 import { Wish } from '../../../models/wish';
 import { MessageService } from '../../../core/log/services/message.service';
 import { finalize, switchMap } from 'rxjs/operators';
-import { State } from '../../../store';
 import { Store } from '@ngrx/store';
 import { getWishById } from '../../store/selectors';
 import { GetWishes } from '../../store/actions/getAll';
+import { State } from '../../../store/reducer';
 
 @Component({
   selector: 'app-wish',

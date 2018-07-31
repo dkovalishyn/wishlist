@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Friend } from '../../../models/friend';
-import { State } from '../../../store';
 import { Store } from '@ngrx/store';
+import { Person } from '../../../models/friend';
 import { selectors } from '../../store';
 import { getUserProfile } from '../../../core/auth/store/selectors';
 import { GetFriends } from '../../store/actions/getAll';
+import { State } from '../../../store/reducer';
 
 @Component({
   selector: 'app-friends-list',
@@ -12,7 +12,7 @@ import { GetFriends } from '../../store/actions/getAll';
   styleUrls: ['./friends-list.component.scss']
 })
 export class FriendsListComponent implements OnInit {
-  list: Friend[];
+  list: Person[];
   userId: string;
 
   constructor(
@@ -23,10 +23,7 @@ export class FriendsListComponent implements OnInit {
     this.store.dispatch(new GetFriends());
 
     this.store.select(selectors.getAllFriends).subscribe(list => this.list = list);
-    this.store.select(getUserProfile).subscribe((user) => {
-      console.log(user);
-      this.userId = user ? user.userId : null;
-    });
+    this.store.select(getUserProfile).subscribe(({ userId }) => this.userId = userId);
   }
 
 }

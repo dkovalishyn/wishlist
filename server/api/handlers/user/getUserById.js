@@ -12,7 +12,7 @@ import Person from '../../models/Person';
 exports.handler = function getUserById(req, res) {
   const { params: { userId: id } } = req;
 
-  Person.find({ userId: id }, (err, data) => {
+  Person.findOne({ userId: id }, (err, data) => {
     if (err) {
       res.status(404).send(err.message);
       return;

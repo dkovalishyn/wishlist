@@ -1,45 +1,33 @@
-import * as actions from '../actions';
+import { Action, ActionReducer, ActionReducerMap, combineReducers } from '@ngrx/store';
+import { defaultRequestStatus, RequestStatus } from '../../../../common/types';
+import { createRequestReducer } from '../../../../common/handlers';
+import * as fromLogin from '../actions/login';
+import * as fromLogout from '../actions/logout';
+import * as fromRegister from '../actions/register';
+import * as fromGetUserProfile from '../actions/getUserProfile';
 
 export interface State {
-  isActive: boolean;
-  error: Error | null;
+  login: RequestStatus;
+  logout: RequestStatus;
+  register: RequestStatus;
+  getUserProfile: RequestStatus;
 }
 
 export const initialState: State = {
-  isActive: false,
-  error: null,
+  login: defaultRequestStatus,
+  logout: defaultRequestStatus,
+  register: defaultRequestStatus,
+  getUserProfile: defaultRequestStatus,
 };
 
-export const reducer = (state = initialState, action: actions.Action) => {
-  switch (action.type) {
-    case actions.LOGIN:
-    case actions.LOGOUT:
-      return {
-        ...state,
-        isActive: true,
-        error: null,
-      };
-    case actions.LOGIN_SUCCESS:
-    case actions.LOGOUT_SUCCESS:
-    case actions.REGISTER_SUCCESS:
-      return {
-        ...state,
-        isActive: false,
-        error: null,
-      };
-    case actions.REQUEST_FAILED:
-      return {
-        ...state,
-        isActive: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
+const reducers: ActionReducerMap<State, Action> = {
+  login: createRequestReducer(fromLogin.actionTypes),
+  logout: createRequestReducer(fromLogout.actionTypes),
+  register: createRequestReducer(fromRegister.actionTypes),
+  getUserProfile: createRequestReducer(fromGetUserProfile.actionTypes)
 };
 
-export const getIsActive = (state: State) => state.isActive;
-export const getError = (state: State) => state.error;
+export const reducer: ActionReducer<State, Action> = combineReducers(reducers);
 
 
 

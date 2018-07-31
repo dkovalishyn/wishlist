@@ -1,22 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromAuth from './reducers';
-import * as fromRequest from './reducers/request';
+import * as fromAuth from './reducers/rootReducer';
 
-export const getAuth = createFeatureSelector<fromAuth.State>('auth');
-export const getUser = createSelector(
-  getAuth,
-  (state) => state.user,
-);
+const getAuth = createFeatureSelector<fromAuth.State>('auth');
 export const getUserProfile =  createSelector(
-  getUser,
+  getAuth,
   (state) => state.profile,
 );
 export const getExpiresAt = createSelector(
-  getUser,
-  (state) => state.exp,
+  getAuth,
+  (state) => state.expiresAt,
 );
 export const getToken = createSelector(
-  getUser,
+  getAuth,
   (state) => state.token,
 );
 
@@ -24,12 +19,12 @@ export const getRequestStatus = createSelector(
   getAuth,
   (state) => state.request,
 );
-export const getIsActive =  createSelector(
+export const getLoginState =  createSelector(
   getRequestStatus,
-  fromRequest.getIsActive,
+  (state) => state.login.status,
 );
-export const getError = createSelector(
+export const getLoginError = createSelector(
   getRequestStatus,
-  fromRequest.getError,
+  (state) => state.login.error,
 );
 

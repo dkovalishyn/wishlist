@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import qs from 'querystring';
 import { ApiService } from '../../core/api/api.service';
-import { Friend } from '../../models/friend';
+import { Person } from '../../models/friend';
 
 @Injectable()
 export class FriendsService {
@@ -12,8 +12,12 @@ export class FriendsService {
     private api: ApiService,
   ) { }
 
-  getFriends(): Observable<Friend[]> {
-    return this.api.get<Friend[]>(this.friendsUrl);
+  getFriends(): Observable<Person[]> {
+    return this.api.get<Person[]>(this.friendsUrl);
+  }
+
+  getUserById(id: string): Observable<Person> {
+    return this.api.get<Person>(`${this.friendsUrl}/${id}`);
   }
 
   follow(params: { userId: string, friendId: string}): Observable<Notification> {

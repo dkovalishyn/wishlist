@@ -302,6 +302,23 @@
     "/swagger": {
       "x-swagger-pipe": "swagger_raw"
     },
+    "/me": {
+      "get": {
+        "summary": "Get profile of current user",
+        "operationId": "getUserProfile",
+        "tags": [
+          "user"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        }
+      }
+    },
     "/user": {
       "get": {
         "description": "Get all users",

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { createRequestActionTypes } from '../../../common/actions';
 import config from './config.json';
-import { Friend } from '../../../models/friend';
+import { Person } from '../../../models/friend';
 
 export const actionTypes = createRequestActionTypes(config.prefix)('FOLLOW');
 
@@ -17,7 +17,7 @@ export class Follow implements Action {
 export class FollowSuccess implements Action {
     readonly type = actionTypes.SUCCESS;
 
-    constructor(public payload: Friend) {}
+    constructor(public payload: Person) {}
 }
 
 export class FollowFailed implements Action {

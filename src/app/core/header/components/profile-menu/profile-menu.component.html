@@ -1,0 +1,25 @@
+<div *ngIf="user">
+  <button
+    mat-button
+    [matMenuTriggerFor]="profileMenu"
+  >
+    {{ user.firstName }} {{ user.lastName }}
+  </button>
+  <mat-menu
+    #profileMenu="matMenu"
+  >
+    <button
+      mat-menu-item
+      [routerLink]="['user', user.userId]"
+    >
+      Profile
+    </button>
+    <button
+      mat-menu-item
+      (click)="logout.emit()"
+    >
+      Logout
+    </button>
+  </mat-menu>
+</div>
+

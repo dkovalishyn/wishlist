@@ -3,9 +3,9 @@ import { WishService } from '../../services/wish.service';
 import { Wish } from '../../../models/wish';
 import { DndListComponent } from '../../../ui/dnd-list/dnd-list.component';
 import { Store } from '@ngrx/store';
-import { State } from '../../../store';
 import { GetWishes } from '../../store/actions/getAll';
 import { allWishes } from '../../store/selectors';
+import { State } from '../../../store/reducer';
 
 @Component({
   selector: 'app-wishlist',
@@ -23,8 +23,7 @@ export class WishlistComponent extends DndListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('onInit');
-    this.store.dispatch(new GetWishes())
+    this.store.dispatch(new GetWishes());
     this.store.select(allWishes)
     .subscribe(wishes => {
       this.list = wishes;

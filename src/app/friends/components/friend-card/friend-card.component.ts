@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Friend } from '../../../models/friend';
+import { Person } from '../../../models/friend';
 import { Follow } from '../../store/actions/follow';
-import { State } from '../../../store';
 import { Store } from '@ngrx/store';
+import { State } from '../../../store/reducer';
 
 @Component({
   selector: 'app-friend-card',
@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./friend-card.component.scss']
 })
 export class FriendCardComponent {
-  @Input() friend: Friend;
+  @Input() friend: Person;
   @Input() userId: string;
 
   constructor(

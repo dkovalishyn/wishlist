@@ -24,9 +24,10 @@ export const normalizeData = (key: string) => (action: SuccessAction) => {
 };
 
 export const modifyData = (key: string) => (state: any, action: SuccessAction) => {
+  console.log(action.payload, key);
   const dataObject = {
     ...state.entities,
-    [key]: action.payload,
+    [action.payload[key]]: action.payload,
   };
   const dataIds = Object.keys(dataObject);
   return {

@@ -1,4 +1,4 @@
-export interface Friend {
+export interface Person {
   userId: string;
   firstName: string;
   lastName: string;

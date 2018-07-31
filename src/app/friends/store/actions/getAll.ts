@@ -1,6 +1,6 @@
 import { createRequestActionTypes } from '../../../common/actions';
 import { Action } from '@ngrx/store';
-import { Friend } from '../../../models/friend';
+import { Person } from '../../../models/friend';
 
 export const actionTypes = createRequestActionTypes('FRIENDS')('GET_ALL');
 
@@ -14,7 +14,7 @@ export class GetFriends implements Action {
 export class GetFriendsSuccess implements Action {
   readonly type = actionTypes.SUCCESS;
 
-  constructor(public payload: Friend[]) {
+  constructor(public payload: Person[]) {
   }
 }
 

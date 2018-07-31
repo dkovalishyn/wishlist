@@ -1,0 +1,371 @@
+{
+	"info": {
+		"_postman_id": "ae1a8bb5-ff34-494e-bbcf-3b7423773238",
+		"name": "WishList",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "7c47998f-aa07-42ee-9431-29e758b36d3d",
+			"name": "User",
+			"item": [
+				{
+					"_postman_id": "7abb1b19-a02e-4643-a92c-942d428b15d3",
+					"name": "Users",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "345ed1de-594f-47aa-9445-22aeb9c15f67",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"dkovalishyn\",\n\t\"password\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/{{api}}/user",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{api}}",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "00f9baca-b114-45b8-9c4a-f9745837eeb8",
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"dkov\",\n\t\"password\": \"Password1\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/{{api}}/account",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{api}}",
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "617e7e77-83c7-4efa-9bbc-a97f20aa30a5",
+					"name": "User by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/{{api}}/user/5b48abdc2fe0dc103ca61b18",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{api}}",
+								"user",
+								"5b48abdc2fe0dc103ca61b18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "0a1dd1a2-a510-48ee-bec5-d7410df9195e",
+					"name": "Modify user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Denys\",\n\t\"lastName\": \"Kovalishyn\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/{{api}}/user/5b4dd8fe950e024dc0b589f1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{api}}",
+								"user",
+								"5b4dd8fe950e024dc0b589f1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "1eb072da-d8b4-4b16-9c0b-75871177e8af",
+					"name": "Follow",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/{{api}}/user/5b4dfe6ab0d42619b4d2fa4b/follow?friendId=5b4e0384b0d42619b4d2fa4d",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{api}}",
+								"user",
+								"5b4dfe6ab0d42619b4d2fa4b",
+								"follow"
+							],
+							"query": [
+								{
+									"key": "friendId",
+									"value": "5b4e0384b0d42619b4d2fa4d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "cb45d4f4-b39a-46fb-b92e-b69d43d5a81c",
+					"name": "Me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": ""
+						},
+						"description": "Get user profile"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"_postman_id": "63ef1591-155a-4a42-a434-51bb6e691b8b",
+			"name": "Authorization",
+			"item": [
+				{
+					"_postman_id": "46eecd00-603d-4270-a26c-d36d330ceea5",
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"Password1\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"_postman_id": "e8024667-3da4-4b95-b057-a33e659d4ae5",
+			"name": "Wish",
+			"item": [
+				{
+					"_postman_id": "2e96e3f2-bbcc-423a-bad6-e99a4372dcfd",
+					"name": "Get all wishes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/{{api}}/wish",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{api}}",
+								"wish"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"_postman_id": "91ee2b76-6b12-4eca-8917-2fc2f0dbaa12",
+			"name": "Notification",
+			"item": [
+				{
+					"_postman_id": "6359d379-aaf4-43d0-a8c3-ae6ba5b0cc45",
+					"name": "Reject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/{{api}}/notification/5b4e0763ffc28637cc689f97/reject",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{api}}",
+								"notification",
+								"5b4e0763ffc28637cc689f97",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "3b4ceb10-e332-4af1-9d63-edac9adc0a95",
+					"name": "Get all ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/{{api}}/notification/{{userId}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"{{api}}",
+								"notification",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b59a40e7-85e8-4b58-ab73-1e91da5c922b",
+				"type": "text/javascript",
+				"exec": [
+					"const server = pm.variables.get(\"server\");",
+					"const expiresAt = pm.variables.get(\"exp\");",
+					"const hasExpired = (expiresAt - Date.now() / 1000) <= 0;",
+					"",
+					"if (hasExpired) {",
+					"    const credentials = {",
+					"        username: 'admin',",
+					"        password: 'Password1',",
+					"    }",
+					"    ",
+					"    const authOptions = {",
+					"        url: `${server}/login`,",
+					"        method: 'post',",
+					"        header: {",
+					"            'Content-Type': 'application/json; charset=UTF-8',",
+					"        },",
+					"        body: {",
+					"            mode: 'raw',",
+					"            raw: JSON.stringify(credentials),",
+					"        }",
+					"    }",
+					"    ",
+					"    pm.sendRequest(authOptions, function (err, response) {",
+					"        const { token, exp } = response.json();",
+					"        ",
+					"        pm.environment.set(\"token\", token);",
+					"        pm.environment.set(\"exp\", exp);",
+					"    });",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "80336786-72cf-4b20-90d3-dae22b56b9d7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "40750404-805a-4d9c-9951-a8763956ac78",
+			"key": "exp",
+			"value": "0",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"id": "5249e949-12f4-456c-a217-5ff64739937e",
+			"key": "token",
+			"value": "null",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"id": "cdf2994d-dcb2-4682-9c86-575d1abe2ee0",
+			"key": "server",
+			"value": "http://localhost:10010",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

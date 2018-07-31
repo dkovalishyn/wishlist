@@ -6,10 +6,10 @@
       <span class="header__logo">
             <h1>WishList</h1>
       </span>
-    <div class="header__login-button" [ngSwitch]="auth.isLoggedIn$ | async">
-      <button *ngSwitchCase="true" mat-raised-button color="accent" (click)="logout()">Logout
-      </button>
-      <button *ngSwitchCase="false" mat-raised-button color="accent" routerLink="/login">Login
+    <div class="header__login-button" [ngSwitch]="auth.isLoggedIn">
+      <app-profile-menu *ngSwitchCase="true" (logout)="logout()" [user]="user"></app-profile-menu>
+      <button *ngSwitchCase="false" mat-raised-button color="accent" routerLink="/login">
+        Login
       </button>
     </div>
   </header>
