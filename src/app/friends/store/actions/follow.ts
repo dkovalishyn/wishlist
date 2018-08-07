@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { createRequestActionTypes } from '../../../common/actions';
 import config from './config.json';
-import { Person } from '../../../models/friend';
+import { Person } from '../../../models/Person';
 
 export const actionTypes = createRequestActionTypes(config.prefix)('FOLLOW');
 

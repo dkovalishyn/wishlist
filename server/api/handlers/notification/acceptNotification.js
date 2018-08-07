@@ -16,7 +16,7 @@ exports.handler = function acceptNotification(req, res, next) {
   const { params: { id } } = req;
   Notification.findByIdAndDelete(id, (err, data) => {
     if (err) {
-      req.status(500).send(err.message);
+      res.status(500).send(err.message);
       return;
     }
 

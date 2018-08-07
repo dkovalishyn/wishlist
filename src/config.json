@@ -1,0 +1,6 @@
+{
+  "protocol": "http",
+  "baseApiUrl": "api/v1",
+  "serverPath": "localhost",
+  "port": "10010"
+}

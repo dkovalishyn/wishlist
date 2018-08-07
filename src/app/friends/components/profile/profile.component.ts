@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { State } from '../../../store/reducer';
 import { Store } from '@ngrx/store';
-import { Person } from '../../../models/friend';
+import { Person } from '../../../models/Person';
 import { getUserById } from '../../store/selectors';
 import { GetUserById } from '../../store/actions/getUserById';
 

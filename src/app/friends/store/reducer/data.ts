@@ -1,8 +1,7 @@
 import { Action } from '@ngrx/store';
 import * as fromGetAll from '../actions/getAll';
-import * as fromFollow from '../actions/follow';
 import * as fromGetUserById from '../actions/getUserById';
-import { Person } from '../../../models/friend';
+import { Person } from '../../../models/Person';
 import { modifyData, normalizeData } from '../../../common/handlers';
 import { ActionWithPayload } from '../../../common/types';
 
@@ -24,7 +23,6 @@ export const reducer = (state: State = initialState, action: Action) => {
         ...normalizeData('userId')(action as ActionWithPayload),
       };
     case (fromGetUserById.actionTypes.SUCCESS):
-    case (fromFollow.actionTypes.SUCCESS):
       return modifyData('userId')(state, action as ActionWithPayload);
     default:
       return state;

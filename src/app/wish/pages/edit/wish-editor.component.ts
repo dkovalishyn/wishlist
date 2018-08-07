@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Wish } from '../../../models/wish';
-import { WishService } from '../../services/wish.service';
-import { finalize, switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { WishFormService } from '../../services/wish-form.service';
 import { Field } from '../../../models/field';
-import { MessageService } from '../../../core/log/services/message.service';
 import { getWishById } from '../../store/selectors';
 import { Store } from '@ngrx/store';
 import { GetWishes } from '../../store/actions/getAll';
 import { State } from '../../../store/reducer';
+import { actionTypes as editActions, EditWish } from '../../store/actions/edit';
+import { WishEffects } from '../../store';
 
 @Component({
   selector: 'app-wish-editor',
@@ -23,14 +23,16 @@ export class WishEditorComponent implements OnInit {
   backLink = '/';
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private wishService: WishService,
-              private messageService: MessageService,
               private location: Location,
+              private router: Router,
               private formService: WishFormService,
               private store: Store<State>,
+              private wishEffects: WishEffects,
               ) {
     this.fields = this.formService.getFields();
+    this.wishEffects.editWish$.pipe(
+      filter(({ type }) => type === editActions.SUCCESS)
+    ).subscribe(() => this.close());
   }
 
   ngOnInit() {
@@ -52,13 +54,14 @@ export class WishEditorComponent implements OnInit {
   }
 
   onSubmit(payLoad) {
-    this.wishService
-      .updateWish(Object.assign({ _id: this.wishId }, payLoad))
-      .pipe(finalize(() => this.location.back()))
-      .subscribe(wish => this.messageService.add(`Wish updated: ${JSON.stringify(payLoad)}`));
+    this.store.dispatch(new EditWish(Object.assign({ _id: this.wishId }, payLoad)));
   }
 
   onCancel() {
     this.location.back();
+  }
+
+  close = () => {
+    this.router.navigateByUrl('/').then(() => null);
   }
 }

@@ -15,6 +15,7 @@ import { FriendsModule } from './friends/friends.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/effects';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AppEffects } from './store/effects';
     MatToolbarModule,
     MatButtonModule,
     SideNavModule,
+    NotificationsModule,
 
     StoreModule.forRoot({}),
     EffectsModule.forRoot([AppEffects]),

@@ -10,16 +10,17 @@ import BearerStrategy from 'passport-http-bearer';
 import expressSession from 'express-session';
 import cookieParser from 'cookie-parser';
 
-import connectToDb from './database';
 import swaggerRoutes from 'swagger-routes';
+import connectToDb from './database';
 import swaggerConfig from './api/swagger/swagger';
 
 import renderIndex from './helpers/renderIndex';
 
 import gracefulExit from './helpers/gracefulExit';
-import { register, deserialize, login, serialize, logout } from './api/handlers/security/auth';
-import { verify, auth } from './middlewares/bearer';
+import { register, deserialize, login, serialize } from './api/handlers/security/auth';
+import { verify, auth, refreshToken, logout } from './middlewares/bearer';
 
+import wss from './wss';
 
 const corsOptions = {
   origin: 'http://localhost:4200',
@@ -41,15 +42,16 @@ app.use(expressSession({ secret: 'chao-cacao', resave: false, saveUninitialized:
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.all('*', (req, res, next) => {
+app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
 });
 
 app.post('/login', auth);
 app.get('/logout', logout);
+app.post('/token', refreshToken);
 app.post('/register', register, auth);
-app.get(/api/, passport.authenticate('bearer'), (req, res, next) => {
+app.all('/api/*', passport.authenticate('bearer'), (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
@@ -66,7 +68,7 @@ swaggerRoutes(app, {
   authorizers: './server/api/handlers/security',
 });
 
-app.all('*', renderIndex);
+app.all(/^\/(?!api).*/, renderIndex);
 
 app.use(function (err, req, res, next) {
   console.error(err.message);
@@ -84,7 +86,10 @@ app.use(function (err, req, res, next) {
 
 console.log('Starting server. Check http://localhost:10010');
 connectToDb()
-  .then(() => http.createServer(app).listen(process.env.PORT || 10010))
+  .then(() => {
+      const server = http.createServer(app).listen(process.env.PORT || 10010);
+      wss.connect(server);
+  })
   .catch(error => console.error(error.stack));
 
 process

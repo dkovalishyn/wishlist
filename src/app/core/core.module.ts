@@ -3,6 +3,7 @@ import { ApiModule } from './api/api.module';
 import { AuthModule } from './auth/auth.module';
 import { LogModule } from './log/log.module';
 import { HeaderModule } from './header/header.module';
+import { WebSocketModule } from './web-socket/web-socket.module';
 
 @NgModule({
   imports: [
@@ -10,6 +11,7 @@ import { HeaderModule } from './header/header.module';
     AuthModule,
     LogModule,
     HeaderModule,
+    WebSocketModule,
   ],
   exports: [
     ApiModule,

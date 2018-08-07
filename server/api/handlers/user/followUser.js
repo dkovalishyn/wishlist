@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Person from '../../models/Person';
 import Notification from '../../models/Notification';
 import notificationTypes from '../../models/notificationTypes';
+import wss from '../../../wss';
 
 /**
  * followUser
@@ -35,9 +36,12 @@ exports.handler = async function followUser(req, res) {
       { $addToSet: { followers: userId } },
     );
     const notification = await Notification.create(notificationData);
+
+    wss.sendMessage(userId, notification);
+
     res.status(201).send(notification);
   } catch (e) {
-    res.status(500).send(err.message);
+    res.status(500).send(e.message);
   }
 };
 

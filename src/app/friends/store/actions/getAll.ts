@@ -1,6 +1,6 @@
 import { createRequestActionTypes } from '../../../common/actions';
 import { Action } from '@ngrx/store';
-import { Person } from '../../../models/friend';
+import { Person } from '../../../models/Person';
 
 export const actionTypes = createRequestActionTypes('FRIENDS')('GET_ALL');
 

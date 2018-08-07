@@ -5,7 +5,7 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 
 export const localStorageSyncReducer = (reducer: ActionReducer<State>): ActionReducer<State> => {
   return localStorageSync({
-    keys: ['token', 'expiresAt'],
+    keys: ['token', 'refreshToken', 'expiresIn'],
     rehydrate: true,
   })(reducer);
 };

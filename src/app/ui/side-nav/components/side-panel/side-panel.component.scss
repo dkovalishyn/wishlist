@@ -1,0 +1,16 @@
+@import '../../../../../theme';
+@import '../../../../typography';
+
+.drawer {
+  &-container {
+    height: 100%;
+  }
+
+  &-sidenav {
+    width: 256px;
+  }
+}
+
+.menu-link {
+  display: block;
+}

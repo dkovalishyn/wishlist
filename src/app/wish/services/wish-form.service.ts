@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Wish } from '../../models/wish';
 import { Validators } from '@angular/forms';
 import { Field } from '../../models/field';
-import { TextBox } from '../../models/text-box';
+import { TextBox } from '../../models/TextBox';
 
 @Injectable()
 export class WishFormService {
@@ -12,7 +12,7 @@ export class WishFormService {
         key: 'wish-edit__description',
         name: 'description',
         value: wish ? wish.description : '',
-        placeholder: wish ? wish.description : 'My Wish',
+        placeholder: 'Description',
         validators: [
           Validators.required,
           Validators.minLength(3),

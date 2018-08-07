@@ -2,17 +2,16 @@ import Notification from '../../models/Notification';
 /**
  * getNotifications
  *
- * GET: /api/v1/notification/{userId}
+ * GET: /api/v1/notification
  *
  * path:
  *   userId {string} User Id.
  *
  */
 exports.handler = function getNotifications(req, res, next) {
-  Notification.find({}, (err, data) => {
+  Notification.find({ userId: req.user._id }, (err, data) => {
     if (err) {
-      req.status(500).send(err.message);
-      return;
+      return next(err);
     }
 
     res.send(data);

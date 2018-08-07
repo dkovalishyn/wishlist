@@ -103,6 +103,34 @@
         }
       }
     },
+    "/token": {
+      "post": {
+        "description": "Issue a new token pair",
+        "operationId": "refreshToken",
+        "tags": [
+          "security"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Wrong token"
+          }
+        }
+      }
+    },
     "/wish": {
       "get": {
         "description": "Get all wishes",
@@ -497,19 +525,10 @@
         }
       }
     },
-    "/notification/{userId}": {
+    "/notification": {
       "get": {
         "description": "Get all notifications which are related to particular user",
         "operationId": "getNotifications",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "User Id",
-            "type": "string",
-            "required": true
-          }
-        ],
         "tags": [
           "notification"
         ],
@@ -660,6 +679,16 @@
           "type": "number"
         },
         "description": {
+          "type": "string"
+        }
+      }
+    },
+    "RefreshTokenInfo": {
+      "properties": {
+        "grant_type": {
+          "type": "string"
+        },
+        "refresh_token": {
           "type": "string"
         }
       }

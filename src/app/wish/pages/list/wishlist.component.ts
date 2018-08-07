@@ -4,7 +4,7 @@ import { Wish } from '../../../models/wish';
 import { DndListComponent } from '../../../ui/dnd-list/dnd-list.component';
 import { Store } from '@ngrx/store';
 import { GetWishes } from '../../store/actions/getAll';
-import { allWishes } from '../../store/selectors';
+import { getAllWishes } from '../../store/selectors';
 import { State } from '../../../store/reducer';
 
 @Component({
@@ -24,7 +24,7 @@ export class WishlistComponent extends DndListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GetWishes());
-    this.store.select(allWishes)
+    this.store.select(getAllWishes)
     .subscribe(wishes => {
       this.list = wishes;
     });

@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { State } from '../../../../store/reducer';
-import { Person } from '../../../../models/friend';
+import { Person } from '../../../../models/Person';
 
 @Component({
   selector: 'app-profile-menu',

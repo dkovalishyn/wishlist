@@ -1,10 +1,15 @@
 import User from '../api/models/User';
-import Person from '../api/models/Person';
 import jwt from 'jsonwebtoken';
+import uuid from 'uuid/v4';
 import readFromConfig from '../helpers/readFromConfig';
+import mongoose from 'mongoose';
 
 const secret = readFromConfig('SECRET_TOKEN');
 const AUTHORIZATION = 'Authorization';
+
+const ACCESS_TOKEN_LIFETIME = 60 * 60;
+
+const { Types: { ObjectId } } = mongoose;
 
 export function verify(token, done) {
   if (!token) {
@@ -28,9 +33,40 @@ export function verify(token, done) {
   });
 }
 
+function calculateExp(lifetime) {
+  return Math.floor(Date.now() / 1000 + lifetime);
+}
+
+function generateToken(userId, lifetime) {
+  return jwt.sign({
+    sub: userId,
+    exp: calculateExp(lifetime),
+  }, secret);
+}
+
+function updateTokens(user, res) {
+  const refreshToken = generateRefreshToken();
+  user.refreshToken = refreshToken;
+  user.save();
+
+  res.set({
+    'Cache-Control': 'no-store',
+    'Pragma': 'no-cache',
+  });
+  res.status(200).json({
+    token_type: 'bearer',
+    expires_in: calculateExp(ACCESS_TOKEN_LIFETIME),
+    access_token: generateToken(user._id, ACCESS_TOKEN_LIFETIME),
+    refresh_token: refreshToken,
+  });
+}
+
+function generateRefreshToken() {
+  return uuid();
+}
+
 export function auth(req, res) {
   const { body: { password, username } } = req;
-  console.log('auth', username, password);
 
   User.findOne({ username }, function (err, user) {
     if (err || !user || user.password !== password) {
@@ -39,18 +75,62 @@ export function auth(req, res) {
       return;
     }
 
-    const exp = Math.floor(Date.now() / 1000 + (60 * 60));
-    const payload = { sub: user._id, exp };
-    const token = jwt.sign(payload, secret);
+    updateTokens(user, res);
+  });
+}
 
-    Person.findOne({ userId: user._id }, (err, profile) => {
-      if(err) {
-        console.error(err);
-        res.sendStatus(500);
-        return;
-      }
+export function refreshToken(req, res) {
+  const { body: { grant_type, refresh_token, access_token } } = req;
+  if (grant_type !== 'refresh_token') {
+    console.error('Wrong grant_type');
+    return res.sendStatus(400);
+  }
 
-      res.status(200).json({ token, exp, profile })
-    })
+  if (!refresh_token) {
+    console.error('No token provided');
+    return res.sendStatus(400);
+  }
+
+  if (!access_token) {
+    console.error('access_token is not provided');
+    return res.sendStatus(400);
+  }
+
+  const { sub } = jwt.decode(access_token);
+
+  if (!sub) {
+    console.error('access_token is corrupted');
+    return res.sendStatus(400);
+  }
+
+  User.findById(ObjectId(sub), (err, user) => {
+    if (err) {
+      console.error(err.message);
+      return res.sendStatus(500);
+    }
+
+    if (!user) {
+      console.error('User not found');
+      return res.sendStatus(404);
+    }
+
+    if (user.refreshToken !== refresh_token) {
+      console.error('Refresh token is not valid');
+      return res.sendStatus(401);
+    }
+
+    updateTokens(user, res);
+  });
+}
+
+export function logout(req, res) {
+  User.findByIdAndUpdate(ObjectId(req.user._id), { refreshToken: '' }, (err) => {
+    if (err) {
+      console.error(err.message);
+      return res.sendStatus(500);
+    }
+
+    req.logout();
+    res.status(200).json({ status: 'OK' });
   });
 }

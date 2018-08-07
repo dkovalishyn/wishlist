@@ -6,6 +6,7 @@ import { WishService } from '../services/wish.service';
 import { Wish } from '../../models/wish';
 import * as fromGetAll from './actions/getAll';
 import * as fromAdd from './actions/add';
+import * as fromEdit from './actions/edit';
 import { ActionWithPayload } from '../../common/types';
 
 @Injectable()
@@ -34,6 +35,17 @@ export class WishEffects {
       .pipe(
         map((data: Wish) => new fromAdd.AddWishSuccess(data),
           catchError((error) => of(new fromAdd.AddWishFailed(error))))
+      ),
+    ),
+  );
+
+  @Effect()
+  editWish$ = this.actions$.pipe(
+    ofType(fromEdit.actionTypes.START),
+    switchMap((action) => this.wishService.updateWish((action as ActionWithPayload).payload)
+      .pipe(
+        map((data: Wish[]) => new fromEdit.EditWishSuccess(data),
+          catchError((error) => of(new fromEdit.EditWishFailed(error))))
       ),
     ),
   );

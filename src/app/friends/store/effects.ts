@@ -6,7 +6,7 @@ import { actionTypes as follow, FollowFailed, FollowSuccess } from './actions/fo
 import { actionTypes as getUserById, GetUserByIdFailed, GetUserByIdSuccess } from './actions/getUserById';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { FriendsService } from '../services/friends.service';
-import { Person } from '../../models/friend';
+import { Person } from '../../models/Person';
 import { ActionWithPayload } from '../../common/types';
 
 @Injectable()

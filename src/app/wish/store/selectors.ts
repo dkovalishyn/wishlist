@@ -6,15 +6,11 @@ const getResource = createSelector(
   getWish,
   (state) => state.resource,
 );
-export const allWishes = createSelector(
-  getResource,
-  (state) => state.ids.map(id => state.entities[id]),
-);
-export const getIds = createSelector(
+const getIds = createSelector(
   getResource,
   (state) => state.ids,
 );
-export const getEntities = createSelector(
+const getEntities = createSelector(
   getResource,
   (state) => state.entities,
 );
@@ -26,4 +22,12 @@ export const getAllWishes = createSelector(
 export const getWishById = (id: string) => createSelector(
   getResource,
   (state) => state.entities[id],
+);
+const getRequests = createSelector(
+  getWish,
+  (state) => state.requests,
+);
+export const getEditWishStatus = createSelector(
+  getRequests,
+  (state) => state.edit.status
 );

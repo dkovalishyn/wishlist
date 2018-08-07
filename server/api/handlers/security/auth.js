@@ -1,4 +1,5 @@
 import User from '../../models/User';
+import mongoose from 'mongoose';
 
 export function login(username, password, done) {
   console.log('login', username, password);
@@ -32,11 +33,6 @@ export async function register(req, res, next) {
     next(e);
   }
 };
-
-export function logout(req, res) {
-  req.logout();
-  res.status(200).json({ status: 'OK' });
-}
 
 export function authenticate(req, res, next) {
   console.log('authentication');

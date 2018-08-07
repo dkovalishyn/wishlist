@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AuthResponse } from './typings';
-import { tap, shareReplay, catchError } from 'rxjs/operators';
+import { AuthResponse, RefreshTokenBody } from './typings';
+import { tap, shareReplay, catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { ApiService } from '../../api/api.service';
 import { selectors } from '../store';
 import { Router } from '@angular/router';
 import { State } from '../../../store/reducer';
-import { Person } from '../../../models/friend';
+import { Person } from '../../../models/Person';
 
 @Injectable()
 export class UserService {
-  public isLoggedIn: boolean;
+  public isLoggedIn$: Observable<boolean>;
 
   constructor(private http: HttpClient,
               private api: ApiService,
               private store: Store<State>,
               private  router: Router) {
-    this.store.select(selectors.getExpiresAt).subscribe(
-      (exp) => this.isLoggedIn = (exp - Math.floor(Date.now() / 1000)) > 0
+    this.isLoggedIn$ = this.store.select(selectors.getExpiresIn).pipe(
+      map((exp) => (exp - Math.floor(Date.now() / 1000)) > 0),
     );
   }
 
@@ -45,6 +45,15 @@ export class UserService {
     return this.http.get('/logout')
       .pipe(
         tap(() => this.router.navigateByUrl('/login')),
+        shareReplay(),
+        catchError(this.api.handleError)
+      );
+  }
+
+  refreshToken = (refreshTokenBody: RefreshTokenBody) => {
+    return this.http.post<AuthResponse>('/token', refreshTokenBody)
+      .pipe(
+        tap(() => this.router.navigateByUrl('/wish')),
         shareReplay(),
         catchError(this.api.handleError)
       );

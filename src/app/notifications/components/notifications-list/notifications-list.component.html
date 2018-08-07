@@ -1,0 +1,7 @@
+<section *ngIf="notifications">
+<mat-list>
+  <mat-list-item *ngFor="let notification of notifications">
+      {{notification.type.description}} <span>{{notification.friendId}}</span>
+  </mat-list-item>
+</mat-list>
+</section>

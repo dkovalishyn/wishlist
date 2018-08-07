@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
-import { prefix } from './config';
+import config from './config.json';
 import { Wish } from '../../../models/wish';
 import { createRequestActionTypes } from '../../../common/actions';
 
-export const actionTypes = createRequestActionTypes(prefix)('ADD_WISH');
+export const actionTypes = createRequestActionTypes(config.prefix)('ADD_WISH');
 
 export class AddWish implements Action {
     readonly type = actionTypes.START;

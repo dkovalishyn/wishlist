@@ -2,6 +2,7 @@ import { ValidatorFn } from '@angular/forms';
 
 export class Field<T> {
   value: T;
+  key: string;
   id: string;
   name: string;
   label: string;
@@ -10,6 +11,7 @@ export class Field<T> {
   controlType: string;
 
   constructor(options: {
+    key?: string,
     value?: T,
     id?: string,
     name?: string,
@@ -19,6 +21,7 @@ export class Field<T> {
     controlType?: string,
     validators?: ValidatorFn[],
   } = {}) {
+    this.key = options.key;
     this.value = options.value;
     this.name = options.name || '';
     this.id = options.id || '';

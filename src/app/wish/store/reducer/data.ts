@@ -1,8 +1,9 @@
 import { Action } from '@ngrx/store';
 import { Wish } from '../../../models/wish';
-import { normalizeData } from '../../../common/handlers';
+import { modifyData, normalizeData } from '../../../common/handlers';
 import { ActionWithPayload } from '../../../common/types';
 import * as fromGetAll from '../actions/getAll';
+import * as fromEdit from '../actions/edit';
 
 export interface State {
   ids: string[];
@@ -21,6 +22,8 @@ export const reducer = (state: State = initialState, action: Action) => {
         ...state,
         ...normalizeData('_id')(action as ActionWithPayload),
       };
+    case (fromEdit.actionTypes.SUCCESS):
+      return modifyData('_id')(state, action as ActionWithPayload);
     default:
       return state;
   }

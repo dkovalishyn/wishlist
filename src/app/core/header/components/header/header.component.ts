@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Logout } from '../../../auth/store/actions/logout';
 import { State } from '../../../../store/reducer';
-import { Person } from '../../../../models/friend';
+import { Person } from '../../../../models/Person';
 import { getUserProfile } from '../../../auth/store/selectors';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-header',
@@ -14,17 +15,17 @@ import { getUserProfile } from '../../../auth/store/selectors';
 })
 export class HeaderComponent implements OnInit {
   @Output() toggleSideNav = new EventEmitter<void>();
-  user: Person;
+  user$: Observable<Person>;
 
   constructor(public auth: UserService, private router: Router, private store: Store<State>) {
-    this.store.select(getUserProfile).subscribe(user => this.user = user);
+    this.user$ = this.store.select(getUserProfile);
   }
 
   ngOnInit() {
   }
 
   logout() {
-    this.store.dispatch(new Logout(null));
+    this.store.dispatch(new Logout());
   }
 
   onSideNavToggle() {

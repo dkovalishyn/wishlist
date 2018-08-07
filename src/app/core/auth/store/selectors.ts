@@ -6,9 +6,17 @@ export const getUserProfile =  createSelector(
   getAuth,
   (state) => state.profile,
 );
-export const getExpiresAt = createSelector(
+export const getUserId = createSelector(
+  getUserProfile,
+  (state) => state.userId,
+);
+export const getRefreshToken = createSelector(
   getAuth,
-  (state) => state.expiresAt,
+  (state) => state.refreshToken,
+);
+export const getExpiresIn = createSelector(
+  getAuth,
+  (state) => state.expiresIn,
 );
 export const getToken = createSelector(
   getAuth,

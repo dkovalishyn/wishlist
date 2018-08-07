@@ -1,8 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Person } from '../../../models/friend';
-import { Follow } from '../../store/actions/follow';
-import { Store } from '@ngrx/store';
-import { State } from '../../../store/reducer';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Person } from '../../../models/Person';
 
 @Component({
   selector: 'app-friend-card',
@@ -11,13 +8,12 @@ import { State } from '../../../store/reducer';
 })
 export class FriendCardComponent {
   @Input() friend: Person;
-  @Input() userId: string;
+  @Input() profile: Person;
+  @Output() follow = new EventEmitter<{ userId: string, friendId: string}>();
 
-  constructor(
-    private store: Store<State>,
-  ) { }
+  constructor() { }
 
-  follow() {
-    this.store.dispatch(new Follow({ userId: this.userId, friendId: this.friend.userId}));
+  canFollow(friendId: string): boolean {
+    return !this.profile.following.includes(friendId);
   }
 }

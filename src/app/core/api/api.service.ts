@@ -5,13 +5,14 @@ import { of } from 'rxjs/Observable/of';
 import { catchError } from 'rxjs/operators';
 import { MessageService } from '../log/services/message.service';
 import { throwError } from 'rxjs/internal/observable/throwError';
+import config from '../../../config.json';
 
 @Injectable()
 export class ApiService {
-  private protocol = 'http';
-  private baseApiUrl = 'api/v1';
-  private serverPath = 'localhost';
-  private port = '10010';
+  private protocol = config.protocol;
+  private baseApiUrl = config.baseApiUrl;
+  private serverPath = config.serverPath;
+  private port = config.port;
 
   constructor(
     private http: HttpClient,
@@ -63,8 +64,10 @@ export class ApiService {
     };
   }
 
-  handleError = ({ error, status }) => {
-    console.log(error);
+  handleError = (err) => {
+    console.error(err);
+
+    const { error, status } = err;
     if (error instanceof ErrorEvent) {
       this.messageService.error(error);
     } else {
