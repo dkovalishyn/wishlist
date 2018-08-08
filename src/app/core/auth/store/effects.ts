@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { catchError, last, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { catchError, last, map, mergeMap, share, switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs/Observable/of';
 import { UserService } from '../services/user.service';
 import * as fromLogin from './actions/login';
@@ -14,6 +14,8 @@ import { zip } from 'rxjs';
 import { getRefreshToken, getToken, getUserId } from './selectors';
 import { State } from '../../../store/reducer';
 import { Store } from '@ngrx/store';
+import { RefreshToken } from './actions/refreshToken';
+import { Logout } from './actions/logout';
 
 @Injectable()
 export class AuthEffects {
@@ -39,16 +41,17 @@ export class AuthEffects {
   @Effect()
   refreshToken$ = this.actions$.pipe(
     ofType(fromRefreshToken.actionTypes.START),
-    switchMap(() => zip(this.store.select(getToken), this.store.select(getRefreshToken))),
-    take(1),
-    switchMap(([access_token, refresh_token]) => {
-        return this.userService.refreshToken({ grant_type: 'refresh_token', access_token, refresh_token })
-          .pipe(
-            map((data) => new fromRefreshToken.RefreshTokenSuccess(data)),
-            catchError(error => of(new fromRefreshToken.RefreshTokenFailed(error))),
-          );
-      }
-    )
+    switchMap((action: RefreshToken) =>
+      this.userService.refreshToken(action.payload)
+        .pipe(
+          map((data) => new fromRefreshToken.RefreshTokenSuccess(data)),
+          catchError(error => of([
+            new fromRefreshToken.RefreshTokenFailed(error),
+            new fromLogout.Logout(),
+          ])),
+        )
+    ),
+    share()
   );
 
   @Effect()

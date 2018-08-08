@@ -37,7 +37,7 @@ export class WebSocketService {
   }
 
   public stopReconnection = () => {
-    console.log('Connected to web-socket successfully!');
+    console.log('Reconnection stopped');
     clearInterval(this.reconnectingIntervalId);
   }
 }

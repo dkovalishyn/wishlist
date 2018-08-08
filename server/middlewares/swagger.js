@@ -64,7 +64,6 @@ const parse = (req, res, next) => {
     const { name } = param;
     return { ...acc, [name]: { value }, };
   }, {});
-
   req.swagger = {
     ...req.swagger,
     params,

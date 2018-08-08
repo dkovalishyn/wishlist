@@ -473,10 +473,9 @@
             "required": true
           },
           {
-            "name": "userData",
             "in": "body",
+            "name": "userData",
             "description": "User Data",
-            "required": false,
             "schema": {
               "$ref": "#/definitions/Person"
             }
@@ -488,6 +487,39 @@
             "schema": {
               "$ref": "#/definitions/Person"
             }
+          }
+        }
+      }
+    },
+    "/user/{userId}/avatar": {
+      "post": {
+        "summary": "Picture upload",
+        "description": "Upload user's photo",
+        "operationId": "uploadImage",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User Id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "avatar",
+            "description": "User's avatar",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -639,6 +671,10 @@
         },
         "lastName": {
           "type": "string"
+        },
+        "avatar": {
+          "type": "string",
+          "format": "binary"
         },
         "followers": {
           "type": "array",

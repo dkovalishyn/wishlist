@@ -7,4 +7,5 @@ module.exports = mongoose.model('Person', {
   following: [mongoose.Schema.Types.ObjectId],
   firstName: String,
   lastName: String,
+  avatar: String,
 });

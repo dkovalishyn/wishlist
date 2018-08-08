@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
+import { mime } from 'mime-types';
 import { State } from '../../../store/reducer';
 import { Store } from '@ngrx/store';
 import { Person } from '../../../models/Person';
@@ -32,5 +33,4 @@ export class ProfileComponent implements OnInit {
         this.user = user;
     });
   }
-
 }

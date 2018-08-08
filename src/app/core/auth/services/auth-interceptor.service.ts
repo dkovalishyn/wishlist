@@ -5,67 +5,53 @@ import { Auth } from './typings';
 import { Store } from '@ngrx/store';
 import { selectors } from '../store';
 import { State } from '../../../store/reducer';
-import { catchError, distinct, distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, distinct, distinctUntilChanged, filter, map, mergeMap, share, switchMap, take, tap } from 'rxjs/operators';
+import { throwError, zip } from 'rxjs';
 import { Logout } from '../store/actions/logout';
 import { actionTypes, RefreshToken, RefreshTokenSuccess } from '../store/actions/refreshToken';
 import { AuthEffects } from '../store/effects';
 import { ofType } from '@ngrx/effects';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { getRefreshToken, getToken } from '../store/selectors';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  token: BehaviorSubject<string>;
+  token: Observable<string>;
   isRefreshingToken = false;
 
   constructor(
     private store: Store<State>,
-    private effects$: AuthEffects,
+    private authEffects: AuthEffects,
   ) {
-    this.store.select(selectors.getToken).subscribe(
-      (value) => this.token = new BehaviorSubject<string>(value)
-    );
+    this.token = this.store.select(selectors.getToken);
   }
 
   addToken = (req: HttpRequest<any>, token: string): HttpRequest<any> => {
+    console.log(token);
     return req.clone({
       headers: req.headers.set(Auth.Header, `${Auth.Prefix} ${token}`),
     });
   }
 
   handle400Error = (error: HttpErrorResponse): Observable<HttpEvent<any>> => {
-    this.store.dispatch(new Logout());
-
     return throwError(error);
   }
 
   handle401Error = (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> => {
     if (!this.isRefreshingToken) {
       this.isRefreshingToken = true;
-      this.token.next(null);
 
-      this.store.dispatch(new RefreshToken());
-      return this.effects$.register$.pipe(
-        ofType(actionTypes.SUCCESS),
-        map((action) => {
-          console.log(action.type);
-          return action;
-        }),
-        switchMap((action: RefreshTokenSuccess) => {
-          this.token.next(action.payload.access_token);
-          return next.handle(this.addToken(req, action.payload.access_token));
-        }),
-        catchError(() => {
-          this.store.dispatch(new Logout());
-          return throwError('Unauthorized user.');
-        })
-      );
+      zip(this.store.select(getToken), this.store.select(getRefreshToken))
+        .pipe(take(1))
+        .subscribe(([access_token, refresh_token]) =>
+            this.store.dispatch(new RefreshToken({ grant_type: 'refresh_token', access_token, refresh_token }))
+        );
     }
 
     return this.token.pipe(
-      filter((token) => token != null),
-      take(1),
-      switchMap((token) => next.handle(this.addToken(req, token))));
+      filter((token) => token.length > 0),
+      switchMap((token) => next.handle(this.addToken(req, token))),
+    );
   }
 
   handleError = (error: Error) => (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> => {
@@ -87,11 +73,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return this.token.pipe(
-      filter(token => token != null),
-      map(token => {
-        console.log(token, req.url);
-        return token;
-      }),
+      filter(token => token.length > 0),
       switchMap(token =>
         next.handle(this.addToken(req, token))
           .pipe(catchError(error => this.handleError(error)(req, next)))

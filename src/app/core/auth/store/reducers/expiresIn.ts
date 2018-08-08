@@ -11,6 +11,8 @@ export const initialState: State = 0;
 
 export const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
+    case fromRefreshToken.actionTypes.START:
+      return initialState;
     case fromLogin.actionTypes.SUCCESS:
     case fromRefreshToken.actionTypes.SUCCESS:
     case fromRegister.actionTypes.SUCCESS:

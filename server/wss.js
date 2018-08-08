@@ -50,7 +50,7 @@ export class WebSocketServer extends EventEmitter {
 
     ws.on('pong', () => { ws.isAlive = true; });
 
-    ws.send('Welcome to WishList');
+    this.sendMessage(userId, 'Welcome to WishList');
 
     ws.on('message', (message) => {
       console.log(message);
