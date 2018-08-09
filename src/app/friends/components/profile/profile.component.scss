@@ -1,0 +1,11 @@
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 24px;
+
+  &__personal-info {
+    grid-column: 1 / span 1;
+  }
+}
+
+

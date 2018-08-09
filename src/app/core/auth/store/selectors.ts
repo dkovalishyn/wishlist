@@ -8,7 +8,7 @@ export const getUserProfile =  createSelector(
 );
 export const getUserId = createSelector(
   getUserProfile,
-  (state) => state.userId,
+  (state) => state ? state.userId : '',
 );
 export const getRefreshToken = createSelector(
   getAuth,

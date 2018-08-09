@@ -5,13 +5,9 @@ import { Auth } from './typings';
 import { Store } from '@ngrx/store';
 import { selectors } from '../store';
 import { State } from '../../../store/reducer';
-import { catchError, distinct, distinctUntilChanged, filter, map, mergeMap, share, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { throwError, zip } from 'rxjs';
-import { Logout } from '../store/actions/logout';
-import { actionTypes, RefreshToken, RefreshTokenSuccess } from '../store/actions/refreshToken';
-import { AuthEffects } from '../store/effects';
-import { ofType } from '@ngrx/effects';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {  RefreshToken } from '../store/actions/refreshToken';
 import { getRefreshToken, getToken } from '../store/selectors';
 
 @Injectable()
@@ -21,13 +17,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
     private store: Store<State>,
-    private authEffects: AuthEffects,
   ) {
     this.token = this.store.select(selectors.getToken);
   }
 
   addToken = (req: HttpRequest<any>, token: string): HttpRequest<any> => {
-    console.log(token);
     return req.clone({
       headers: req.headers.set(Auth.Header, `${Auth.Prefix} ${token}`),
     });

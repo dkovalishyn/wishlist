@@ -1,5 +1,33 @@
-<section *ngIf="user">
-  {{user.firstName}}
-  <img [src]="user.avatar" alt="Avatar">
-  <a [routerLink]="['edit']">Edit profile</a>
+<section class="profile" *ngIf="user">
+  <mat-card class="profile__personal-info">
+    <img
+      mat-card-image
+      class="profile__avatar"
+      [src]="getPathToAvatar()"
+      alt="Avatar"
+    >
+    <mat-card-title>
+      {{user.firstName}} {{user.lastName}}
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="isMe">
+      (you)
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-grid-list
+        class="social_information"
+        cols="3"
+        rowHeight="3:1"
+      >
+        <mat-grid-tile>Followers</mat-grid-tile>
+        <mat-grid-tile>Following</mat-grid-tile>
+        <mat-grid-tile>Friends</mat-grid-tile>
+        <mat-grid-tile>{{ user.followers.length }}</mat-grid-tile>
+        <mat-grid-tile>{{ user.following.length }}</mat-grid-tile>
+        <mat-grid-tile>{{ user.friends.length }}</mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button [routerLink]="['edit']">Edit profile</a>
+    </mat-card-actions>
+  </mat-card>
 </section>

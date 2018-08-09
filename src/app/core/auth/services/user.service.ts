@@ -13,6 +13,7 @@ import { Person } from '../../../models/Person';
 @Injectable()
 export class UserService {
   public isLoggedIn$: Observable<boolean>;
+  private serverPath = 'http://localhost:10010';
 
   constructor(private http: HttpClient,
               private api: ApiService,
@@ -24,7 +25,7 @@ export class UserService {
   }
 
   login = (user): Observable<AuthResponse> => {
-    return this.http.post<AuthResponse>('/login', user)
+    return this.http.post<AuthResponse>(`${this.serverPath}/login`, user)
       .pipe(
         tap(() => this.router.navigateByUrl('/wish')),
         shareReplay(),
@@ -33,7 +34,7 @@ export class UserService {
   }
 
   register = (user): Observable<AuthResponse> => {
-    return this.http.post<AuthResponse>('/register', user)
+    return this.http.post<AuthResponse>(`${this.serverPath}/register`, user)
       .pipe(
         tap(() => this.router.navigateByUrl('/wish')),
         shareReplay(),
@@ -51,7 +52,7 @@ export class UserService {
   }
 
   refreshToken = (refreshTokenBody: RefreshTokenBody) => {
-    return this.http.post<AuthResponse>('/token', refreshTokenBody)
+    return this.http.post<AuthResponse>(`${this.serverPath}/token`, refreshTokenBody)
       .pipe(
         tap(() => this.router.navigateByUrl('/wish')),
         shareReplay(),

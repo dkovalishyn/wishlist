@@ -1,7 +1,9 @@
 <mat-card class="person" *ngIf="friend.userId !== profile.userId">
    <mat-card-content>
      <a
+       class="person__link"
        [routerLink]="['/user', friend.userId]">
+       <img mat-card-image src="http://localhost:10010/avatars/15e2379308f97373894e8e4347270374" alt="Avatar">
        {{friend.firstName}}
        {{friend.lastName}}
      </a>
