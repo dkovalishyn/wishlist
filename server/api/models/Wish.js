@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 
 module.exports = mongoose.model('Wish', {
   userId: String,
-  description: String
+  title: String,
+  description: String,
+  occasion: String,
+  picture: Buffer
 });
 

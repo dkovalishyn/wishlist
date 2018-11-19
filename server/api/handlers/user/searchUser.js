@@ -11,14 +11,25 @@ import Person from '../../models/Person';
  *   age {integer} Age of User.
  *
  */
-exports.handler = function searchUser(req, res) {
-  const { body: userData } = req;
-  Person.find(userData, (err, data) => {
-    if (err) {
-      res.status(404).send(err.message);
-      return;
-    }
-
-    res.send(data);
-  })
+exports.handler = async function searchUser(req, res) {
+  const { query: { fullName } } = req;
+  try {
+    const aggregate = await Person.aggregate([
+      { $project:
+          {
+            _id: 0,
+            userId: 1,
+            firstName: 1,
+            lastName: 1,
+            avatar: 1,
+            fullName: { $concat: ['$firstName', ' ', '$lastName'] }
+          }
+      },
+      { $match: { fullName: { $regex: new RegExp(fullName) } } },
+      { $project: { fullName: 0 } }
+    ]);
+    res.send(aggregate);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
 };

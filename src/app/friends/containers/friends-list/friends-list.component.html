@@ -1,18 +1,19 @@
-<section class="friends-list" *ngIf="profile$ | async as profile">
-  <div *ngIf="list$ | async as list">
-    <mat-grid-list cols="2">
-      <mat-grid-tile>
-        <mat-list>
-          <mat-list-item *ngFor="let friend of list">
-            <app-friend-card
-              [friend]="friend"
-              [profile]="profile"
-              (follow)="follow($event)"
-            ></app-friend-card>
-          </mat-list-item>
-        </mat-list>
-      </mat-grid-tile>
-      <mat-grid-tile><app-search-bar></app-search-bar></mat-grid-tile>
-    </mat-grid-list>
+<section *ngIf="profile$ | async as profile">
+  <div *ngIf="list$ | async as list" class="friends-list">
+     <mat-card class="friends-list__friends">
+       <mat-nav-list>
+         <h3 mat-subheader>People:</h3>
+           <app-friend-card
+             *ngFor="let friend of list"
+             [friend]="friend"
+             [profile]="profile"
+             (follow)="follow($event)"
+           ></app-friend-card>
+       </mat-nav-list>
+     </mat-card>
+      <div class="friends-list__search">
+        <app-search-bar>
+        </app-search-bar>
+      </div>
   </div>
 </section>

@@ -45,10 +45,7 @@ export class AuthEffects {
       this.userService.refreshToken(action.payload)
         .pipe(
           map((data) => new fromRefreshToken.RefreshTokenSuccess(data)),
-          catchError(error => of([
-            new fromRefreshToken.RefreshTokenFailed(error),
-            new fromLogout.Logout(),
-          ])),
+          catchError(error => of(new fromRefreshToken.RefreshTokenFailed(error))),
         )
     ),
     share()

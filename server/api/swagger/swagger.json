@@ -414,6 +414,12 @@
             "type": "string"
           },
           {
+            "name": "fullName",
+            "in": "query",
+            "description": "Last name of User",
+            "type": "string"
+          },
+          {
             "name": "age",
             "in": "query",
             "description": "Age of User",
@@ -649,8 +655,18 @@
     },
     "Wish": {
       "properties": {
+        "title": {
+          "type": "string"
+        },
         "description": {
           "type": "string"
+        },
+        "occasion": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string",
+          "format": "binary"
         }
       }
     },

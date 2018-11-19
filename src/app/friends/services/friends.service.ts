@@ -25,4 +25,8 @@ export class FriendsService {
     const requestUrl = `${this.friendsUrl}/${userId}/follow/?${qs.stringify({ friendId })}`;
     return this.api.post<Notification>(requestUrl, null);
   }
+
+  search(params: { fullName: string }): Observable<Person[]> {
+    return this.api.get<Person[]>(`${this.friendsUrl}/search?${qs.stringify(params)}`);
+  }
 }

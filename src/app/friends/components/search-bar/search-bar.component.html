@@ -1,3 +1,17 @@
-<mat-card>
-
+<mat-card class="search">
+  <div class="search__field">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Search..."
+        [formControl]="searchField"
+      />
+      <mat-icon
+        matSuffix
+        class="search__button"
+        (click)="search()"
+      >search</mat-icon>
+    </mat-form-field>
+  </div>
 </mat-card>

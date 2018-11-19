@@ -1,17 +1,17 @@
-<mat-card class="person" *ngIf="friend.userId !== profile.userId">
-   <mat-card-content>
-     <a
-       class="person__link"
-       [routerLink]="['/user', friend.userId]">
-       <img mat-card-image src="http://localhost:10010/avatars/15e2379308f97373894e8e4347270374" alt="Avatar">
-       {{friend.firstName}}
-       {{friend.lastName}}
-     </a>
-     <button
-       mat-raised-button
-       *ngIf="canFollow(friend.userId)"
-       (click)="follow.emit({ userId: profile.userId, friendId: friend.userId })">
-       Follow
-     </button>
-   </mat-card-content>
-</mat-card>
+<mat-list-item>
+  <a
+    class="person__link"
+    matLine
+    [routerLink]="['/user', friend.userId]">
+    <img matListAvatar class="person__full-name" [src]="getAvatarPath()" alt="Avatar">
+    <span class="person__full-name">{{friend.firstName}} {{friend.lastName}}</span>
+  </a>
+  <button
+    mat-raised-button
+    class="person__follow-button"
+    *ngIf="canFollow(friend.userId)"
+    (click)="follow.emit({ userId: profile.userId, friendId: friend.userId })">
+    Follow
+  </button>
+  <mat-divider></mat-divider>
+</mat-list-item>
