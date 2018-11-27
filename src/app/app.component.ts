@@ -13,7 +13,7 @@ import { WebSocketService } from './core/web-socket/web-socket.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'Wish cafe';
 
   constructor(
     private store: Store<State>,

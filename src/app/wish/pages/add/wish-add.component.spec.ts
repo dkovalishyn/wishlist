@@ -22,4 +22,10 @@ describe('WishAddComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should get form fields on init', () => {
+    component.ngOnInit();
+    const formService = TestBed.get('FormService');
+    expect(formService.getFields.calls.count()).toBe(1, 'was called once');
+  });
 });

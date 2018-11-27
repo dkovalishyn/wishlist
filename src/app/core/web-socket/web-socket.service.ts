@@ -7,7 +7,7 @@ import { webSocket } from 'rxjs/webSocket';
 export class WebSocketService {
   private socket: Subject<MessageEvent>;
   private subscriptionUrl: string;
-  private reconnectingIntervalId: number;
+  private reconnectingIntervalId: NodeJS.Timer;
   private url = `ws://${config.serverPath}:${config.port}`;
 
   constructor() { }

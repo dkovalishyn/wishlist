@@ -12,7 +12,7 @@ import { Search } from '../../store/actions/search';
 })
 export class SearchBarComponent implements OnInit {
   searchField = new FormControl('');
-  searchTimeout: number;
+  searchTimeout: NodeJS.Timer;
 
   constructor(
     private store: Store<State>

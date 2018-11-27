@@ -42,6 +42,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
             }
           }
         },
@@ -53,6 +61,10 @@
           "configurations": {
             "production": {
               "browserTarget": "ng-wishlist:build:production"
+            },
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "ng-wishlist:build:hmr"
             }
           }
         },
@@ -71,7 +83,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "assets": [
               "src/assets",

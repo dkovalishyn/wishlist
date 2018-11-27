@@ -23,7 +23,6 @@ export class WishlistComponent extends DndListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new GetWishes());
     this.store.select(getAllWishes)
     .subscribe(wishes => {
       this.list = wishes;

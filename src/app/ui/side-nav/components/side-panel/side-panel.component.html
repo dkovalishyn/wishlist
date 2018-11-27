@@ -1,17 +1,17 @@
-<mat-sidenav-container class="drawer-container" hasBackdrop>
-  <mat-sidenav #drawer class="drawer-sidenav" mode="side">
+<mat-drawer-container class="drawer-container" hasBackdrop>
+  <mat-drawer #drawer class="drawer" mode="side">
     <nav>
       <a mat-button class="menu-link" routerLink="/wish" (click)="drawer.close()">Wishes</a>
       <a mat-button class="menu-link" routerLink="/friends" (click)="drawer.close()">Friends</a>
       <a mat-button class="menu-link" routerLink="/notifications" (click)="drawer.close()">Notifications</a>
     </nav>
-  </mat-sidenav>
+  </mat-drawer>
 
-  <mat-sidenav-content>
+  <mat-drawer-content>
     <div>
       <app-header (toggleSideNav)="drawer.toggle()"></app-header>
       <ng-content></ng-content>
     </div>
-  </mat-sidenav-content>
+  </mat-drawer-content>
 
-</mat-sidenav-container>
+</mat-drawer-container>

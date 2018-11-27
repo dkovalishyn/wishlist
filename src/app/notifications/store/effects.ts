@@ -19,7 +19,7 @@ export class NotificationsEffects {
     ofType(getAll.START),
     switchMap(() => this.notificationsService.getAllNotifications()
       .pipe(
-        map((data: Notification[]) => new GetAllNotificationsSuccess(data),
+        map(data => new GetAllNotificationsSuccess(data),
           catchError((error) => of(new GetAllNotificationsFailed(error)))
         )
       ),

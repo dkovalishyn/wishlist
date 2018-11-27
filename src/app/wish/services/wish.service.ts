@@ -17,8 +17,8 @@ WishService {
      return this.api.get<Wish[]>(this.wishesUrl);
   }
 
-  addWish(wish: Wish): Observable<Wish[]> {
-    return this.api.post<Wish[]>(this.wishesUrl, wish);
+  addWish(wish: Wish): Observable<Wish> {
+    return this.api.post<Wish>(this.wishesUrl, wish);
   }
 
   getWish(id: string): Observable<Wish> {
