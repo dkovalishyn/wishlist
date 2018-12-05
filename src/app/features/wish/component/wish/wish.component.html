@@ -1,0 +1,31 @@
+<mat-card class="wish">
+  <mat-card-title class="wish__title">
+    {{wish.title}}
+  </mat-card-title>
+  <mat-card-content class="wish__description">
+    <p>{{wish.description}}</p>
+    <mat-chip-list>
+      <mat-chip
+        *ngFor="let tag of wish.tags"
+      >
+        {{tag}}
+      </mat-chip>
+    </mat-chip-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <a
+      mat-flat-button
+      [routerLink]="[wish._id, 'edit']"
+      class="wish__edit-button"
+    >
+      Edit
+    </a>
+    <button
+      mat-flat-button
+      class="wish__edit-button"
+      (click)="delete()"
+    >
+      Delete
+    </button>
+  </mat-card-actions>
+</mat-card>

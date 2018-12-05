@@ -1,0 +1,28 @@
+@import '../../../../../variables';
+
+.message {
+  display: inline-block;
+  width: 350px;
+  padding: 24px;
+  margin-top: 24px;
+  border-radius: 4px;
+  position: relative;
+  &__title {
+    margin-top: 4px;
+    line-height: 40px;
+  }
+
+  &__body {
+    margin-bottom: 24px;
+  }
+
+  &__close {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    border: none;
+    background-color: transparent;
+    font-size: xx-large;
+    cursor: pointer;
+  }
+}

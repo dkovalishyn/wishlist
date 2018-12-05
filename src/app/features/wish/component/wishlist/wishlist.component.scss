@@ -1,0 +1,48 @@
+@import "../../../../variables";
+@import "../../../../typography";
+@import "../../../../breakpoints";
+
+.wish-list {
+  max-width: 50%;
+  margin: 0 auto;
+
+  @media (max-width: $breakpoint-tablet) {
+    max-width: 100%;
+  }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.wish-list.cdk-drop-list-dragging .wish-container:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.no-data {
+  text-align: center;
+  font-weight: bold;
+  padding: 40px;
+  color: white;
+  border-radius: 4px;
+
+  span {
+    display: block;
+    margin-top: 8px;
+    font-size: smaller;
+  }
+}
+
+$round-button-size: 48px;
+
+.add-wish {
+  position: absolute;
+  display: inline-block;
+  right: 12px;
+  bottom: 12px;
+  font-size: 1.8rem;
+}

@@ -6,16 +6,16 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from '../core/core.module';
-import { WishModule } from '../features/wish/wish.module';
+import { CoreModule } from './features/core/core.module';
+import { WishModule } from './features/wish/wish.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatToolbarModule } from '@angular/material';
-import { SideNavModule } from '../common/side-nav/side-nav.module';
-import { FriendsModule } from '../features/friends/friends.module';
+import { SideNavModule } from './shared/components/side-nav/side-nav.module';
+import { FriendsModule } from './features/friends/friends.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/effects';
-import { NotificationsModule } from '../features/notifications/notifications.module';
+import { NotificationsModule } from './features/notifications/notifications.module';
 
 @NgModule({
   declarations: [

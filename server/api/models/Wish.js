@@ -4,7 +4,7 @@ module.exports = mongoose.model('Wish', {
   userId: String,
   title: String,
   description: String,
-  occasion: String,
+  tags: [String],
   picture: Buffer
 });
 

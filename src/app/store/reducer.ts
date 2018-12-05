@@ -1,6 +1,6 @@
-import * as fromAuth from '../../core/auth/store';
-import * as fromFriends from '../../features/friends/store';
-import * as fromWish from '../../features/wish/store';
+import * as fromAuth from '../features/core/auth/store';
+import * as fromFriends from '../features/friends/store';
+import * as fromWish from '../features/wish/store';
 
 export interface State {
   auth: fromAuth.State;
