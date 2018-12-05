@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { getActionName } from '../common/actions';
+import { getActionName } from '../../utils/actions';
 
 export const INIT = getActionName('APP')('INIT');
 

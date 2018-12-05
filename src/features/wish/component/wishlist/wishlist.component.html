@@ -1,0 +1,31 @@
+<app-home *ngIf="!list"></app-home>
+<div class="wishes" *ngIf="list.length > 0">
+  <mat-nav-list
+    class="wish-list"
+    cdkDropList (cdkDropListDropped)="drop($event)"
+  >
+    <a
+      mat-list-item
+      cdkDrag
+      *ngFor="let wish of list;"
+      [routerLink]="['/wish', wish._id]"
+      class="wish"
+    >
+      {{wish.description}}
+    </a>
+  </mat-nav-list>
+
+  <div class="no-data" *ngIf="list.length === 0">
+    You haven't got any wishes yet :(
+    <span>Go and add some!</span>
+  </div>
+
+  <button
+    mat-mini-fab
+    color="accent"
+    routerLink="/wish/add"
+    class="add-wish"
+  >
+    +
+  </button>
+</div>

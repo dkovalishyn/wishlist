@@ -20,6 +20,3 @@ if (environment.hmr) {
 } else {
   bootstrap().catch(err => console.log(err));
 }
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));

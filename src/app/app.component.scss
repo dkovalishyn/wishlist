@@ -1,17 +1,19 @@
 @import './variables';
 @import './typography';
 
-*, input {
+*, *::after, *::before, input {
   font-family: $font-family;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 .title {
-  color: $b900;
   text-align: center;
 }
 
 .inspiration {
   font-size: 12px;
+}
+
+.main {
 }
 

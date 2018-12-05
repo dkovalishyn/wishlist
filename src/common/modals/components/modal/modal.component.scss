@@ -1,0 +1,46 @@
+@import "../../../../app/variables";
+@import "../../../../app/typography";
+
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  &__header {
+    padding: 12px;
+    font-family: $font-family;
+  }
+
+  &__content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    max-width: 50%;
+    min-width: 320px;
+
+    @media screen and (max-width: 320px) {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__body {
+    padding: 12px;
+
+    @media screen and (max-width: 320px) {
+      padding: 0;
+    }
+  }
+  &__backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0.25;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}

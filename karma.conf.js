@@ -27,7 +27,7 @@ module.exports = function (config) {
 
     files: [
       {
-        pattern: 'src/app/**/*.json',
+        pattern: 'src/**/*.json',
         watched: true,
         served: true,
         included: false,

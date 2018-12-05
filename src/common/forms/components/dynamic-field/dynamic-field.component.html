@@ -1,0 +1,31 @@
+<div [formGroup]="form">
+  <mat-form-field
+    [ngSwitch]="field.controlType"
+  >
+    <input
+      matInput
+      *ngSwitchCase="'textbox' || 'password'"
+      [formControlName]="field.name"
+      [id]="field.id"
+      [name]="field.name"
+      [type]="asTextBox(field).type"
+      [placeholder]="asTextBox(field).placeholder"
+      [minlength]="asTextBox(field).minlength"
+      [maxlength]="asTextBox(field).maxlength"
+      [value]="field.value"
+      class="dynamic-form__input"
+    >
+    <select
+      *ngSwitchCase="'dropdown'"
+      [id]="field.key"
+      [formControlName]="field.key"
+      class="dynamic-form__select"
+    >
+      <option *ngFor="let opt of asDropDown(field).options"
+              [value]="opt.key">{{opt.value}}</option>
+    </select>
+    <mat-error *ngIf="!isValid">
+      {{field.name}} is required
+    </mat-error>
+  </mat-form-field>
+</div>

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { zip } from 'rxjs/Observable/zip';
-import { getToken, getUserProfile } from './core/auth/store/selectors';
+import { getToken, getUserProfile } from '../core/auth/store/selectors';
 import { InitializeApplication } from './store/actions';
 import { State } from './store/reducer';
-import { UserService } from './core/auth/services/user.service';
-import { WebSocketService } from './core/web-socket/web-socket.service';
+import { UserService } from '../core/auth/services/user.service';
+import { WebSocketService } from '../core/web-socket/web-socket.service';
 
 @Component({
   selector: 'app-root',
