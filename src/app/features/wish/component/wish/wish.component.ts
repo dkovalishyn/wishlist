@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Wish } from '../../../../shared/models/Wish';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { Store } from '@ngrx/store';
 import { DeleteWish } from '../../store/actions/delete';
 
@@ -12,7 +12,7 @@ import { DeleteWish } from '../../store/actions/delete';
 export class WishComponent implements OnInit {
   @Input() wish: Wish;
 
-  constructor(private  store: Store<State>) { }
+  constructor(private  store: Store<AppState>) { }
 
   ngOnInit() {
   }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('Notification', {
+const schema = new mongoose.Schema({
   userId: mongoose.Schema.Types.ObjectId,
   friendId: mongoose.Schema.Types.ObjectId,
   type: mongoose.Schema({
@@ -8,3 +8,5 @@ module.exports = mongoose.model('Notification', {
     description: String,
   })
 });
+
+module.exports = mongoose.model('Notification', schema);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs/Observable/of';
 import { WishService } from '../services/wish.service';
 import { Wish } from '../../../shared/models/Wish';
@@ -8,6 +8,7 @@ import * as fromGetAll from './actions/getAll';
 import * as fromAdd from './actions/add';
 import * as fromEdit from './actions/edit';
 import * as fromDelete from './actions/delete';
+import * as fromReorder from './actions/reorder';
 import { ActionWithPayload } from '../../../shared/utils/types';
 import { MessageService } from '../../core/log/services/message.service';
 
@@ -36,8 +37,8 @@ export class WishEffects {
     ofType(fromAdd.actionTypes.START),
     mergeMap((action: ActionWithPayload) => this.wishService.addWish(action.payload).pipe(
       map(data => {
-          this.messageService.add(`New wish added: ${data.title}`);
-          return new fromAdd.AddWishSuccess(data);
+        this.messageService.add(`New wish added: ${data.title}`);
+        return new fromAdd.AddWishSuccess(data);
       }),
       catchError((error) => of(new fromAdd.AddWishFailed(error)))
       ),
@@ -62,8 +63,29 @@ export class WishEffects {
     switchMap((action) => this.wishService.deleteWish((action as ActionWithPayload).payload)
       .pipe(
         map((data: Wish) => new fromDelete.DeleteWishSuccess(data),
-          catchError((error) => of(new fromDelete.DeleteWishFailed(error))))
+          catchError((error) => of(new fromDelete.DeleteWishFailed(error)))),
       ),
-    ),
+    )
+  );
+
+  @Effect()
+  reorderWishes$ = this.actions$.pipe(
+    ofType(fromReorder.actionTypes.START),
+    switchMap((action) => this.wishService.reorderWishes((action as ActionWithPayload).payload)
+      .pipe(
+        map(() => new fromReorder.ReorderSuccess(),
+          catchError((error) => of(new fromReorder.ReorderFailed(error)))),
+      ),
+    )
+  );
+
+  @Effect()
+  updateWishes$ = this.actions$.pipe(
+    filter(({ type }) => [
+          fromDelete.actionTypes.SUCCESS,
+          fromEdit.actionTypes.SUCCESS,
+          fromAdd.actionTypes.SUCCESS
+        ].includes(type)),
+    map(() =>  new fromGetAll.GetWishes())
   );
 }

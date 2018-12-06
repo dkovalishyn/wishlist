@@ -7,11 +7,11 @@ import Wish from '../../models/Wish';
  *
  */
 exports.handler = function getAll(req, res) {
-  Wish.find({}, (err, data) => {
+  Wish.find({}, null, { sort: { order: 1 } }, (err, data) => {
     if (err) {
       res.sendStatus(501);
     }
 
-    res.send(data)
+    res.send(data);
   });
 };

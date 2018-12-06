@@ -1,4 +1,5 @@
 <app-home *ngIf="!list"></app-home>
+
 <div
   cdkDropList
   class="wish-list"
@@ -12,17 +13,18 @@
   >
     <app-wish [wish]="wish"></app-wish>
   </div>
-  <div class="no-data" *ngIf="list.length === 0">
-    You haven't got any wishes yet :(
-    <span>Go and add some!</span>
-  </div>
-
-  <button
-    mat-mini-fab
-    color="accent"
-    routerLink="/wish/add"
-    class="add-wish"
-  >
-    +
-  </button>
 </div>
+
+<div class="no-data" *ngIf="list.length === 0">
+  You haven't got any wishes yet :(
+  <span>Go on and add some!</span>
+</div>
+
+<button
+  mat-mini-fab
+  color="accent"
+  routerLink="/wish/add"
+  class="add-wish"
+>
+  +
+</button>

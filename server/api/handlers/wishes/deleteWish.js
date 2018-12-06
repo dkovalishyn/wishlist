@@ -9,15 +9,13 @@ import Wish from '../../models/Wish';
  *   wishId {string} Wish id.
  *
  */
-exports.handler = function deleteWish(req, res) {
+exports.handler = async function deleteWish(req, res) {
   const { params: { wishId: id } } = req;
-
-  Wish.findByIdAndRemove(id, (err, data) => {
-    if (err) {
-      res.status(404).send(err.message);
-      return;
-    }
-
-    res.send(data);
-  });
+  try {
+    const wish = await Wish.findByIdAndRemove(id);
+    await Wish.update({ next: id }, { next: wish.next });
+    res.status(200).send(wish);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
 };

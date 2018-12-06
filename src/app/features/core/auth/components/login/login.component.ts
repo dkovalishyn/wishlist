@@ -6,7 +6,7 @@ import { Field } from '../../../../../shared/models/Field';
 import { UserService } from '../../services/user.service';
 import { MessageService } from '../../../log/services/message.service';
 import { Login } from '../../store/actions/login';
-import { State } from '../../../../../store/reducer';
+import { AppState } from '../../../../../store/reducer';
 @Component({
   selector: 'app-login',
   template: `
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginFormService: LoginFormService,
-    private store: Store<State>,
+    private store: Store<AppState>,
     private messageService: MessageService,
     private router: Router,
   ) {

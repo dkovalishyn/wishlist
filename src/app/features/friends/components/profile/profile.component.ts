@@ -5,7 +5,7 @@ import { zip } from 'rxjs';
 import { of } from 'rxjs/Observable/of';
 import { map, switchMap } from 'rxjs/operators';
 import { mime } from 'mime-types';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { Person } from '../../../../shared/models/Person';
 import { getUserById } from '../../store/selectors';
 import { GetUserById } from '../../store/actions/getUserById';
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<State>,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {

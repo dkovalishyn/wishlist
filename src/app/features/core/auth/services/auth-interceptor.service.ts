@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Auth } from './typings';
 import { Store } from '@ngrx/store';
 import { selectors } from '../store';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { throwError, zip } from 'rxjs';
 import {  RefreshToken } from '../store/actions/refreshToken';
@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
   isRefreshingToken = false;
 
   constructor(
-    private store: Store<State>,
+    private store: Store<AppState>,
   ) {
     this.token = this.store.select(selectors.getToken);
   }

@@ -3,7 +3,7 @@ import { UserService } from '../../../auth/services/user.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Logout } from '../../../auth/store/actions/logout';
-import { State } from '../../../../../store/reducer';
+import { AppState } from '../../../../../store/reducer';
 import { Person } from '../../../../../shared/models/Person';
 import { getUserProfile } from '../../../auth/store/selectors';
 import { Observable } from 'rxjs/Observable';
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   @Output() toggleSideNav = new EventEmitter<void>();
   user$: Observable<Person>;
 
-  constructor(public auth: UserService, private router: Router, private store: Store<State>) {
+  constructor(public auth: UserService, private router: Router, private store: Store<AppState>) {
     this.user$ = this.store.select(getUserProfile);
   }
 

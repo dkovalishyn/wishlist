@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getAllNotifications } from '../../store/selectors';
 import { Observable } from 'rxjs/Observable';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { Notification } from '../../../../shared/models/Notification';
 import { GetAllNotifications } from '../../store/actions/getAll';
 
@@ -15,7 +15,7 @@ export class NotificationsPageComponent implements OnInit {
   notifications$: Observable<Notification[]>;
 
   constructor(
-    private store: Store<State>,
+    private store: Store<AppState>,
   ) {
     this.store.dispatch(new GetAllNotifications());
     this.notifications$ = this.store.select(getAllNotifications);

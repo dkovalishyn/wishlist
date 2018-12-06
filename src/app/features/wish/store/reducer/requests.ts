@@ -5,6 +5,7 @@ import * as post from '../actions/add';
 import * as getAll from '../actions/getAll';
 import * as edit from '../actions/edit';
 import * as add from '../actions/add';
+import * as reorder from '../actions/reorder';
 import * as deleteRequest from '../actions/delete';
 
 export interface State {
@@ -13,6 +14,7 @@ export interface State {
   edit: RequestStatus;
   add: RequestStatus;
   delete: RequestStatus;
+  reorder: RequestStatus;
 }
 
 const reducers: ActionReducerMap<State, Action> = {
@@ -21,6 +23,7 @@ const reducers: ActionReducerMap<State, Action> = {
   edit: createRequestReducer(edit.actionTypes),
   add: createRequestReducer(add.actionTypes),
   delete: createRequestReducer(deleteRequest.actionTypes),
+  reorder: createRequestReducer(reorder.actionTypes)
 };
 
 export const reducer: ActionReducer<State, Action> = combineReducers(reducers);

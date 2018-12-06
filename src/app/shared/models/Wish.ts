@@ -2,6 +2,7 @@ export class Wish {
   description: string;
   title: string;
   tags: string[];
+  next: string;
   _id: string;
 
   constructor(wish?: {

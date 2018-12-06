@@ -180,6 +180,40 @@
         }
       }
     },
+    "/wish/reorder": {
+      "post": {
+        "description": "Reorder wishes",
+        "operationId": "reorder",
+        "tags": [
+          "wishes"
+        ],
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Wish order",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReorderBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "501": {
+            "description": "Internal server error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
     "/wish/{wishId}": {
       "get": {
         "description": "Get wish by id",
@@ -732,6 +766,16 @@
         },
         "description": {
           "type": "string"
+        }
+      }
+    },
+    "ReorderBody": {
+      "properties": {
+        "prevOrder": {
+          "type": "number"
+        },
+        "nextOrder": {
+          "type": "number"
         }
       }
     },

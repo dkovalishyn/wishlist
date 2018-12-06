@@ -8,7 +8,7 @@ import { finalize, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { getWishById } from '../../store/selectors';
 import { GetWishes } from '../../store/actions/getAll';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 
 @Component({
   selector: 'app-details',
@@ -24,7 +24,7 @@ export class DetailsComponent implements OnInit {
     private wishService: WishService,
     private messageService: MessageService,
     private location: Location,
-    private store: Store<State>,
+    private store: Store<AppState>,
   ) {
   }
 

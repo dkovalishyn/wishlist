@@ -9,14 +9,13 @@
  */
 import Wish from '../../models/Wish';
 
-exports.handler = function add(req, res) {
-  const { body: wish } = req;
-  Wish.create(wish, (err) => {
-    if (err) {
-      res.status(404).send(err.message);
-      return;
-    }
-
+exports.handler = async function add(req, res) {
+  try {
+    const { body } = req;
+    const wishCount = await Wish.count();
+    const wish = await Wish.create({ ...body, order: wishCount + 1 });
     res.status(201).send(wish);
-  })
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
 };

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FriendsService } from '../../services/friends.service';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { Store } from '@ngrx/store';
 import { Search } from '../../store/actions/search';
 
@@ -15,7 +15,7 @@ export class SearchBarComponent implements OnInit {
   searchTimeout: NodeJS.Timer;
 
   constructor(
-    private store: Store<State>
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {

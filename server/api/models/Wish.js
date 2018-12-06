@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('Wish', {
+const schema = new mongoose.Schema({
   userId: String,
   title: String,
   description: String,
   tags: [String],
+  order: Number,
   picture: Buffer
 });
+
+module.exports = mongoose.model('Wish', schema);
 

@@ -5,7 +5,7 @@ import { Person } from '../../../../shared/models/Person';
 import { selectors } from '../../store';
 import { getUserProfile } from '../../../core/auth/store/selectors';
 import { GetFriends } from '../../store/actions/getAll';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { Follow } from '../../store/actions/follow';
 
 @Component({
@@ -18,7 +18,7 @@ export class FriendsListComponent implements OnInit {
   profile$: Observable<Person>;
 
   constructor(
-    private store: Store<State>,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {

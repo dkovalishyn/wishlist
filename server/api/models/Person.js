@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('Person', {
+const schema = new mongoose.Schema({
   userId: mongoose.Schema.Types.ObjectId,
   friends: [mongoose.Schema.Types.ObjectId],
   followers: [mongoose.Schema.Types.ObjectId],
@@ -9,3 +9,5 @@ module.exports = mongoose.model('Person', {
   lastName: String,
   avatar: String,
 });
+
+module.exports = mongoose.model('Person', schema);

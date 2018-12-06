@@ -7,7 +7,7 @@ import { WishFormService } from '../../services/wish-form.service';
 import { Field } from '../../../../shared/models/Field';
 import { getWishById } from '../../store/selectors';
 import { Store } from '@ngrx/store';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { actionTypes as editActions, EditWish } from '../../store/actions/edit';
 import { WishEffects } from '../../store';
 import { Observable } from 'rxjs';
@@ -27,7 +27,7 @@ export class WishEditorComponent implements OnInit {
               private location: Location,
               private router: Router,
               private formService: WishFormService,
-              private store: Store<State>,
+              private store: Store<AppState>,
               private wishEffects: WishEffects,
               ) {
     this.wishEffects.editWish$.pipe(

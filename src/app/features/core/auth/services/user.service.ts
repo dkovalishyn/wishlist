@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { ApiService } from '../../api/api.service';
 import { selectors } from '../store';
 import { Router } from '@angular/router';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { Person } from '../../../../shared/models/Person';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class UserService {
 
   constructor(private http: HttpClient,
               private api: ApiService,
-              private store: Store<State>,
+              private store: Store<AppState>,
               private  router: Router) {
     this.isLoggedIn$ = this.store.select(selectors.getExpiresIn).pipe(
       map((exp) => (exp - Math.floor(Date.now() / 1000)) > 0),

@@ -12,7 +12,7 @@ import { ActionWithPayload } from '../../../../shared/utils/types';
 import { GetUserProfile } from './actions/getUserProfile';
 import { zip } from 'rxjs';
 import { getRefreshToken, getToken, getUserId } from './selectors';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { Store } from '@ngrx/store';
 import { RefreshToken } from './actions/refreshToken';
 import { Logout } from './actions/logout';
@@ -22,7 +22,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private userService: UserService,
-    private store: Store<State>,
+    private store: Store<AppState>,
   ) {
   }
 

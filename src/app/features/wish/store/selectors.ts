@@ -31,3 +31,7 @@ export const getEditWishStatus = createSelector(
   getRequests,
   (state) => state.edit.status
 );
+export const getAllWishesStatus = createSelector(
+  getRequests,
+  (state) => state.getAll.status
+);

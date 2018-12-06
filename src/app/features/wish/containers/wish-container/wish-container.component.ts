@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { GetWishes } from '../../store/actions/getAll';
-import { getAllWishes } from '../../store/selectors';
+import { getAllWishes, getAllWishesStatus } from '../../store/selectors';
 import { Wish } from '../../../../shared/models/Wish';
 import { Observable } from 'rxjs';
+import { STATUS } from '../../../../shared/utils/types';
 
 @Component({
   selector: 'app-wish-container',
@@ -13,14 +14,16 @@ import { Observable } from 'rxjs';
 })
 export class WishContainerComponent implements OnInit {
   wishes$: Observable<Wish[]>;
+  getAllWishesStatus$: Observable<STATUS>;
 
   constructor(
-    private store: Store<State>
+    private store: Store<AppState>
   ) {
     this.wishes$ = store.select(getAllWishes);
+    this.getAllWishesStatus$ = store.select(getAllWishesStatus);
   }
 
   ngOnInit() {
-    this.wishes$.subscribe(wish => wish.length === 0 && this.store.dispatch(new GetWishes()));
+    this.getAllWishesStatus$.subscribe(status => status == null && this.store.dispatch(new GetWishes()));
   }
 }

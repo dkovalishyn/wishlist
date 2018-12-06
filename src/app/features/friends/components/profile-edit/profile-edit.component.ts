@@ -4,7 +4,7 @@ import { Field } from '../../../../shared/models/Field';
 import { ProfileEditFormService } from '../../services/profile-edit-form.service';
 import { Person } from '../../../../shared/models/Person';
 import { Observable } from 'rxjs/Observable';
-import { State } from '../../../../store/reducer';
+import { AppState } from '../../../../store/reducer';
 import { Store } from '@ngrx/store';
 import { getUserProfile } from '../../../core/auth/store/selectors';
 
@@ -20,7 +20,7 @@ export class ProfileEditComponent implements OnInit {
   constructor(
     private formService: ProfileEditFormService,
     private location: Location,
-    private store: Store<State>,
+    private store: Store<AppState>,
   ) {
     this.profile$ = this.store.select(getUserProfile);
   }

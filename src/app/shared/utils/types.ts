@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 export interface RequestStatus {
-  status: number;
+  status: STATUS;
   error: null | Error;
 }
 
