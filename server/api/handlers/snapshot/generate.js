@@ -48,12 +48,13 @@ function crawlImages(url) {
 
 }
 
-exports.handler = function generate(req, res, next) {
+exports.handler = function generate(req, res) {
   const { query: { url }} = req;
 
   if (!url) {
-    res.sendStatus(500);
+    res.sendStatus(400);
   }
+
   crawlImages(url)
     .then(findBiggest)
     .then(image => image.fetch())

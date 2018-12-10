@@ -4,7 +4,7 @@ import { DynamicFieldComponent } from './components/dynamic-field/dynamic-field.
 import { FormComponent } from './components/form/form.component';
 import { FieldControlService } from './services/field-control.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatChipsModule, MatIconModule, MatInputModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -13,6 +13,8 @@ import { MatButtonModule, MatCardModule, MatInputModule } from '@angular/materia
     MatInputModule,
     MatCardModule,
     MatButtonModule,
+    MatChipsModule,
+    MatIconModule,
   ],
   declarations: [
     DynamicFieldComponent,

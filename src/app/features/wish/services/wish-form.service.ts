@@ -3,6 +3,7 @@ import { Wish } from '../../../shared/models/Wish';
 import { Validators } from '@angular/forms';
 import { Field } from '../../../shared/models/Field';
 import { TextBox } from '../../../shared/models/TextBox';
+import { TagsEditor } from '../../../shared/models/TagsEditor';
 
 @Injectable()
 export class WishFormService {
@@ -28,13 +29,20 @@ export class WishFormService {
         validators: [],
         order: 2,
       }),
-      new TextBox({
+      new TagsEditor({
         key: 'wish-edit__tags',
         name: 'tags',
         value: wish && wish.tags ? wish.tags : [],
-        placeholder: 'Tags',
         validators: [],
         order: 3,
+      }),
+      new TextBox({
+        key: 'wish-edit__image',
+        name: 'imageUrl',
+        value: wish && wish.imageUrl ? wish.imageUrl : '',
+        placeholder: 'Image',
+        validators: [],
+        order: 4,
       }),
     ];
 

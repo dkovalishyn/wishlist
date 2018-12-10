@@ -11,7 +11,7 @@ import { WishAddComponent } from './component/add/wish-add.component';
 import { WishEditorComponent } from './component/edit/wish-editor.component';
 import { ModalsModule } from '../../shared/components/modals/modals.module';
 import { DynamicFormsModule } from '../../shared/components/forms/dynamic-forms.module';
-import { MatButtonModule, MatCardModule, MatIconModule, MatListModule, MatChipsModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatIconModule, MatListModule, MatChipsModule, MatTooltipModule } from '@angular/material';
 import { HomeComponent } from '../../shared/components/home/home.component';
 import { WishEffects } from './store';
 import { StoreModule } from '@ngrx/store';
@@ -30,6 +30,7 @@ import { WishlistComponent } from './component/wishlist/wishlist.component';
     MatIconModule,
     MatListModule,
     MatChipsModule,
+    MatTooltipModule,
     DragDropModule,
     StoreModule.forFeature('wish', reducer),
     EffectsModule.forFeature([WishEffects]),

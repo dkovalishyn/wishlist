@@ -24,6 +24,31 @@
       <option *ngFor="let opt of asDropDown(field).options"
               [value]="opt.key">{{opt.value}}</option>
     </select>
+    <mat-chip-list
+      *ngSwitchCase="'tags-editor'"
+      class="tags-editor"
+      #tags
+    >
+      <mat-chip
+        *ngFor="let tag of field.value"
+        [selectable]="field.selectable"
+        [removable]="field.removable"
+        (removed)="field.remove(tag)"
+      >
+        {{tag}}
+        <mat-icon
+          matChipRemove
+          *ngIf="field.removable"
+        >
+          cancel
+        </mat-icon>
+      </mat-chip>
+      <input placeholder="New tag..."
+             [matChipInputFor]="tags"
+             [matChipInputSeparatorKeyCodes]="field.separatorKeyCodes"
+             [matChipInputAddOnBlur]="field.addOnBlur"
+             (matChipInputTokenEnd)="field.add($event)">
+    </mat-chip-list>
     <mat-error *ngIf="!isValid">
       {{field.name}} is required
     </mat-error>

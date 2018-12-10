@@ -1,6 +1,7 @@
 import https from 'https';
 import http from 'http';
 import fs from 'fs';
+import sharp from 'sharp';
 
 function errorHandler (err, cb) {
   console.warn(err);
@@ -32,9 +33,10 @@ export function makeRequest(url) {
 export function download(url, path) {
   return new Promise(res => {
     const stream = fs.createWriteStream(path);
+    const transformer = sharp().resize(600);
     chooseProtocol(url).get(url, (response) => {
-      response.pipe(stream);
-      stream.on('finish', () => { res(path);})
+      response.pipe(transformer).pipe(stream);
+      stream.on('finish', () => res(path))
     });
   });
 }

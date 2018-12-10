@@ -695,10 +695,16 @@
         "description": {
           "type": "string"
         },
-        "occasion": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "imageUrl": {
           "type": "string"
         },
-        "picture": {
+        "imagePath": {
           "type": "string",
           "format": "binary"
         }

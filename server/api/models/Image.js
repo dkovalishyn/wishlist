@@ -4,6 +4,8 @@ import crypto from 'crypto';
 import { download, isValidUrl } from '../helpers/requests';
 
 class Image {
+  path;
+
   constructor(url) {
     this.url = isValidUrl(url) ? url : null;
     this.width = 505;
@@ -15,7 +17,7 @@ class Image {
   }
 
   fetch() {
-    const assetsPath = path.resolve(__dirname, '../../public/assets/');
+    const assetsPath = path.resolve(__dirname, '../../dist/public/assets/images');
     if (!this.url || this.isFetched) {
       this.path = path.join(assetsPath, 'gift.png');
       this.isFetched = true;

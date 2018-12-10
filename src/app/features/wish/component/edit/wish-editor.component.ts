@@ -1,60 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { Wish } from '../../../../shared/models/Wish';
-import { filter, switchMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { WishFormService } from '../../services/wish-form.service';
 import { Field } from '../../../../shared/models/Field';
 import { getWishById } from '../../store/selectors';
-import { Store } from '@ngrx/store';
+import { ActionsSubject, Store } from '@ngrx/store';
 import { AppState } from '../../../../store/reducer';
-import { actionTypes as editActions, EditWish } from '../../store/actions/edit';
-import { WishEffects } from '../../store';
-import { Observable } from 'rxjs';
+import { actionTypes, EditWish } from '../../store/actions/edit';
+import { Subscription } from 'rxjs';
+import { ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-wish-editor',
   templateUrl: './wish-editor.component.html',
   providers: [WishFormService]
 })
-export class WishEditorComponent implements OnInit {
+export class WishEditorComponent implements OnInit, OnDestroy {
   fields: Field<any>[] = [];
   wishId: string;
-  wish$: Observable<Wish>;
   backLink = '/';
+  actionsSubscription = new Subscription();
 
   constructor(private route: ActivatedRoute,
               private location: Location,
               private router: Router,
               private formService: WishFormService,
               private store: Store<AppState>,
-              private wishEffects: WishEffects,
-              ) {
-    this.wishEffects.editWish$.pipe(
-      filter(({ type }) => type === editActions.SUCCESS)
-    ).subscribe(() => this.close());
+              private actionsSubject: ActionsSubject,
+  ) {
   }
 
   ngOnInit() {
-    this.fields = this.formService.getFields();
-    this.wish$ = this.route.paramMap.pipe(
-        switchMap((params: ParamMap) => {
-          this.wishId = params.get('id');
-          return this.store.select(getWishById(this.wishId));
-        })
-      );
-    this.wish$.subscribe(wish => {
-      this.fields = this.formService.getFields(wish);
-    });
+    this.route.paramMap.pipe(
+      mergeMap((params: ParamMap) => {
+        this.wishId = params.get('id');
+        return this.store.select(getWishById(this.wishId));
+      })
+    ).subscribe(wish => this.fields = this.formService.getFields(wish));
+  }
+
+  ngOnDestroy() {
+    this.actionsSubscription.unsubscribe();
   }
 
   onSubmit(payLoad) {
     const wish = {
       ...payLoad,
       _id: this.wishId,
-      tags: payLoad.tags.replace(', ', ',').split(',')
+      tags: payLoad.tags
     };
     this.store.dispatch(new EditWish(wish));
+    this.actionsSubscription = this.actionsSubject.pipe(
+      ofType(actionTypes.SUCCESS)
+    ).subscribe(() => this.location.back());
   }
 
   onCancel() {

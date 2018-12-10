@@ -6,8 +6,8 @@ const schema = new mongoose.Schema({
   description: String,
   tags: [String],
   order: Number,
-  picture: Buffer
+  imagePath: String,
+  imageUrl: String
 });
 
 module.exports = mongoose.model('Wish', schema);
-

@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "serve": "ng serve --configuration hmr"
+    "serve": "ng serve --configuration hmr --proxy-config proxy.conf.json"
   },
   "private": true,
   "dependencies": {
@@ -53,6 +53,7 @@
     "ramda": "^0.26.1",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
+    "sharp": "^0.21.0",
     "swagger-express-mw": "^0.7.0",
     "swagger-routes": "^1.7.0",
     "uuid": "^3.3.2",

@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Field } from '../../../../models/Field';
 import { TextBox } from '../../../../models/TextBox';
 import { DropDown } from '../../../../models/DropDown';
+import { TagsEditor } from '../../../../models/TagsEditor';
 
 @Component({
   selector: 'app-field',
@@ -10,7 +11,7 @@ import { DropDown } from '../../../../models/DropDown';
   styleUrls: ['./dynamic-field.component.scss']
 })
 export class DynamicFieldComponent {
-  @Input() field: Field<any> | TextBox | DropDown;
+  @Input() field: Field<any> | TextBox | DropDown | TagsEditor;
   @Input() form: FormGroup;
 
   constructor() { }
@@ -24,6 +25,10 @@ export class DynamicFieldComponent {
   }
 
   asDropDown(field): DropDown {
+    return field;
+  }
+
+  asTagsEditor(field): TagsEditor {
     return field;
   }
 }

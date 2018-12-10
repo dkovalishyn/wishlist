@@ -10,7 +10,6 @@ import { ActionsSubject, Store } from '@ngrx/store';
 import { AddWish } from '../../store/actions/add';
 import { AppState } from '../../../../store/reducer';
 import { actionTypes } from '../../store/actions/add';
-import { WishEffects } from '../../store';
 import { ofType } from '@ngrx/effects';
 
 
