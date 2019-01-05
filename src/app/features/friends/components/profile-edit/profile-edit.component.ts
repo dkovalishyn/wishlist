@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Field } from '../../../../shared/models/Field';
 import { ProfileEditFormService } from '../../services/profile-edit-form.service';
 import { Person } from '../../../../shared/models/Person';

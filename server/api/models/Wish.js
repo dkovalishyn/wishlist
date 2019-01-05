@@ -6,6 +6,7 @@ const schema = new mongoose.Schema({
   description: String,
   tags: [String],
   order: Number,
+  price: String,
   imagePath: String,
   imageUrl: String
 });

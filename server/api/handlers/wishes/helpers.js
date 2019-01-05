@@ -1,14 +1,10 @@
+import path from 'path';
 import Image from '../../models/Image';
-import path from "path";
+import Wish from '../../models/Wish';
 
-export const fetchImage = url => {
-  const basePath = '/assets/images';
-  if (!url) {
-    return Promise.resolve(`${basePath}/gift.jpeg`);
-  }
-
-  const image = new Image(url);
-  return image
-    .fetch()
-    .then(image => `${basePath}/${path.parse(image.path).base}`);
-};
+export const getImagePath = (body) => Wish.findOne({ 'imageUrl': body.imageUrl })
+  .then((wish) => wish
+    ? wish.imagePath
+    : new Image(body.imageUrl).fetch().then(image => image.path)
+  )
+  .then(imagePath => `${Image.basePath}/${path.parse(imagePath).base}`);

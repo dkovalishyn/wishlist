@@ -689,6 +689,9 @@
     },
     "Wish": {
       "properties": {
+        "userId": {
+          "type": "string"
+        },
         "title": {
           "type": "string"
         },
@@ -701,12 +704,14 @@
             "type": "string"
           }
         },
-        "imageUrl": {
+        "order": {
+          "type": "number"
+        },
+        "price": {
           "type": "string"
         },
-        "imagePath": {
-          "type": "string",
-          "format": "binary"
+        "imageUrl": {
+          "type": "string"
         }
       }
     },

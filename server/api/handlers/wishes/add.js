@@ -8,17 +8,16 @@
  *
  */
 import Wish from '../../models/Wish';
-import { fetchImage } from './helpers';
+import { getImagePath } from './helpers';
 
 exports.handler = async function add(req, res) {
   try {
     const { body } = req;
     const wishCount = await Wish.count();
-    const imagePath = await fetchImage(body.imageUrl);
+    const imagePath = await getImagePath(body);
     const wish = await Wish.create({
       ...body,
       imagePath,
-      imageUrl: '',
       order: wishCount + 1,
     });
     res.status(201).send(wish);

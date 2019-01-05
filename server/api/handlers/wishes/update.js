@@ -1,5 +1,5 @@
 import Wish from '../../models/Wish';
-import { fetchImage } from './helpers';
+import { getImagePath } from './helpers';
 
 /**
  * update
@@ -17,7 +17,7 @@ exports.handler = async function update(req, res) {
   const { body, params: { wishId: id } } = req;
 
   try {
-    const imagePath = await fetchImage(body.imageUrl);
+    const imagePath = await getImagePath(body.imageUrl);
     const update = {...body, imagePath};
     if (!imagePath) delete update.imagePath;
     const options = {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Field } from '../../../shared/models/Field';
 import { Person } from '../../../shared/models/Person';
 import { TextBox } from '../../../shared/models/TextBox';
+import { FileInput } from '../../../shared/models/FileInput';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,11 @@ export class ProfileEditFormService {
         placeholder: 'Last name',
         validators: [],
         order: 2,
+      }),
+      new FileInput({
+        key: 'profile-edit__avatar',
+        name: 'avatar',
+        order: 3,
       }),
     ];
 

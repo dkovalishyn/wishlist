@@ -15,6 +15,13 @@
       [value]="field.value"
       class="dynamic-form__input"
     >
+    <input
+      *ngSwitchCase="'file'"
+      [formControlName]="field.name"
+      [name]="field.name"
+      type="file"
+      class="dynamic-form__file-input"
+    />
     <select
       *ngSwitchCase="'dropdown'"
       [id]="field.key"

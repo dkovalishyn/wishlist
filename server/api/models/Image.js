@@ -6,29 +6,38 @@ import { download, isValidUrl } from '../helpers/requests';
 class Image {
   path;
 
+  static basePath = '/assets/images';
+  static assetsPath = path.resolve(__dirname, `../../dist/public${Image.basePath}`);
+  static defaultPath = path.join(Image.assetsPath, 'gift.jpeg');
+
   constructor(url) {
     this.url = isValidUrl(url) ? url : null;
-    this.width = 505;
-    this.height = 640;
-    this.type = 'png';
-    this.mime = 'image/png';
+    this.width = 225;
+    this.height = 225;
+    this.type = 'jpeg';
+    this.mime = 'image/jpeg';
     this.isFetched = false;
     this.isProbed = false;
   }
 
-  fetch() {
-    const assetsPath = path.resolve(__dirname, '../../dist/public/assets/images');
-    if (!this.url || this.isFetched) {
-      this.path = path.join(assetsPath, 'gift.png');
-      this.isFetched = true;
+  async fetch() {
+    try {
+      if (!this.url || this.isFetched) {
+        this.path = Image.defaultPath;
+        this.isFetched = true;
+        return this;
+      }
+
+      this.path = path.join(Image.assetsPath, this.generateName());
+      await this.probe();
+      await download(this.url, this.path);
+      return this;
+    } catch (e) {
+      await fs.unlink(path);
+      this.path = Image.defaultPath;
       return this;
     }
-
-    this.path = path.join(assetsPath, this.generateName());
-
-    return download(this.url, this.path).then(() => this);
   }
-
   generateName() {
     return `${crypto.randomBytes(16).toString('hex')}.${this.type}`;
   }
