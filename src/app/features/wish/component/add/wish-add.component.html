@@ -1,9 +1,4 @@
 <app-modal [backLink]="backLink">
-  <app-form
-    title="Add your wish"
-    [fields]="fields"
-    (onSubmit)="onSubmit($event)"
-    submitLabel="Add"
-  >
+  <app-form header="Add your wish" [fields]="fields" (onSubmit)="onSubmit($event)">
   </app-form>
 </app-modal>

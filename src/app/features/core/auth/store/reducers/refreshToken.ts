@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 import * as fromLogin from '../actions/login';
-import * as fromRegister from '../actions/register';
-import * as fromRefreshToken from '../actions/refreshToken';
 import { LoginSuccess } from '../actions/login';
+import * as fromRegister from '../actions/register';
 import { RegisterSuccess } from '../actions/register';
+import * as fromRefreshToken from '../actions/refreshToken';
 
 export type State = string;
 

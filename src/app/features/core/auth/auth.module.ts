@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Action, StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { MatButtonModule } from '@angular/material';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -9,19 +11,18 @@ import { DynamicFormsModule } from '../../../shared/components/forms/dynamic-for
 import { ModalsModule } from '../../../shared/components/modals/modals.module';
 
 import { UserService } from './services/user.service';
-import { LoginFormService } from './services/login-form.service';
 import { AuthInterceptor } from './services/auth-interceptor.service';
-import { RegisterFormService } from './services/register-form.service';
 
 import { metaReducers, reducer, State } from './store/reducers';
 import { AuthEffects } from './store/effects';
 import { AuthRoutingModule } from './auth-routing.module';
-import { EffectsModule } from '@ngrx/effects';
+
 
 @NgModule({
   imports: [
     CommonModule,
     DynamicFormsModule,
+    MatButtonModule,
     ModalsModule,
     AuthRoutingModule,
     StoreModule.forFeature<State, Action>('auth', reducer, { metaReducers }),
@@ -29,8 +30,6 @@ import { EffectsModule } from '@ngrx/effects';
   ],
   providers: [
     UserService,
-    LoginFormService,
-    RegisterFormService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

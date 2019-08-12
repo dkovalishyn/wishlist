@@ -3,7 +3,6 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs/Observable/of';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { actionTypes as getAll, GetAllNotificationsFailed, GetAllNotificationsSuccess } from './actions/getAll';
-import { Notification } from '../../../shared/models/Notification';
 import { NotificationsService } from '../services/notifications.service';
 
 @Injectable()

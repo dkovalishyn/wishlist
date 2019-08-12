@@ -3,8 +3,7 @@ export class Wish {
   title: string;
   tags: string[];
   next: string;
-  imageUrl: string;
-  imagePath: string;
+  image: string;
   _id: string;
 
   constructor(wish?: {
@@ -17,8 +16,7 @@ export class Wish {
     this.description = wish.description || '';
     this.title = wish.title || '';
     this.tags = wish.tags || [];
-    this.imageUrl = wish.imageUrl || '';
-    this.imagePath = wish.imagePath || '';
+    this.image = wish.imageUrl || '';
   }
 
   toString() {

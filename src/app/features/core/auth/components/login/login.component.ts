@@ -1,42 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
-import { LoginFormService } from '../../services/login-form.service';
-import { Field } from '../../../../../shared/models/Field';
+import { FieldConfig, FieldType } from '../../../../../shared/models/Field';
 import { UserService } from '../../services/user.service';
-import { MessageService } from '../../../log/services/message.service';
 import { Login } from '../../store/actions/login';
 import { AppState } from '../../../../../store/reducer';
+import { FormComponent } from '../../../../../shared/components/forms/components/form/form.component';
+import { Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   template: `
     <app-modal backLink="/">
-      <app-form
-        [fields]="fields"
-        (onSubmit)="onSubmit($event)"
-        submitLabel="LogIn"
-        title="LogIn"
-      >
-        <button mat-button routerLink="/register">New account</button>
-      </app-form>
+      <app-form [fields]="fieldConfig" (onSubmit)="onSubmit($event)" title="LogIn"></app-form>
+      <button mat-button class="login-form__register-button" routerLink="/register">New account</button>
     </app-modal>
   `,
-  providers: [LoginFormService, UserService]
+  providers: [UserService],
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  fields: Field<any>[];
+export class LoginComponent {
+  @ViewChild(FormComponent, { static: true }) form: FormComponent;
 
-  constructor(
-    private loginFormService: LoginFormService,
-    private store: Store<AppState>,
-    private messageService: MessageService,
-    private router: Router,
-  ) {
-  }
+  fieldConfig: FieldConfig[] = [
+    {
+      type: FieldType.Input,
+      placeholder: 'Username',
+      inputType: 'text',
+      name: 'username',
+      validations: [
+        {
+          name: 'required',
+          validator: Validators.required,
+          message: 'Name is required'
+        }
+      ],
+      id: 'login__username',
+      value: 'admin'
+    },
+    {
+      type: FieldType.Input,
+      placeholder: 'Password',
+      inputType: 'password',
+      name: 'password',
+      validations: [
+        {
+          name: 'required',
+          validator: Validators.required,
+          message: 'Password is required'
+        }
+      ],
+      id: 'login__password',
 
-  ngOnInit() {
-    this.fields = this.loginFormService.getFields();
-  }
+      value: 'Password1'
+    },
+    {
+      type: FieldType.Button,
+      placeholder: 'Log in',
+      id: 'login__button-submit'
+    }
+  ];
+
+  constructor(private store: Store<AppState>) {}
 
   onSubmit(user) {
     this.store.dispatch(new Login(user));

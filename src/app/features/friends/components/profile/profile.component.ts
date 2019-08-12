@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { zip } from 'rxjs';
 import { of } from 'rxjs/Observable/of';
 import { map, switchMap } from 'rxjs/operators';
-import { mime } from 'mime-types';
 import { AppState } from '../../../../store/reducer';
 import { Person } from '../../../../shared/models/Person';
 import { getUserById } from '../../store/selectors';

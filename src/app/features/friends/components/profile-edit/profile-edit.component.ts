@@ -1,12 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Field } from '../../../../shared/models/Field';
-import { ProfileEditFormService } from '../../services/profile-edit-form.service';
-import { Person } from '../../../../shared/models/Person';
-import { Observable } from 'rxjs/Observable';
-import { AppState } from '../../../../store/reducer';
+import { Person } from 'shared/models/Person';
+import { AppState } from 'store/reducer';
 import { Store } from '@ngrx/store';
 import { getUserProfile } from '../../../core/auth/store/selectors';
+import { FieldConfig, FieldType } from 'shared/models/Field';
 
 @Component({
   selector: 'app-profile-edit',
@@ -14,25 +12,42 @@ import { getUserProfile } from '../../../core/auth/store/selectors';
   styleUrls: ['./profile-edit.component.scss']
 })
 export class ProfileEditComponent implements OnInit {
-  profile$: Observable<Person>;
-  fields: Field<any>[] = [];
+  profile: Person;
+  fields: FieldConfig[] = [
+    {
+      type: FieldType.Input,
+      inputType: 'text',
+      class: 'profile-edit__first-name',
+      name: 'firstName',
+      value: this.profile.firstName || '',
+      placeholder: 'First name',
+      validations: []
+    },
+    {
+      type: FieldType.Input,
+      inputType: 'text',
+      class: 'profile-edit__last-name',
+      name: 'lastName',
+      value: this.profile.lastName || '',
+      placeholder: 'Last name',
+      validations: []
+    },
+    {
+      type: FieldType.FileInput,
+      class: 'profile-edit__avatar',
+      name: 'avatar'
+    }
+  ];
 
-  constructor(
-    private formService: ProfileEditFormService,
-    private location: Location,
-    private store: Store<AppState>,
-  ) {
-    this.profile$ = this.store.select(getUserProfile);
+  constructor(private location: Location, private store: Store<AppState>) {
+    this.store.select(getUserProfile).subscribe(profile => this.profile = profile);
   }
 
   ngOnInit() {
-    this.profile$.subscribe(profile => {
-      this.fields = this.formService.getFields(profile);
-    });
   }
 
   onSubmit(payLoad) {
-   console.log(payLoad);
+    console.log(payLoad);
   }
 
   onCancel() {

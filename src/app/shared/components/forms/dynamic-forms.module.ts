@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DynamicFieldComponent } from './components/dynamic-field/dynamic-field.component';
 import { FormComponent } from './components/form/form.component';
 import { FieldControlService } from './services/field-control.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatChipsModule, MatIconModule, MatInputModule } from '@angular/material';
+import {MatButtonModule, MatCardModule, MatChipsModule, MatIconModule, MatInputModule, MatSliderModule} from '@angular/material';
+import { FormButtonComponent } from './components/form-button/form-button.component';
+import { DynamicFieldDirective } from './directives/dynamic-field.directive';
+import { FormInputComponent } from './components/form-input/form-input.component';
+import { ChipListComponent } from './components/chip-list/chip-list.component';
+import { FileInputComponent } from './components/file-input/file-input.component';
+import { FormDropdownComponent } from './components/form-dropdown/form-dropdown.component';
+import { FormSliderComponent } from './components/form-slider/form-slider.component';
+import { TextAreaComponent } from './components/text-area/text-area.component';
 
 @NgModule({
   imports: [
@@ -15,17 +22,30 @@ import { MatButtonModule, MatCardModule, MatChipsModule, MatIconModule, MatInput
     MatButtonModule,
     MatChipsModule,
     MatIconModule,
+    MatSliderModule,
   ],
   declarations: [
-    DynamicFieldComponent,
     FormComponent,
+    FormInputComponent,
+    ChipListComponent,
+    FileInputComponent,
+    FormButtonComponent,
+    FormDropdownComponent,
+    FormButtonComponent,
+    DynamicFieldDirective,
+    FormSliderComponent,
+    TextAreaComponent
   ],
-  providers: [
-    FieldControlService,
+  entryComponents: [
+    FormInputComponent,
+    ChipListComponent,
+    FileInputComponent,
+    FormDropdownComponent,
+    FormButtonComponent,
+    FormSliderComponent,
+    TextAreaComponent,
   ],
-  exports: [
-    FormComponent,
-    DynamicFieldComponent,
-  ],
+  providers: [FieldControlService],
+  exports: [FormComponent]
 })
-export class DynamicFormsModule { }
+export class DynamicFormsModule {}

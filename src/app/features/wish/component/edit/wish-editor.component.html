@@ -1,9 +1,18 @@
 <app-modal [backLink]="backLink">
   <app-form
-    title="Editor"
+    *ngIf="wish$ | async; else loading"
+    header="Editor"
     [fields]="fields"
+    [initialValues]="wish$ | async"
     (onSubmit)="onSubmit($event)"
-    submitLabel="Save"
   >
   </app-form>
+
+  <ng-template #loading>
+    <mat-progress-spinner
+      mode="indeterminate"
+      color="primary"
+    ></mat-progress-spinner>
+  </ng-template>
 </app-modal>
+

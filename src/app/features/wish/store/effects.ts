@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { catchError, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs/Observable/of';
 import { WishService } from '../services/wish.service';
-import { Wish } from '../../../shared/models/Wish';
+import { Wish } from 'shared/models/Wish';
 import * as fromGetAll from './actions/getAll';
 import * as fromAdd from './actions/add';
 import * as fromEdit from './actions/edit';
 import * as fromDelete from './actions/delete';
 import * as fromReorder from './actions/reorder';
-import { ActionWithPayload } from '../../../shared/utils/types';
+import { ActionWithPayload } from 'shared/utils/types';
 import { MessageService } from '../../core/log/services/message.service';
 
 @Injectable()

@@ -1,21 +1,32 @@
 <mat-card *ngIf="form">
-  <mat-card-title *ngIf="title">{{ title }}</mat-card-title>
-  <form class="dynamic-form" (ngSubmit)="submit($event)" [formGroup]="form">
-    <div class="dynamic-form__body">
-      <div class="dynamic-form__row" *ngFor="let field of fields">
-        <app-field [field]="field" [form]="form"></app-field>
+  <mat-card-title *ngIf="header">{{ header }}</mat-card-title>
+  <form *ngIf="initialValues" class="dynamic-form" (ngSubmit)="submit($event)" [formGroup]="form">
+    <div class="dynamic-form__content">
+      <div class="dynamic-form__sidebar">
+        <ng-container appDynamicField [field]="filePicker" [group]="form"></ng-container>
+      </div>
+      <div class="dynamic-form__body">
+        <div *ngFor="let input of inputs" class="dynamic-form__row">
+          <ng-container appDynamicField [field]="input" [group]="form"></ng-container>
+        </div>
       </div>
     </div>
-
-    <mat-card-actions>
+    <mat-card-actions align="right">
       <button mat-button class="dynamic-form__cancel-button" type="button" (click)="cancel()">Cancel</button>
-      <button mat-button class="dynamic-form__submit-button" type="submit" [disabled]="!form.valid">{{ submitLabel }}</button>
+      <button
+        class="dynamic-form__submit-button"
+        type="submit"
+        mat-raised-button
+        color="primary"
+        *ngFor="let button of buttons"
+      >
+        {{ button.name }}
+      </button>
     </mat-card-actions>
-
   </form>
 
   <div *ngIf="payLoad" class="dynamic-form__payload">
-    <strong>Saved the following values</strong><br>{{payLoad}}
+    <strong>Saved the following values</strong><br />{{ payLoad }}
   </div>
 
   <ng-content></ng-content>

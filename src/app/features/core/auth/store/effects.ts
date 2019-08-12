@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
-import { catchError, last, map, mergeMap, share, switchMap, take } from 'rxjs/operators';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { catchError, map, mergeMap, share, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/Observable/of';
 import { UserService } from '../services/user.service';
 import * as fromLogin from './actions/login';
 import * as fromRefreshToken from './actions/refreshToken';
+import { RefreshToken } from './actions/refreshToken';
 import * as fromLogout from './actions/logout';
 import * as fromRegister from './actions/register';
 import * as fromGetUserProfile from './actions/getUserProfile';
-import { ActionWithPayload } from '../../../../shared/utils/types';
 import { GetUserProfile } from './actions/getUserProfile';
-import { zip } from 'rxjs';
-import { getRefreshToken, getToken, getUserId } from './selectors';
+import { ActionWithPayload } from '../../../../shared/utils/types';
 import { AppState } from '../../../../store/reducer';
 import { Store } from '@ngrx/store';
-import { RefreshToken } from './actions/refreshToken';
-import { Logout } from './actions/logout';
 
 @Injectable()
 export class AuthEffects {

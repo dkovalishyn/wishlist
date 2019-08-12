@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatSidenavModule, MatButtonModule, MatMenuModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule } from '@angular/material';
 import { SidePanelComponent } from './components/side-panel/side-panel.component';
 import { HeaderModule } from '../../../features/core/header/header.module';
 

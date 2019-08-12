@@ -3,16 +3,23 @@ import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { WishRoutingModule } from './wish-routing.module';
 import { WishService } from './services/wish.service';
-import { WishFormService } from './services/wish-form.service';
 import { WishContainerComponent } from './containers/wish-container/wish-container.component';
 import { DetailsComponent } from './component/details/details.component';
 import { WishComponent } from './component/wish/wish.component';
 import { WishAddComponent } from './component/add/wish-add.component';
 import { WishEditorComponent } from './component/edit/wish-editor.component';
-import { ModalsModule } from '../../shared/components/modals/modals.module';
-import { DynamicFormsModule } from '../../shared/components/forms/dynamic-forms.module';
-import { MatButtonModule, MatCardModule, MatIconModule, MatListModule, MatChipsModule, MatTooltipModule } from '@angular/material';
-import { HomeComponent } from '../../shared/components/home/home.component';
+import { ModalsModule } from 'shared/components/modals/modals.module';
+import { DynamicFormsModule } from 'shared/components/forms/dynamic-forms.module';
+import { HomeComponent } from 'shared/components/home/home.component';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatIconModule,
+  MatListModule,
+  MatProgressSpinnerModule,
+  MatTooltipModule
+} from '@angular/material';
 import { WishEffects } from './store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -31,9 +38,10 @@ import { WishlistComponent } from './component/wishlist/wishlist.component';
     MatListModule,
     MatChipsModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
     DragDropModule,
     StoreModule.forFeature('wish', reducer),
-    EffectsModule.forFeature([WishEffects]),
+    EffectsModule.forFeature([WishEffects])
   ],
   declarations: [
     DetailsComponent,
@@ -42,11 +50,8 @@ import { WishlistComponent } from './component/wishlist/wishlist.component';
     WishEditorComponent,
     HomeComponent,
     WishContainerComponent,
-    WishlistComponent,
+    WishlistComponent
   ],
-  providers: [
-    WishService,
-    WishFormService,
-  ]
+  providers: [WishService]
 })
-export class WishModule { }
+export class WishModule {}

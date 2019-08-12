@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { zip } from 'rxjs/Observable/zip';
 import { getToken, getUserProfile } from './features/core/auth/store/selectors';
-import { InitializeApplication } from './store/actions';
-import { AppState } from './store/reducer';
+import { InitializeApplication } from 'store/actions';
+import { AppState } from 'store/reducer';
 import { UserService } from './features/core/auth/services/user.service';
 import { WebSocketService } from './features/core/web-socket/web-socket.service';
 

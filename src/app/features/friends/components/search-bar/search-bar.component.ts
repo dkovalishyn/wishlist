@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FriendsService } from '../../services/friends.service';
 import { AppState } from '../../../../store/reducer';
 import { Store } from '@ngrx/store';
 import { Search } from '../../store/actions/search';

@@ -1,48 +1,29 @@
 <mat-card class="wish">
-  <img
-    [src]="wish.imagePath"
-    [alt]="wish.title"
-    class="wish__image"
-  />
+  <img *ngIf="wish.image; else cake" [src]="wish.image" [alt]="wish.title" class="wish__image" />
   <div class="wish__header">
-    <a
-      [routerLink]="[wish._id]"
-      class="wish__title"
-    >
-      {{wish.title}}
+    <a [routerLink]="[wish._id]" class="wish__title">
+      {{ wish.title }}
     </a>
     <div class="wish__description">
-      {{wish.description}}
+      {{ wish.description }}
     </div>
   </div>
   <mat-chip-list class="wish__tags">
-    <mat-chip
-      *ngFor="let tag of wish.tags.slice(0, 3)"
-    >
-      {{tag}}
+    <mat-chip *ngFor="let tag of wish.tags.slice(0, 3)">
+      {{ tag }}
     </mat-chip>
-    <mat-chip
-      *ngIf="wish.tags.length > 3"
-      [matTooltip]="wish.tags.slice(3).join(', ')"
-      matTooltipClass="tags__tooltip"
-    >
-      +{{wish.tags.length - 3}}
+    <mat-chip *ngIf="wish.tags.length > 3" [matTooltip]="wish.tags.slice(3).join(', ')" matTooltipClass="tags__tooltip">
+      +{{ wish.tags.length - 3 }}
     </mat-chip>
   </mat-chip-list>
   <div class="wish__actions">
-    <a
-      mat-flat-button
-      [routerLink]="[wish._id, 'edit']"
-      class="wish__edit-button"
-    >
+    <a mat-flat-button [routerLink]="[wish._id, 'edit']" class="wish__edit-button">
       <mat-icon>edit</mat-icon>
     </a>
-    <button
-      mat-flat-button
-      class="wish__edit-button"
-      (click)="delete()"
-    >
+    <button mat-flat-button class="wish__edit-button" (click)="delete()">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
 </mat-card>
+
+<ng-template #cake><mat-icon>cake</mat-icon></ng-template>

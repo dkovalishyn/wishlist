@@ -7,7 +7,7 @@ import { selectors } from '../store';
 import { AppState } from '../../../../store/reducer';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { throwError, zip } from 'rxjs';
-import {  RefreshToken } from '../store/actions/refreshToken';
+import { RefreshToken } from '../store/actions/refreshToken';
 import { getRefreshToken, getToken } from '../store/selectors';
 
 @Injectable()

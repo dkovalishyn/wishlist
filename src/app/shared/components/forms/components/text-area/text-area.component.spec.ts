@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DynamicFieldComponent } from './dynamic-field.component';
+import { TextAreaComponent } from 'app/shared/components/forms/components/text-area/text-area.component';
 
-describe('DynamicFieldComponent', () => {
-  let component: DynamicFieldComponent;
-  let fixture: ComponentFixture<DynamicFieldComponent>;
+describe('TextAreaComponent', () => {
+  let component: TextAreaComponent;
+  let fixture: ComponentFixture<TextAreaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DynamicFieldComponent ]
+      declarations: [ TextAreaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DynamicFieldComponent);
+    fixture = TestBed.createComponent(TextAreaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

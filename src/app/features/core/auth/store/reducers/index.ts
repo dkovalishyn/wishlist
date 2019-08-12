@@ -1,4 +1,4 @@
-import { State, reducer } from './rootReducer';
+import { reducer, State } from './rootReducer';
 import { metaReducers } from './metaReducers';
 
 export {

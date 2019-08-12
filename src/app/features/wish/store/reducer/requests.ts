@@ -2,9 +2,9 @@ import { Action, ActionReducer, ActionReducerMap, combineReducers } from '@ngrx/
 import { createRequestReducer } from '../../../../shared/utils/handlers';
 import { RequestStatus } from '../../../../shared/utils/types';
 import * as post from '../actions/add';
+import * as add from '../actions/add';
 import * as getAll from '../actions/getAll';
 import * as edit from '../actions/edit';
-import * as add from '../actions/add';
 import * as reorder from '../actions/reorder';
 import * as deleteRequest from '../actions/delete';
 

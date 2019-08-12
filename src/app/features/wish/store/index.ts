@@ -1,4 +1,4 @@
-import { State, reducer } from './reducer';
+import { reducer, State } from './reducer';
 import * as selectors from './selectors';
 import { WishEffects } from './effects';
 

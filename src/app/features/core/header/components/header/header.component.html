@@ -1,11 +1,11 @@
 <mat-toolbar color="primary" class="header">
   <header class="header">
-      <span class="header__menu-button">
-        <app-icon name="menu" (click)="onSideNavToggle()"></app-icon>
-      </span>
-      <span class="header__logo">
-            <h1>WishList</h1>
-      </span>
+    <span class="header__menu-button">
+      <app-icon name="menu" (click)="onSideNavToggle()"></app-icon>
+    </span>
+    <span class="header__logo">
+      <a mat-button class="menu-link" href="/">WishList</a>
+    </span>
     <div class="header__login-button" [ngSwitch]="auth.isLoggedIn$ | async">
       <app-profile-menu *ngSwitchCase="true" (logout)="logout()" [user]="user$ | async"></app-profile-menu>
       <button *ngSwitchCase="false" mat-raised-button color="accent" routerLink="/login">

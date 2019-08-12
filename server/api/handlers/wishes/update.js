@@ -1,5 +1,5 @@
-import Wish from '../../models/Wish';
-import { getImagePath } from './helpers';
+import Wish from "../../models/Wish";
+import { getImagePath } from "./helpers";
 
 /**
  * update
@@ -14,16 +14,15 @@ import { getImagePath } from './helpers';
  *
  */
 exports.handler = async function update(req, res) {
-  const { body, params: { wishId: id } } = req;
+  const {
+    body,
+    params: { wishId: id }
+  } = req;
 
   try {
-    const imagePath = await getImagePath(body.imageUrl);
-    const update = {...body, imagePath};
-    if (!imagePath) delete update.imagePath;
-    const options = {
-      new: true,
-    };
-    const wish = await Wish.findByIdAndUpdate(id, update, options);
+    const wish = await Wish.findByIdAndUpdate(id, body, {
+      omitUndefined: false
+    });
     res.send(wish);
   } catch (e) {
     res.status(404).send(e.message);
