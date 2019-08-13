@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-  userId: String,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   title: String,
   description: String,
   tags: [String],

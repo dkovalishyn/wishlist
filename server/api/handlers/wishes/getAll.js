@@ -1,4 +1,4 @@
-import Wish from '../../models/Wish';
+import Wish from "../../models/Wish";
 
 /**
  * getAll
@@ -7,11 +7,16 @@ import Wish from '../../models/Wish';
  *
  */
 exports.handler = function getAll(req, res) {
-  Wish.find({}, null, { sort: { order: 1 } }, (err, data) => {
-    if (err) {
-      res.sendStatus(501);
-    }
+  Wish.find(
+    { user: req.user._id },
+    null,
+    { sort: { order: 1 } },
+    (err, data) => {
+      if (err) {
+        res.sendStatus(501);
+      }
 
-    res.send(data);
-  });
+      res.send(data);
+    }
+  );
 };

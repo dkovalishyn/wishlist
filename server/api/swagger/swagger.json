@@ -6,18 +6,9 @@
   },
   "host": "localhost:10010",
   "basePath": "/api/v1",
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json",
-    "text/plain",
-    "text/html"
-  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json", "text/plain", "text/html"],
   "security": [],
   "paths": {
     "/login": {
@@ -25,9 +16,7 @@
       "post": {
         "description": "Authenticate user",
         "operationId": "login",
-        "tags": [
-          "security"
-        ],
+        "tags": ["security"],
         "security": [],
         "parameters": [
           {
@@ -53,9 +42,7 @@
       "post": {
         "description": "Add person by id",
         "operationId": "create",
-        "tags": [
-          "security"
-        ],
+        "tags": ["security"],
         "parameters": [
           {
             "name": "Person",
@@ -82,9 +69,7 @@
       "get": {
         "description": "Get person by id",
         "operationId": "get",
-        "tags": [
-          "security"
-        ],
+        "tags": ["security"],
         "parameters": [
           {
             "name": "id",
@@ -107,9 +92,7 @@
       "post": {
         "description": "Issue a new token pair",
         "operationId": "refreshToken",
-        "tags": [
-          "security"
-        ],
+        "tags": ["security"],
         "security": [],
         "parameters": [
           {
@@ -135,9 +118,7 @@
       "get": {
         "description": "Get all wishes",
         "operationId": "getAll",
-        "tags": [
-          "wishes"
-        ],
+        "tags": ["wishes"],
         "responses": {
           "200": {
             "description": "Success",
@@ -150,9 +131,7 @@
       "post": {
         "description": "Add wish",
         "operationId": "add",
-        "tags": [
-          "wishes"
-        ],
+        "tags": ["wishes"],
         "parameters": [
           {
             "name": "wish",
@@ -180,13 +159,47 @@
         }
       }
     },
+    "/image/upload": {
+      "post": {
+        "description": "Upload image to server",
+        "operationId": "upload",
+        "tags": ["images"],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "upFile",
+            "type": "file",
+            "description": "An image file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "501": {
+            "description": "Internal server error",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
     "/wish/reorder": {
       "post": {
         "description": "Reorder wishes",
         "operationId": "reorder",
-        "tags": [
-          "wishes"
-        ],
+        "tags": ["wishes"],
         "parameters": [
           {
             "name": "order",
@@ -218,9 +231,7 @@
       "get": {
         "description": "Get wish by id",
         "operationId": "getWish",
-        "tags": [
-          "wishes"
-        ],
+        "tags": ["wishes"],
         "parameters": [
           {
             "name": "wishId",
@@ -242,9 +253,7 @@
       "delete": {
         "description": "Delete wish by id",
         "operationId": "deleteWish",
-        "tags": [
-          "wishes"
-        ],
+        "tags": ["wishes"],
         "parameters": [
           {
             "name": "wishId",
@@ -266,9 +275,7 @@
       "put": {
         "description": "Update wish",
         "operationId": "update",
-        "tags": [
-          "wishes"
-        ],
+        "tags": ["wishes"],
         "parameters": [
           {
             "name": "wishId",
@@ -301,9 +308,7 @@
       "get": {
         "description": "Generates web-site thumbnail",
         "operationId": "generate",
-        "tags": [
-          "snapshot"
-        ],
+        "tags": ["snapshot"],
         "parameters": [
           {
             "name": "url",
@@ -313,11 +318,7 @@
             "type": "string"
           }
         ],
-        "produces": [
-          "image/png",
-          "image/svg+xml",
-          "image/jpeg"
-        ],
+        "produces": ["image/png", "image/svg+xml", "image/jpeg"],
         "responses": {
           "200": {
             "description": "Success",
@@ -333,9 +334,7 @@
       "get": {
         "description": "Returns 'Hello' to the caller",
         "operationId": "hello",
-        "tags": [
-          "hello"
-        ],
+        "tags": ["hello"],
         "parameters": [
           {
             "name": "name",
@@ -368,9 +367,7 @@
       "get": {
         "summary": "Get profile of current user",
         "operationId": "getUserProfile",
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "responses": {
           "200": {
             "description": "Success",
@@ -385,9 +382,7 @@
       "get": {
         "description": "Get all users",
         "operationId": "getUsers",
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "responses": {
           "200": {
             "description": "Success",
@@ -403,9 +398,7 @@
       "post": {
         "description": "Add User",
         "operationId": "postUser",
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "parameters": [
           {
             "name": "userData",
@@ -431,9 +424,7 @@
       "get": {
         "description": "Search User",
         "operationId": "searchUser",
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "parameters": [
           {
             "name": "firstName",
@@ -477,9 +468,7 @@
       "get": {
         "description": "Get User by Id",
         "operationId": "getUserById",
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "parameters": [
           {
             "name": "userId",
@@ -501,9 +490,7 @@
       "put": {
         "description": "Change User data",
         "operationId": "putUser",
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "parameters": [
           {
             "name": "userId",
@@ -536,12 +523,8 @@
         "summary": "Picture upload",
         "description": "Upload user's photo",
         "operationId": "uploadImage",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["multipart/form-data"],
+        "tags": ["user"],
         "parameters": [
           {
             "name": "userId",
@@ -568,9 +551,7 @@
       "post": {
         "description": "Follow user",
         "operationId": "followUser",
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "parameters": [
           {
             "name": "userId",
@@ -601,9 +582,7 @@
       "get": {
         "description": "Get all notifications which are related to particular user",
         "operationId": "getNotifications",
-        "tags": [
-          "notification"
-        ],
+        "tags": ["notification"],
         "responses": {
           "200": {
             "description": "OK",
@@ -622,9 +601,7 @@
         "summary": "Accept notification",
         "description": "Accepts notification by id from the path",
         "operationId": "acceptNotification",
-        "tags": [
-          "notification"
-        ],
+        "tags": ["notification"],
         "parameters": [
           {
             "name": "id",
@@ -646,9 +623,7 @@
         "summary": "Reject notification",
         "description": "Rejects notification by id from the path",
         "operationId": "rejectNotification",
-        "tags": [
-          "notification"
-        ],
+        "tags": ["notification"],
         "parameters": [
           {
             "name": "id",
@@ -668,9 +643,7 @@
   },
   "definitions": {
     "HelloWorldResponse": {
-      "required": [
-        "message"
-      ],
+      "required": ["message"],
       "properties": {
         "message": {
           "type": "string"
@@ -678,9 +651,7 @@
       }
     },
     "ErrorResponse": {
-      "required": [
-        "message"
-      ],
+      "required": ["message"],
       "properties": {
         "message": {
           "type": "string"

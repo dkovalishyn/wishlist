@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
+import {reject, isNil} from 'ramda';
 
 import { MessageService } from '../../../core/log/services/message.service';
 import { ActionsSubject, Store } from '@ngrx/store';
@@ -66,6 +67,10 @@ export class WishAddComponent implements OnInit, OnDestroy {
       value: '',
       placeholder: 'Image',
       validations: []
+    },
+    {
+      type: FieldType.Button,
+      name: 'Save'
     }
   ];
 
@@ -82,7 +87,8 @@ export class WishAddComponent implements OnInit, OnDestroy {
     this.actionsSubscription.unsubscribe();
   }
 
-  onSubmit(payLoad) {
+  onSubmit(values) {
+    const payLoad = reject(isNil, values);
     this.store.dispatch(new AddWish(payLoad));
     this.actionsSubscription = this.actionsSubject
       .pipe(ofType(actionTypes.SUCCESS))

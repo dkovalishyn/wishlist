@@ -11,7 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { FriendsEffects, reducer } from './store';
 import { StoreModule } from '@ngrx/store';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
-import { DynamicFormsModule } from '../../shared/components/forms/dynamic-forms.module';
+import { DynamicFormsModule } from 'shared/components/forms/dynamic-forms.module';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 

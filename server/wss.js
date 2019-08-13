@@ -23,7 +23,7 @@ export class WebSocketServer extends EventEmitter {
 
   sendMessage = (userId, message) => {
     if (!this.server) {
-      console.log('Server is not connected. Can not to send a message');
+      console.log('Server is not connected. Can not send a message');
       return;
     }
     this.server.clients.forEach(ws => {
