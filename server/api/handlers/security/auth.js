@@ -1,29 +1,30 @@
-import User from '../../models/User';
-import mongoose from 'mongoose';
+const User = require("../../models/User");
 
-export function login(username, password, done) {
-  console.log('login', username, password);
+exports.login = (username, password, done) => {
+  console.log("login", username, password);
   User.findOne({ username }, (err, user) => {
     if (err) {
       return done(err);
     }
     if (!user) {
-      return done(null, false, { message: 'Incorrect username.' });
+      return done(null, false, { message: "Incorrect username." });
     }
     if (user.password !== password) {
-      return done(null, false, { message: 'Incorrect password.' });
+      return done(null, false, { message: "Incorrect password." });
     }
 
     return done(null, user);
   });
-}
+};
 
-export async function register(req, res, next) {
+exports.register = async (req, res, next) => {
   try {
-    const { body: { username, password } } = req;
+    const {
+      body: { username, password }
+    } = req;
     const user = await User.findOne({ username });
     if (user) {
-      res.status(400).send('User already exists');
+      res.status(400).send("User already exists");
       return next();
     }
 
@@ -34,31 +35,31 @@ export async function register(req, res, next) {
   }
 };
 
-export function authenticate(req, res, next) {
-  console.log('authentication');
+exports.authenticate = (req, res, next) => {
+  console.log("authentication");
   if (req.isAuthenticated()) {
     return next();
   }
 
-  if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
-    res.send('Authentication required', 401);
+  if (req.headers["x-requested-with"] === "XMLHttpRequest") {
+    res.send("Authentication required", 401);
   } else {
-    res.redirect('/login');
+    res.redirect("/login");
   }
-}
+};
 
-export function serialize(user, done) {
+exports.serialize = (user, done) => {
   done(null, user._id);
-}
+};
 
-export function deserialize(id, done) {
+exports.deserialize = (id, done) => {
   User.findById(id, (err, user) => {
     if (err) {
       done(err);
     }
     if (!user) {
-      done(err, false, 'User not found');
+      done(err, false, "User not found");
     }
     done(null, user);
   });
-}
+};

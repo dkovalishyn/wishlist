@@ -1,21 +1,24 @@
-import path from 'path';
-import probe from 'probe-image-size';
-import crypto from 'crypto';
-import { download, isValidUrl } from '../helpers/requests';
+const path = require("path");
+const probe = require("probe-image-size");
+const crypto = require("crypto");
+const { download, isValidUrl } = require("../helpers/requests");
 
 class Image {
   path;
 
-  static basePath = '/assets/images';
-  static assetsPath = path.resolve(__dirname, `../../dist/public${Image.basePath}`);
-  static defaultPath = path.join(Image.assetsPath, 'gift.jpeg');
+  static basePath = "/assets/images";
+  static assetsPath = path.resolve(
+    __dirname,
+    `../../dist/public${Image.basePath}`
+  );
+  static defaultPath = path.join(Image.assetsPath, "gift.jpeg");
 
   constructor(url) {
     this.url = isValidUrl(url) ? url : null;
     this.width = 225;
     this.height = 225;
-    this.type = 'jpeg';
-    this.mime = 'image/jpeg';
+    this.type = "jpeg";
+    this.mime = "image/jpeg";
     this.isFetched = false;
     this.isProbed = false;
   }
@@ -39,7 +42,7 @@ class Image {
     }
   }
   generateName() {
-    return `${crypto.randomBytes(16).toString('hex')}.${this.type}`;
+    return `${crypto.randomBytes(16).toString("hex")}.${this.type}`;
   }
 
   probe() {
@@ -79,5 +82,4 @@ class Image {
   }
 }
 
-export default Image;
-
+module.exports = Image;

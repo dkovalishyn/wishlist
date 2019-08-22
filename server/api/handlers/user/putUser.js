@@ -1,4 +1,4 @@
-import Person from '../../models/Person';
+const Person = require("../../models/Person");
 
 /**
  * putUser
@@ -14,10 +14,13 @@ import Person from '../../models/Person';
  *
  */
 exports.handler = function putUser(req, res) {
-  const { body: userData, params: { userId: id } } = req;
+  const {
+    body: userData,
+    params: { userId: id }
+  } = req;
 
   const options = {
-    new: true,
+    new: true
   };
 
   Person.findOneAndUpdate({ userId: id }, userData, options, (err, data) => {
@@ -32,5 +35,5 @@ exports.handler = function putUser(req, res) {
     }
 
     res.send(data);
-  })
+  });
 };

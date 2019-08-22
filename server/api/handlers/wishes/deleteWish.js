@@ -1,4 +1,4 @@
-import Wish from '../../models/Wish';
+const Wish = require("../../models/Wish");
 
 /**
  * deleteWish

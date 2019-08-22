@@ -1,7 +1,6 @@
-import multer from 'multer';
-import mime from 'mime-types';
-import mongoose from 'mongoose';
-import Person from '../../models/Person';
+const multer = require("multer");
+const mongoose = require("mongoose");
+const Person = require("../../models/Person");
 
 /**
  * Picture upload
@@ -15,15 +14,23 @@ import Person from '../../models/Person';
  *   avatar {file} User's avatar.
  *
  */
-const { Types: { ObjectId } } = mongoose;
+const {
+  Types: { ObjectId }
+} = mongoose;
 
 exports.handler = async function uploadImage(req, res) {
-  const { file, params: { userId } } = req;
+  const {
+    file,
+    params: { userId }
+  } = req;
 
   try {
-    await Person.findOneAndUpdate({ userId: ObjectId(userId) }, {
-      avatar: `/avatars/${file.filename}`,
-    });
+    await Person.findOneAndUpdate(
+      { userId: ObjectId(userId) },
+      {
+        avatar: `/avatars/${file.filename}`
+      }
+    );
     console.log(req.file);
     res.sendStatus(200);
   } catch (e) {
@@ -32,4 +39,6 @@ exports.handler = async function uploadImage(req, res) {
   }
 };
 
-exports.middleware = multer({ dest: 'server/dist/public/avatars' }).single('avatar');
+exports.middleware = multer({ dest: "server/dist/public/avatars" }).single(
+  "avatar"
+);

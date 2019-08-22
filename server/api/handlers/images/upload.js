@@ -5,18 +5,24 @@
  *
  */
 const multer = require("multer");
-const storage = require("../../../services/storage");
+const { createStorage, DESTINATIONS } = require("../../../services/storage");
 
 exports.handler = function upload(req, res, next) {
-  const { file: { size, filename } } = req;
+  const {
+    file: { size, filename }
+  } = req;
 
   if (!size) {
     res.status(400).send("File was not created");
     return;
   }
 
-  res.status(201).send(filename);
+  res
+    .status(201)
+    .json({ path: `assets/${DESTINATIONS.temporary}/${filename}` });
   next();
 };
 
-exports.middleware = multer({ storage }).single("upFile");
+exports.middleware = multer({
+  storage: createStorage(DESTINATIONS.temporary)
+}).single("upFile");

@@ -1,4 +1,4 @@
-import User from '../../models/User';
+const User = require("../../models/User");
 
 /**
  * login
@@ -11,14 +11,16 @@ import User from '../../models/User';
  *
  */
 exports.handler = function login(req, res) {
-  const { body: { username, password } } = req;
-  console.log('login', req.body);
+  const {
+    body: { username, password }
+  } = req;
+  console.log("login", req.body);
   User.findOne({ username }, (err, user) => {
-    if (err || !user || (user.password !== password)) {
-      res.send({ error: 'Incorrect username or password' });
+    if (err || !user || user.password !== password) {
+      res.send({ error: "Incorrect username or password" });
       return;
     }
 
-    res.status(200).send({ message: 'Successfully logged in' });
+    res.status(200).send({ message: "Successfully logged in" });
   });
 };

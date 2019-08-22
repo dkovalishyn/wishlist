@@ -1,4 +1,4 @@
-import Notification from '../../models/Notification';
+const Notification = require("../../models/Notification");
 /**
  * Reject notification
  *
@@ -10,9 +10,11 @@ import Notification from '../../models/Notification';
  */
 
 exports.handler = function rejectNotification(req, res) {
-  const { params: { id } } = req;
+  const {
+    params: { id }
+  } = req;
 
-  Notification.findByIdAndRemove(id, (err) => {
+  Notification.findByIdAndRemove(id, err => {
     if (err) {
       res.status(500).send(e.message);
       return;

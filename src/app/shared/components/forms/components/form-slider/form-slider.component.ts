@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FieldConfig, SliderConfig } from 'shared/models/Field';
+import { SliderConfig } from 'shared/models/Field';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material';
 

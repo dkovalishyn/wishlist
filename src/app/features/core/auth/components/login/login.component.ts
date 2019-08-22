@@ -1,17 +1,23 @@
 import { Component, ViewChild } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { FieldConfig, FieldType } from '../../../../../shared/models/Field';
+import { FieldConfig, FieldType } from 'shared/models/Field';
+import { AppState } from 'store/reducer';
+import { FormComponent } from 'shared/components/forms/components/form/form.component';
+
 import { UserService } from '../../services/user.service';
 import { Login } from '../../store/actions/login';
-import { AppState } from '../../../../../store/reducer';
-import { FormComponent } from '../../../../../shared/components/forms/components/form/form.component';
-import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   template: `
     <app-modal backLink="/">
-      <app-form [fields]="fieldConfig" (onSubmit)="onSubmit($event)" title="LogIn"></app-form>
+      <app-form
+        [fields]="fieldConfig"
+        (onSubmit)="onSubmit($event)"
+        [initialValues]="initialValues"
+        header="LogIn"
+      ></app-form>
       <button mat-button class="login-form__register-button" routerLink="/register">New account</button>
     </app-modal>
   `,
@@ -20,6 +26,8 @@ import { Validators } from '@angular/forms';
 })
 export class LoginComponent {
   @ViewChild(FormComponent, { static: true }) form: FormComponent;
+
+  initialValues = {};
 
   fieldConfig: FieldConfig[] = [
     {
@@ -34,8 +42,7 @@ export class LoginComponent {
           message: 'Name is required'
         }
       ],
-      id: 'login__username',
-      value: 'admin'
+      id: 'login__username'
     },
     {
       type: FieldType.Input,
@@ -49,9 +56,7 @@ export class LoginComponent {
           message: 'Password is required'
         }
       ],
-      id: 'login__password',
-
-      value: 'Password1'
+      id: 'login__password'
     },
     {
       type: FieldType.Button,

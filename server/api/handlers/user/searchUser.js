@@ -1,4 +1,4 @@
-import Person from '../../models/Person';
+const Person = require("../../models/Person");
 
 /**
  * searchUser
@@ -12,18 +12,20 @@ import Person from '../../models/Person';
  *
  */
 exports.handler = async function searchUser(req, res) {
-  const { query: { fullName } } = req;
+  const {
+    query: { fullName }
+  } = req;
   try {
     const aggregate = await Person.aggregate([
-      { $project:
-          {
-            _id: 0,
-            userId: 1,
-            firstName: 1,
-            lastName: 1,
-            avatar: 1,
-            fullName: { $concat: ['$firstName', ' ', '$lastName'] }
-          }
+      {
+        $project: {
+          _id: 0,
+          userId: 1,
+          firstName: 1,
+          lastName: 1,
+          avatar: 1,
+          fullName: { $concat: ["$firstName", " ", "$lastName"] }
+        }
       },
       { $match: { fullName: { $regex: new RegExp(fullName) } } },
       { $project: { fullName: 0 } }

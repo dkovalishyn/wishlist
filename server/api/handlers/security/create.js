@@ -1,5 +1,5 @@
-import User from '../../models/User';
-import Person from '../../models/Person';
+const User = require( '../../models/User');
+const Person = require( '../../models/Person');
 
 /**
  * create

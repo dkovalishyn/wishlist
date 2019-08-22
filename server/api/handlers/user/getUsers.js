@@ -1,4 +1,4 @@
-import Person from '../../models/Person';
+const Person = require("../../models/Person");
 
 /**
  * getUsers
@@ -13,5 +13,5 @@ exports.handler = function getUsers(req, res) {
     }
 
     res.send(data);
-  })
+  });
 };

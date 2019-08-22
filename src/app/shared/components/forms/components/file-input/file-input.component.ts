@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldConfig } from 'shared/models/Field';
+import { ImageService } from 'app/features/core/image/image.service';
 
 @Component({
   selector: 'app-file-input',
@@ -16,9 +17,9 @@ import { FieldConfig } from 'shared/models/Field';
       <input hidden (change)="onFileSelected()" #fileInput type="file" id="file" />
     </ng-container>
     <ng-template #pickFile>
-        <button class="file-picker" (click)="fileInput.click()" type="button">
-          Choose a picture
-        </button>
+      <button class="file-picker" (click)="fileInput.click()" type="button">
+        Choose a picture
+      </button>
     </ng-template>
   `,
   styleUrls: ['./file-input.component.scss']
@@ -28,19 +29,15 @@ export class FileInputComponent implements OnInit {
   group: FormGroup;
   @ViewChild('fileInput', { static: false }) inputNode;
 
-  constructor() {}
+  constructor(private imageService: ImageService) {}
 
   ngOnInit() {}
 
   onFileSelected() {
-    if (typeof FileReader !== 'undefined') {
-      const reader = new FileReader();
-
-      reader.onload = (e: any) => {
-        this.control.setValue(e.target.result);
-      };
-      reader.readAsDataURL(this.inputNode.nativeElement.files[0]);
-    }
+    const file = this.inputNode.nativeElement.files[0];
+    this.imageService.uploadImage(file).subscribe(({ path }) => {
+      this.control.setValue(path);
+    });
   }
 
   get control() {

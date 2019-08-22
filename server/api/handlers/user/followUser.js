@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
-import Person from '../../models/Person';
-import Notification from '../../models/Notification';
-import notificationTypes from '../../models/notificationTypes';
-import wss from '../../../wss';
+const mongoose = require("mongoose");
+const Person = require("../../models/Person");
+const Notification = require("../../models/Notification");
+const notificationTypes = require("../../models/notificationTypes");
+const wss = require("../../../wss");
 
 /**
  * followUser
@@ -17,23 +17,28 @@ import wss from '../../../wss';
  *
  */
 
-const { Types: { ObjectId } } = mongoose;
+const {
+  Types: { ObjectId }
+} = mongoose;
 
 exports.handler = async function followUser(req, res) {
-  const { params: { userId }, query: { friendId } } = req;
+  const {
+    params: { userId },
+    query: { friendId }
+  } = req;
   const notificationData = {
     userId,
     friendId,
-    type: notificationTypes.follow,
+    type: notificationTypes.follow
   };
   try {
     await Person.findOneAndUpdate(
       { userId: new ObjectId(userId) },
-      { $addToSet: { following: friendId } },
+      { $addToSet: { following: friendId } }
     );
     await Person.findOneAndUpdate(
       { userId: new ObjectId(friendId) },
-      { $addToSet: { followers: userId } },
+      { $addToSet: { followers: userId } }
     );
     const notification = await Notification.create(notificationData);
 
@@ -44,4 +49,3 @@ exports.handler = async function followUser(req, res) {
     res.status(500).send(e.message);
   }
 };
-

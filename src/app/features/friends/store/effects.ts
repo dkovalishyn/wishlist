@@ -7,8 +7,8 @@ import { actionTypes as getUserById, GetUserByIdFailed, GetUserByIdSuccess } fro
 import { actionTypes as search, SearchFailed, SearchSuccess } from './actions/search';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { FriendsService } from '../services/friends.service';
-import { Person } from '../../../shared/models/Person';
-import { ActionWithPayload } from '../../../shared/utils/types';
+import { Person } from 'shared/models/Person';
+import { ActionWithPayload } from 'shared/utils/types';
 
 @Injectable()
 export class FriendsEffects {

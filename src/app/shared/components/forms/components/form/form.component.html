@@ -1,7 +1,7 @@
 <mat-card *ngIf="form">
   <mat-card-title *ngIf="header">{{ header }}</mat-card-title>
   <form *ngIf="initialValues" class="dynamic-form" (ngSubmit)="submit($event)" [formGroup]="form">
-    <div class="dynamic-form__content">
+    <div [className]="contentClass">
       <div class="dynamic-form__sidebar">
         <ng-container appDynamicField [field]="filePicker" [group]="form"></ng-container>
       </div>
@@ -20,7 +20,7 @@
         color="primary"
         *ngFor="let button of buttons"
       >
-        {{ button.name }}
+        {{ button.placeholder }}
       </button>
     </mat-card-actions>
   </form>

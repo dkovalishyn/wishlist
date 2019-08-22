@@ -70,7 +70,7 @@ export class WishAddComponent implements OnInit, OnDestroy {
     },
     {
       type: FieldType.Button,
-      name: 'Save'
+      placeholder: 'Save'
     }
   ];
 

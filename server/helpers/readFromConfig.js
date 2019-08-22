@@ -1,10 +1,10 @@
-import path from 'path';
-import dotenv from 'dotenv';
+const path = require("path");
+const dotenv = require("dotenv");
 
 const result = dotenv.config({
-  path: path.resolve(__dirname, '../config/.env'),
+  path: path.resolve(__dirname, "../config/.env")
 });
 
 const config = result.error ? process.env : result.parsed;
 
-export default (key) => config[key];
+module.exports = key => config[key];

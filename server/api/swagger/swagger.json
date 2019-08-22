@@ -161,7 +161,7 @@
     },
     "/image/upload": {
       "post": {
-        "description": "Upload image to server",
+        "description": "Upload an image to the server",
         "operationId": "upload",
         "tags": ["images"],
         "consumes": ["multipart/form-data"],
@@ -174,23 +174,23 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "schema": {
-              "type": "string"
+              "type": "object",
+              "required": ["path"],
+              "properties": {
+                "path": {
+                  "type": "string"
+                }
+              }
             }
           },
           "501": {
-            "description": "Internal server error",
-            "schema": {
-              "type": "string"
-            }
+            "description": "Internal server error"
           },
           "400": {
-            "description": "Bad request",
-            "schema": {
-              "type": "string"
-            }
+            "description": "Bad request"
           }
         }
       }

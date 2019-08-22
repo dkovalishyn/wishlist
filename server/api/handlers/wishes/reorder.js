@@ -1,5 +1,5 @@
-import Wish from '../../models/Wish';
-import { map, prop, move } from 'ramda';
+const { move } = require("ramda");
+const Wish = require("../../models/Wish");
 
 /**
  * reorder
@@ -10,7 +10,9 @@ import { map, prop, move } from 'ramda';
 
 exports.handler = async function reorder(req, res, next) {
   try {
-    const { body: { prevOrder, nextOrder } } = req;
+    const {
+      body: { prevOrder, nextOrder }
+    } = req;
     const wishes = await Wish.find({}, null, { sort: { order: 1 } });
     const updates = move(prevOrder, nextOrder, wishes)
       .slice(prevOrder)
@@ -18,8 +20,8 @@ exports.handler = async function reorder(req, res, next) {
         return {
           updateOne: {
             filter: { _id: wish._id },
-            update: { order: i + prevOrder },
-          },
+            update: { order: i + prevOrder }
+          }
         };
       });
     await Wish.bulkWrite(updates);

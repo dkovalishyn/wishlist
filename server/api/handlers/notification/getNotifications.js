@@ -1,4 +1,4 @@
-import Notification from '../../models/Notification';
+const Notification = require("../../models/Notification");
 /**
  * getNotifications
  *
@@ -15,5 +15,5 @@ exports.handler = function getNotifications(req, res, next) {
     }
 
     res.send(data);
-  })
+  });
 };

@@ -96,7 +96,7 @@ export class WishEditorComponent implements OnInit, OnDestroy {
     },
     {
       type: FieldType.Button,
-      name: 'Save'
+      placeholder: 'Save'
     }
   ];
   wishId: string;

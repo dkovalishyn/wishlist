@@ -1,19 +1,21 @@
-import User from '../api/models/User';
-import jwt from 'jsonwebtoken';
-import uuid from 'uuid/v4';
-import readFromConfig from '../helpers/readFromConfig';
-import mongoose from 'mongoose';
+const User = require("../api/models/User");
+const jwt = require("jsonwebtoken");
+const uuid = require("uuid/v4");
+const readFromConfig = require("../helpers/readFromConfig");
+const mongoose = require("mongoose");
 
-const secret = readFromConfig('SECRET_TOKEN');
-const AUTHORIZATION = 'Authorization';
+const secret = readFromConfig("SECRET_TOKEN");
+const AUTHORIZATION = "Authorization";
 
 const ACCESS_TOKEN_LIFETIME = 60 * 60;
 
-const { Types: { ObjectId } } = mongoose;
+const {
+  Types: { ObjectId }
+} = mongoose;
 
-export function verify(token, done) {
+exports.verify = (token, done) => {
   if (!token) {
-    done('No token provided.');
+    done("No token provided.");
   }
 
   jwt.verify(token, secret, (err, decoded) => {
@@ -21,27 +23,30 @@ export function verify(token, done) {
       return done(err);
     }
 
-    User.findOne({ _id: decoded.sub }, function (err, user) {
+    User.findOne({ _id: decoded.sub }, function(err, user) {
       if (err) {
         return done(err);
       }
       if (!user) {
         return done(null, false);
       }
-      return done(null, user, { scope: 'all' });
+      return done(null, user, { scope: "all" });
     });
   });
-}
+};
 
 function calculateExp(lifetime) {
   return Math.floor(Date.now() / 1000 + lifetime);
 }
 
 function generateToken(userId, lifetime) {
-  return jwt.sign({
-    sub: userId,
-    exp: calculateExp(lifetime),
-  }, secret);
+  return jwt.sign(
+    {
+      sub: userId,
+      exp: calculateExp(lifetime)
+    },
+    secret
+  );
 }
 
 function updateTokens(user, res) {
@@ -50,14 +55,14 @@ function updateTokens(user, res) {
   user.save();
 
   res.set({
-    'Cache-Control': 'no-store',
-    'Pragma': 'no-cache',
+    "Cache-Control": "no-store",
+    Pragma: "no-cache"
   });
   res.status(200).json({
-    token_type: 'bearer',
+    token_type: "bearer",
     expires_in: calculateExp(ACCESS_TOKEN_LIFETIME),
     access_token: generateToken(user._id, ACCESS_TOKEN_LIFETIME),
-    refresh_token: refreshToken,
+    refresh_token: refreshToken
   });
 }
 
@@ -65,10 +70,12 @@ function generateRefreshToken() {
   return uuid();
 }
 
-export function auth(req, res) {
-  const { body: { password, username } } = req;
+exports.auth = (req, res) => {
+  const {
+    body: { password, username }
+  } = req;
 
-  User.findOne({ username }, function (err, user) {
+  User.findOne({ username }, function(err, user) {
     if (err || !user || user.password !== password) {
       console.log(err);
       res.sendStatus(404);
@@ -77,29 +84,31 @@ export function auth(req, res) {
 
     updateTokens(user, res);
   });
-}
+};
 
-export function refreshToken(req, res) {
-  const { body: { grant_type, refresh_token, access_token } } = req;
-  if (grant_type !== 'refresh_token') {
-    console.error('Wrong grant_type');
+exports.refreshToken = (req, res) => {
+  const {
+    body: { grant_type, refresh_token, access_token }
+  } = req;
+  if (grant_type !== "refresh_token") {
+    console.error("Wrong grant_type");
     return res.sendStatus(400);
   }
 
   if (!refresh_token) {
-    console.error('No token provided');
+    console.error("No token provided");
     return res.sendStatus(400);
   }
 
   if (!access_token) {
-    console.error('access_token is not provided');
+    console.error("access_token is not provided");
     return res.sendStatus(400);
   }
 
   const { sub } = jwt.decode(access_token);
 
   if (!sub) {
-    console.error('access_token is corrupted');
+    console.error("access_token is corrupted");
     return res.sendStatus(400);
   }
 
@@ -110,27 +119,27 @@ export function refreshToken(req, res) {
     }
 
     if (!user) {
-      console.error('User not found');
+      console.error("User not found");
       return res.sendStatus(404);
     }
 
     if (user.refreshToken !== refresh_token) {
-      console.error('Refresh token is not valid');
+      console.error("Refresh token is not valid");
       return res.sendStatus(401);
     }
 
     updateTokens(user, res);
   });
-}
+};
 
-export function logout(req, res) {
-  User.findByIdAndUpdate(ObjectId(req.user._id), { refreshToken: '' }, (err) => {
+exports.logout = (req, res) => {
+  User.findByIdAndUpdate(ObjectId(req.user._id), { refreshToken: "" }, err => {
     if (err) {
       console.error(err.message);
       return res.sendStatus(500);
     }
 
     req.logout();
-    res.status(200).json({ status: 'OK' });
+    res.status(200).json({ status: "OK" });
   });
-}
+};

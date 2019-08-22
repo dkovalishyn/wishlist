@@ -1,5 +1,5 @@
-import Person from '../../models/Person';
-import mongoose from 'mongoose';
+const Person = require("../../models/Person");
+const mongoose = require("mongoose");
 /**
  * Get profile of current user
  *
@@ -9,7 +9,9 @@ import mongoose from 'mongoose';
  *   Authorization Authorization token.
  *
  */
-const { Types: { ObjectId } } = mongoose;
+const {
+  Types: { ObjectId }
+} = mongoose;
 
 exports.handler = function getUserProfile(req, res) {
   Person.findOne({ userId: new ObjectId(req.user._id) }, (err, user) => {
@@ -26,4 +28,3 @@ exports.handler = function getUserProfile(req, res) {
     res.json(user);
   });
 };
-

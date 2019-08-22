@@ -1,4 +1,4 @@
-import Person from '../../models/Person';
+const Person = require("../../models/Person");
 
 /**
  * getUserById
@@ -10,7 +10,9 @@ import Person from '../../models/Person';
  *
  */
 exports.handler = function getUserById(req, res) {
-  const { params: { userId: id } } = req;
+  const {
+    params: { userId: id }
+  } = req;
 
   Person.findOne({ userId: id }, (err, data) => {
     if (err) {
@@ -19,5 +21,5 @@ exports.handler = function getUserById(req, res) {
     }
 
     res.send(data);
-  })
+  });
 };

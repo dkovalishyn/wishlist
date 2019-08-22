@@ -7,8 +7,7 @@
  *   description {string}
  *
  */
-import Wish from "../../models/Wish";
-import { getImagePath } from "./helpers";
+const Wish = require( "../../models/Wish");
 
 exports.handler = async function add(req, res) {
   try {

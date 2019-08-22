@@ -7,13 +7,17 @@
  *   id {string} Notification Id.
  *
  */
-import Notification from '../../models/Notification';
-import mongoose from 'mongoose';
+const Notification = require("../../models/Notification");
+const mongoose = require("mongoose");
 
-const { Types: { ObjectId } } = mongoose;
+const {
+  Types: { ObjectId }
+} = mongoose;
 
 exports.handler = function acceptNotification(req, res, next) {
-  const { params: { id } } = req;
+  const {
+    params: { id }
+  } = req;
   Notification.findByIdAndDelete(id, (err, data) => {
     if (err) {
       res.status(500).send(err.message);
@@ -22,20 +26,24 @@ exports.handler = function acceptNotification(req, res, next) {
 
     const { userId, friendId } = data;
 
-    Promise.all(
-      [
-        Person.findAndUpdate({ userId: new ObjectId(userId) }, {
+    Promise.all([
+      Person.findAndUpdate(
+        { userId: new ObjectId(userId) },
+        {
           $addToSet: { friends: friendId },
-          $pull: { following: friendId },
-        }),
-        Person.findAndUpdate({ userId: new ObjectId(friendId) }, {
+          $pull: { following: friendId }
+        }
+      ),
+      Person.findAndUpdate(
+        { userId: new ObjectId(friendId) },
+        {
           $addToSet: { friends: userId },
-          $pull: { followers: userId },
-        }),
-        Notification.findOneAndDelete(),
-      ]
-    )
+          $pull: { followers: userId }
+        }
+      ),
+      Notification.findOneAndDelete()
+    ])
       .then(() => res.sendStatus(200))
-      .catch((e) => res.status(500).send(e.message));
-  })
+      .catch(e => res.status(500).send(e.message));
+  });
 };

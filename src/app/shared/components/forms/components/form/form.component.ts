@@ -98,4 +98,9 @@ export class FormComponent implements OnInit {
   get filePicker() {
     return find(propEq('type', FieldType.FileInput), this.fields);
   }
+
+  get contentClass() {
+    const modifier = this.filePicker ? 'dynamic-form__content--with-file-picker' : '';
+    return `dynamic-form__content ${modifier}`;
+  }
 }

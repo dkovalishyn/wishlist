@@ -1,26 +1,26 @@
 'use strict';
-import express from 'express';
-import http from 'http';
-import cors from 'cors';
+const express = require( 'express');
+const http = require( 'http');
+const cors = require( 'cors');
 
-import passport from 'passport';
-import LocalStrategy from 'passport-local';
-import BearerStrategy from 'passport-http-bearer';
+const passport = require( 'passport');
+const LocalStrategy = require( 'passport-local');
+const BearerStrategy = require( 'passport-http-bearer');
 
-import expressSession from 'express-session';
-import cookieParser from 'cookie-parser';
+const expressSession = require( 'express-session');
+const cookieParser = require( 'cookie-parser');
 
-import swaggerRoutes from 'swagger-routes';
-import connectToDb from './database';
-import swaggerConfig from './api/swagger/swagger';
+const swaggerRoutes = require( 'swagger-routes');
+const connectToDb = require( './database');
+const swaggerConfig = require( './api/swagger/swagger');
 
-import renderIndex from './helpers/renderIndex';
+const renderIndex = require( './helpers/renderIndex');
 
-import gracefulExit from './helpers/gracefulExit';
-import { register, deserialize, login, serialize } from './api/handlers/security/auth';
-import { verify, auth, refreshToken, logout } from './middlewares/bearer';
+const gracefulExit = require( './helpers/gracefulExit');
+const { register, deserialize, login, serialize } = require( './api/handlers/security/auth');
+const { verify, auth, refreshToken, logout } = require( './middlewares/bearer');
 
-import wss from './wss';
+const wss = require( './wss');
 
 const corsOptions = {
   origin: 'http://localhost:4200',
@@ -35,7 +35,7 @@ passport.deserializeUser(deserialize);
 const app = express();
 
 app.use(cors(corsOptions));
-app.use(express.static('server/dist/public'));
+app.use(express.static('server/public/'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(expressSession({ secret: 'chao-cacao', resave: false, saveUninitialized: false }));

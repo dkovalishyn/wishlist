@@ -5,8 +5,8 @@
   "scripts": {
     "start": "npm run client && npm run server",
     "ng": "ng",
-    "client": "ng build --output-path server/dist/public",
-    "server": "nodemon server/app --exec babel-node",
+    "client": "ng build --output-path server/public",
+    "server": "nodemon server/app",
     "watch": "npm run client -- --watch",
     "test": "ng test",
     "lint": "ng lint",

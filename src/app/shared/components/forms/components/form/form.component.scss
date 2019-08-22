@@ -2,9 +2,11 @@
 
 .dynamic-form {
   &__content {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 24px;
+    &--with-file-picker {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 24px;
+    }
   }
 
   &__sidebar {
