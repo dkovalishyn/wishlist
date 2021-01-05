@@ -30,7 +30,7 @@
     "@ngrx/effects": "^7.4.0",
     "@ngrx/store": "^7.4.0",
     "@ngrx/store-devtools": "^7.4.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.3",
     "cookie-parser": "^1.4.4",
     "core-js": "^3.1.3",
