@@ -54,7 +54,7 @@
     "ramda": "^0.26.1",
     "rxjs": "^6.5.2",
     "rxjs-compat": "^6.5.2",
-    "sharp": "^0.22.1",
+    "sharp": "^0.30.5",
     "swagger-express-mw": "^0.7.0",
     "swagger-routes": "^1.7.1",
     "uuid": "^3.3.2",
